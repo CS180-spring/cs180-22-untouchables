@@ -9,17 +9,23 @@
 using namespace std;
 
 //chatgpt generated sample document structure to store document in database
-struct Document {
-    string name;
-    string content;
-    string createdBy;
-    time_t uploadedAt;
+struct Movie_Document {
+    string series_title;
+    int released_year;
+    int runtime; //in minutes
+    string genre;
+    double IMDB_rating; //specific for IMDB movie data, scale 10
+    string overview;
+    int meta_score; //scale 100
+    string Director;
+    string Star; //star 1 only
+    //vector <string> stars; //keep all stars
 };
 
 //simulating MongoDB's feature of changing database
 struct DataBase {
     string name;
-    vector <Document> storedDocuments; //documents linked with this DataBase
+    vector <Movie_Document> storedDocuments; //documents linked with this DataBase
 };
 
 void messageDisplayer(){
@@ -64,7 +70,7 @@ vector<string> getNameList(vector<DataBase> existingDB){
 
 int main(){
     DataBase db = {"default"};
-    Document doc1 = {"doc1", "content1", "random", time(nullptr)};
+    //Document doc1 = {"doc1", "content1", "random", time(nullptr)};
 
     //DataBase pointer, always points to the current database
     DataBase* currentDataBase = &db;
