@@ -5,6 +5,7 @@
 #include <vector>
 #include <sstream>
 #include <algorithm>
+#include "collection.h"
 
 using namespace std;
 
@@ -25,7 +26,7 @@ struct Movie_Document {
 //simulating MongoDB's feature of changing database
 struct DataBase {
     string name;
-    vector <Movie_Document> storedDocuments; //documents linked with this DataBase
+    vector <Movie_Document> storedCollections; //documents linked with this DataBase
 };
 
 void messageDisplayer(){
@@ -83,6 +84,8 @@ int main(){
     messageDisplayer();
 
     while(1){
+        cout << ">>> ";
+        
         getline(cin,user_input);
 
         //output current database
