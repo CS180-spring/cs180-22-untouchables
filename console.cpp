@@ -161,7 +161,11 @@ int main(){
                 if (target_name == "default"){
                     cout << "command failed, cannot remove the default database" << endl;
                 } else if (target_name == currentDataBase->name) {
-                    cout << "command failed, cannot remove current database" << endl;
+                    //chatgpt generated code to remove an element from database vector by its name
+                    currentDataBase = &db;
+                    existingDB.erase(std::remove_if(existingDB.begin(), existingDB.end(),
+                    [&](const DataBase& db) { return db.name == target_name; }), existingDB.end());
+                    cout << "removed current database and switched to default" << endl;
                 } else if (find(NameList.begin(), NameList.end(), target_name) != NameList.end()){
                     //chatgpt generated code to remove an element from database vector by its name
                     existingDB.erase(std::remove_if(existingDB.begin(), existingDB.end(),
