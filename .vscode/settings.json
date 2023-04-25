@@ -43,5 +43,6 @@
     "string": "cpp",
     "string_view": "cpp"
   },
-  "C_Cpp_Runner.showCompilationTime": false
+  "C_Cpp_Runner.showCompilationTime": false,
+  "cmake.configureSettings": { "gtest_build_samples": "ON" }
 }

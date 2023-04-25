@@ -339,7 +339,7 @@ gtest_BINARY_DIR:STATIC=C:/Users/Joel/Documents/Github/cs180-22-untouchables/bui
 gtest_SOURCE_DIR:STATIC=C:/Users/Joel/Documents/Github/cs180-22-untouchables/googletest/googletest
 
 //Build gtest's sample programs.
-gtest_build_samples:BOOL=OFF
+gtest_build_samples:STRING=ON
 
 //Build all of gtest's own tests.
 gtest_build_tests:BOOL=OFF

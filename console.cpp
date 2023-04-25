@@ -64,14 +64,14 @@ string check_num_word(string user_input, int limit){
 //simple function to get the List of DataBase names
 vector<string> getNameList(vector<DataBase> existingDB){
     vector<string>NameList;
-    for ( int i = 0; i < existingDB.size(); ++i){
+    for (unsigned int i = 0; i < existingDB.size(); ++i){
         NameList.push_back((existingDB.at(i)).name);
     }
     return NameList;
 }
 
 
-void displayMovieDocument(const DataBase& database, int index) {
+void displayMovieDocument(const DataBase& database, unsigned int index) {
     if (index < 0 || index >= database.storedDocuments.size()) {
         cout << "Invalid index\n";
         return;
@@ -116,7 +116,7 @@ int main(){
                 cout << "no available database.";
             } else {
                 cout << "all available database include: ";
-                for (int i = 0; i < existingDB.size(); ++i){
+                for (unsigned int i = 0; i < existingDB.size(); ++i){
                     cout << (existingDB.at(i)).name << " ";
                 }
             }

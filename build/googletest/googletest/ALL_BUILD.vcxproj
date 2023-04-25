@@ -178,6 +178,46 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <Project>{41C75803-2D65-3E61-8D78-E6440A33FDB8}</Project>
       <Name>gtest_main</Name>
     </ProjectReference>
+    <ProjectReference Include="C:\Users\Joel\Documents\Github\cs180-22-untouchables\build\googletest\googletest\sample10_unittest.vcxproj">
+      <Project>{B32F5CBB-963E-39A4-A5AF-0C61A3A61EE8}</Project>
+      <Name>sample10_unittest</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Joel\Documents\Github\cs180-22-untouchables\build\googletest\googletest\sample1_unittest.vcxproj">
+      <Project>{7F076706-CDAC-3D7C-A205-5F8E330336AA}</Project>
+      <Name>sample1_unittest</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Joel\Documents\Github\cs180-22-untouchables\build\googletest\googletest\sample2_unittest.vcxproj">
+      <Project>{27F3B97A-E010-39CF-854A-FDE1660B7C50}</Project>
+      <Name>sample2_unittest</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Joel\Documents\Github\cs180-22-untouchables\build\googletest\googletest\sample3_unittest.vcxproj">
+      <Project>{3E9B0EEB-6BF9-33D0-BAB1-5ED208610F1D}</Project>
+      <Name>sample3_unittest</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Joel\Documents\Github\cs180-22-untouchables\build\googletest\googletest\sample4_unittest.vcxproj">
+      <Project>{169F9924-AD9E-3A4B-9924-68D2A3FA39D1}</Project>
+      <Name>sample4_unittest</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Joel\Documents\Github\cs180-22-untouchables\build\googletest\googletest\sample5_unittest.vcxproj">
+      <Project>{1C798950-E7E2-3BC8-87B4-3B9F23DC5BE5}</Project>
+      <Name>sample5_unittest</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Joel\Documents\Github\cs180-22-untouchables\build\googletest\googletest\sample6_unittest.vcxproj">
+      <Project>{63801838-D5F7-33EC-B732-3C1A775AB09F}</Project>
+      <Name>sample6_unittest</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Joel\Documents\Github\cs180-22-untouchables\build\googletest\googletest\sample7_unittest.vcxproj">
+      <Project>{CEE5E808-5C3E-377D-A671-CA457949E718}</Project>
+      <Name>sample7_unittest</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Joel\Documents\Github\cs180-22-untouchables\build\googletest\googletest\sample8_unittest.vcxproj">
+      <Project>{D74C1E35-9AD0-3B61-A808-A25364072F3D}</Project>
+      <Name>sample8_unittest</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Joel\Documents\Github\cs180-22-untouchables\build\googletest\googletest\sample9_unittest.vcxproj">
+      <Project>{91F1C03B-A7BF-3902-B0F2-BFC8B30EC373}</Project>
+      <Name>sample9_unittest</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
