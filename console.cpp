@@ -64,7 +64,7 @@ string check_num_word(string user_input, int limit){
 //simple function to get the List of DataBase names
 vector<string> getNameList(vector<DataBase> existingDB){
     vector<string>NameList;
-    for (int i = 0; i < existingDB.size(); ++i){
+    for ( int i = 0; i < existingDB.size(); ++i){
         NameList.push_back((existingDB.at(i)).name);
     }
     return NameList;

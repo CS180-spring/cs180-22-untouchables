@@ -66,7 +66,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">
     <Midl>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -76,7 +76,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|win32'">
     <Midl>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -86,7 +86,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">
     <Midl>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -96,7 +96,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">
     <Midl>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -170,9 +170,29 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\Joel\Documents\Github\cs180-22-untouchables\build\untouchables.vcxproj">
-      <Project>{8AC4FB5E-54FE-3642-88A5-CED87E17DEDE}</Project>
-      <Name>untouchables</Name>
+    <ProjectReference Include="C:\Users\Joel\Documents\Github\cs180-22-untouchables\build\googletest\googlemock\gmock.vcxproj">
+      <Project>{80DA60D2-0D95-3551-A8E3-B0D38A327660}</Project>
+      <Name>gmock</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Joel\Documents\Github\cs180-22-untouchables\build\googletest\googlemock\gmock_main.vcxproj">
+      <Project>{08D5977B-2A11-33E6-B779-859DE5407FCB}</Project>
+      <Name>gmock_main</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Joel\Documents\Github\cs180-22-untouchables\build\googletest\googletest\gtest.vcxproj">
+      <Project>{7A56FE5C-EF8F-3B1A-93EA-C725C0CC6927}</Project>
+      <Name>gtest</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Joel\Documents\Github\cs180-22-untouchables\build\googletest\googletest\gtest_main.vcxproj">
+      <Project>{41C75803-2D65-3E61-8D78-E6440A33FDB8}</Project>
+      <Name>gtest_main</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Joel\Documents\Github\cs180-22-untouchables\build\main.vcxproj">
+      <Project>{D64C06D9-7E11-38D9-909E-C74D55CEB3DE}</Project>
+      <Name>main</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Joel\Documents\Github\cs180-22-untouchables\build\tests.vcxproj">
+      <Project>{59D44878-23C5-37E4-9BD2-48DE51F14D6B}</Project>
+      <Name>tests</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
