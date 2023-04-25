@@ -5,6 +5,7 @@
 #include <vector>
 #include <sstream>
 #include <algorithm>
+#include <fstream>
 
 using namespace std;
 
@@ -31,6 +32,7 @@ struct DataBase {
 void messageDisplayer(){
     cout << "input command to interact with the system:" << endl;
     cout << "enter 'db' to display current database" << endl;
+    cout << "enter 'element <index>' to display an element of the current database" << endl;
     cout << "enter 'db-all' to display all available database" << endl;
     cout << "enter 'add <name>' to add a new database" << endl;
     cout << "enter 'use <name>' to switch to another database" << endl;
@@ -66,6 +68,24 @@ vector<string> getNameList(vector<DataBase> existingDB){
         NameList.push_back((existingDB.at(i)).name);
     }
     return NameList;
+}
+
+
+void displayMovieDocument(const DataBase& database, int index) {
+    if (index < 0 || index >= database.storedDocuments.size()) {
+        cout << "Invalid index\n";
+        return;
+    }
+    const Movie_Document& doc = database.storedDocuments[index];
+    cout << "Series Title: " << doc.series_title << "\n";
+    cout << "Released Year: " << doc.released_year << "\n";
+    cout << "Runtime (in minutes): " << doc.runtime << "\n";
+    cout << "Genre: " << doc.genre << "\n";
+    cout << "IMDB Rating: " << doc.IMDB_rating << "\n";
+    cout << "Overview: " << doc.overview << "\n";
+    cout << "Meta Score: " << doc.meta_score << "\n";
+    cout << "Director: " << doc.Director << "\n";
+    cout << "Star: " << doc.Star << "\n";
 }
 
 int main(){
@@ -120,6 +140,18 @@ int main(){
             }       
         }
 
+        if (user_input.substr(0, user_input.find(" ")) == "element"){
+            if (check_num_word(user_input, 2) == "false"){
+                cout << "only enter one element index to print" << endl;
+            } else {
+                DataBase currDB = *currentDataBase;
+                int pos = user_input.find(' ');
+                string numStr = user_input.substr(pos + 1);
+                int index = stoi(numStr);
+                displayMovieDocument(currDB, index);
+            }       
+        }
+
         //switch to another database, if the database does not already exist, ask if user want to create a new database
         if (user_input.substr(0, user_input.find(" ")) == "use"){
             if (check_num_word(user_input, 2) == "false"){
@@ -161,7 +193,11 @@ int main(){
                 if (target_name == "default"){
                     cout << "command failed, cannot remove the default database" << endl;
                 } else if (target_name == currentDataBase->name) {
-                    cout << "command failed, cannot remove current database" << endl;
+                    //chatgpt generated code to remove an element from database vector by its name
+                    currentDataBase = &db;
+                    existingDB.erase(std::remove_if(existingDB.begin(), existingDB.end(),
+                    [&](const DataBase& db) { return db.name == target_name; }), existingDB.end());
+                    cout << "removed current database and switched to default" << endl;
                 } else if (find(NameList.begin(), NameList.end(), target_name) != NameList.end()){
                     //chatgpt generated code to remove an element from database vector by its name
                     existingDB.erase(std::remove_if(existingDB.begin(), existingDB.end(),
