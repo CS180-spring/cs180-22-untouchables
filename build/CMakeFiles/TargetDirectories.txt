@@ -1,0 +1,9 @@
+C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/NightlyMemoryCheck.dir
+C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/Experimental.dir
+C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/untouchables.dir
+C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/Continuous.dir
+C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/Nightly.dir
+C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/PACKAGE.dir
+C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/RUN_TESTS.dir
+C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/ZERO_CHECK.dir
