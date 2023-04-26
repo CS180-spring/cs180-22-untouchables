@@ -177,7 +177,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <Project>{EC6492D8-FD91-3F67-9410-552D895EBA99}</Project>
       <Name>console</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\Joel\Documents\Github\cs180-22-untouchables\build\tests\console_test.vcxproj">
+    <ProjectReference Include="C:\Users\Joel\Documents\Github\cs180-22-untouchables\build\src\console_test.vcxproj">
       <Project>{36CCD00C-75B6-3A26-8AE5-2253A8717B44}</Project>
       <Name>console_test</Name>
     </ProjectReference>
