@@ -1,5 +1,5 @@
+#include <src/console/include/console/console.h>
 #include <gtest/gtest.h>
-//#include "console.cpp"
 
 TEST(myfunctions, add)
 {
