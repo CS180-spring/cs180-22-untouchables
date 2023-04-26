@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/_deps/googletest-subbuild/CMakeFiles/googletest-populate"
+		},
+		{
+			"file" : "C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/_deps/googletest-subbuild/CMakeFiles/9d8f816f72e50f6382e0368a90181709/googletest-populate.rule"
+		},
+		{
+			"file" : "C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/_deps/googletest-subbuild/CMakeFiles/eb98b7a90f6bff0b7fe07fa7eb5ddb06/googletest-populate-complete.rule"
+		},
+		{
+			"file" : "C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/_deps/googletest-subbuild/CMakeFiles/27e7093f3d5a33568d0a3bcd5e287fe1/googletest-populate-build.rule"
+		},
+		{
+			"file" : "C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/_deps/googletest-subbuild/CMakeFiles/27e7093f3d5a33568d0a3bcd5e287fe1/googletest-populate-configure.rule"
+		},
+		{
+			"file" : "C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/_deps/googletest-subbuild/CMakeFiles/27e7093f3d5a33568d0a3bcd5e287fe1/googletest-populate-download.rule"
+		},
+		{
+			"file" : "C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/_deps/googletest-subbuild/CMakeFiles/27e7093f3d5a33568d0a3bcd5e287fe1/googletest-populate-install.rule"
+		},
+		{
+			"file" : "C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/_deps/googletest-subbuild/CMakeFiles/27e7093f3d5a33568d0a3bcd5e287fe1/googletest-populate-mkdir.rule"
+		},
+		{
+			"file" : "C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/_deps/googletest-subbuild/CMakeFiles/27e7093f3d5a33568d0a3bcd5e287fe1/googletest-populate-patch.rule"
+		},
+		{
+			"file" : "C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/_deps/googletest-subbuild/CMakeFiles/27e7093f3d5a33568d0a3bcd5e287fe1/googletest-populate-test.rule"
+		},
+		{
+			"file" : "C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/_deps/googletest-subbuild/CMakeFiles/27e7093f3d5a33568d0a3bcd5e287fe1/googletest-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"googletest-populate"
+		],
+		"name" : "googletest-populate"
+	}
+}
