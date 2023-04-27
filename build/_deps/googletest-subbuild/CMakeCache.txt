@@ -83,9 +83,9 @@ CMAKE_GENERATOR:INTERNAL=Visual Studio 16 2019
 //Generator instance identifier.
 CMAKE_GENERATOR_INSTANCE:INTERNAL=C:/Program Files (x86)/Microsoft Visual Studio/2019/Community
 //Name of generator platform.
-CMAKE_GENERATOR_PLATFORM:INTERNAL=win32
+CMAKE_GENERATOR_PLATFORM:INTERNAL=
 //Name of generator toolset.
-CMAKE_GENERATOR_TOOLSET:INTERNAL=host=x86
+CMAKE_GENERATOR_TOOLSET:INTERNAL=
 //Source directory with the top level CMakeLists.txt file for this
 // project
 CMAKE_HOME_DIRECTORY:INTERNAL=C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/_deps/googletest-subbuild

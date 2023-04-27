@@ -1,2 +1,2 @@
-PlatformToolSet=v142:VCToolArchitecture=Native32Bit:VCToolsVersion=14.29.30133:TargetPlatformVersion=10.0.19041.0:
-Debug|win32|C:\Users\Joel\Documents\Github\cs180-22-untouchables\build\CMakeFiles\3.26.3\CompilerIdCXX\|
+PlatformToolSet=v142:VCToolArchitecture=Native64Bit:VCToolsVersion=14.29.30133:TargetPlatformVersion=10.0.19041.0:
+Debug|x64|C:\Users\Joel\Documents\Github\cs180-22-untouchables\build\CMakeFiles\3.26.3\CompilerIdCXX\|

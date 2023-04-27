@@ -29,7 +29,7 @@ struct DataBase {
     vector <Movie_Document> storedDocuments; //documents linked with this DataBase
 };
 
-void messageDisplayer(){
+void messageDisplayer() {
     cout << "input command to interact with the system:" << endl;
     cout << "enter 'db' to display current database" << endl;
     cout << "enter 'element <index>' to display an element of the current database" << endl;
