@@ -1,9 +1,9 @@
 #include "console.h"
 #include <gtest/gtest.h>
 
-TEST(myfunctions, add)
+TEST(myFunctions, myTest) 
 {
-    
+
 }
 
 int main(int argc, char* argv[])

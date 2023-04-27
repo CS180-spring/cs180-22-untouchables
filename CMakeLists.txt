@@ -33,3 +33,5 @@ target_link_libraries(console_test
   console)
 
 add_test(console_gtests console_test)
+
+add_executable(untouchables console.cpp)
