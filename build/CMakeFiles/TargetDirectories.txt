@@ -1,11 +1,9 @@
+C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/console.dir
+C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/console_test.dir
 C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/RUN_TESTS.dir
 C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/INSTALL.dir
 C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/ALL_BUILD.dir
 C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/ZERO_CHECK.dir
-C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/src/CMakeFiles/console.dir
-C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/src/CMakeFiles/console_test.dir
-C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/src/CMakeFiles/RUN_TESTS.dir
-C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/src/CMakeFiles/INSTALL.dir
 C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/_deps/googletest-build/CMakeFiles/RUN_TESTS.dir
 C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/_deps/googletest-build/CMakeFiles/INSTALL.dir
 C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/_deps/googletest-build/CMakeFiles/ALL_BUILD.dir
