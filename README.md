@@ -1,4 +1,4 @@
-# Project-CS180
+# Project-CS180: Movie Data Store
 
 This project incorporates a user interface with a database where users can explore the functionality of the database and filter and select data based on what they need. 
 The database consists of movies where users can filter for categories such as genre, gross revenue, directors, stars and more. Furthermore, users can add their selected 
