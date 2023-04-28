@@ -167,12 +167,13 @@ int main(){
     //Document doc1 = {"doc1", "content1", "random", time(nullptr)};
 
     //DataBase pointer, always points to the current database
-    DataBase* currentDataBase = &db;
+    DataBase* currentDataBase;
 
     //used to store existing Database entries
     vector<DataBase> existingDB;
     existingDB.push_back(db);
-
+    currentDataBase = &existingDB.at(existingDB.size()-1);
+    
     string user_input;
     messageDisplayer();
 
@@ -258,7 +259,7 @@ int main(){
                         DataBase db_new = {database_name};
                         existingDB.push_back(db_new);
                         cout << "new database: " << database_name << " has been successfully added" << endl;
-                        currentDataBase = &db_new;
+                        currentDataBase = &existingDB.at(existingDB.size()-1);
                         cout << "current database has been switched to: " << database_name << endl;
                     } else {
                         cout << "'use' operation cancelled" << endl;
@@ -279,7 +280,7 @@ int main(){
                     cout << "command failed, cannot remove the default database" << endl;
                 } else if (target_name == currentDataBase->name) {
                     //chatgpt generated code to remove an element from database vector by its name
-                    currentDataBase = &db;
+                    currentDataBase = &existingDB.at(0);
                     existingDB.erase(std::remove_if(existingDB.begin(), existingDB.end(),
                     [&](const DataBase& db) { return db.name == target_name; }), existingDB.end());
                     cout << "removed current database and switched to default" << endl;
