@@ -34,5 +34,14 @@
     "**/.vscode/**"
   ],
   "C_Cpp_Runner.useAddressSanitizer": false,
-  "C_Cpp_Runner.showCompilationTime": false
+
+  "files.associations": {
+    "iosfwd": "cpp",
+    "iostream": "cpp",
+    "string": "cpp",
+    "string_view": "cpp"
+  },
+  "C_Cpp_Runner.showCompilationTime": false,
+  "cmake.configureSettings": { "gtest_build_samples": "ON" 
+  },
 }

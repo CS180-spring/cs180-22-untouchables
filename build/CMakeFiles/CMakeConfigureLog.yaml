@@ -1,0 +1,387 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeDetermineSystem.cmake:204 (message)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      The system is: Windows - 10.0.19045 - AMD64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler:  
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      Microsoft (R) Build Engine version 16.11.2+f32259642 for .NET Framework
+      Copyright (C) Microsoft Corporation. All rights reserved.
+      
+      Build started 4/26/2023 5:32:49 PM.
+      Project "C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\3.26.3\\CompilerIdCXX\\CompilerIdCXX.vcxproj" on node 1 (default targets).
+      PrepareForBuild:
+        Creating directory "Debug\\".
+        Creating directory "Debug\\CompilerIdCXX.tlog\\".
+      InitializeBuildStatus:
+        Creating "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+      ClCompile:
+        C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\CL.exe /c /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\\\" /Fd"Debug\\vc142.pdb" /external:W0 /Gd /TP /FC /errorReport:queue CMakeCXXCompilerId.cpp
+        CMakeCXXCompilerId.cpp
+      Link:
+        C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdCXX.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdCXX.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdCXX.lib" /MACHINE:X64 Debug\\CMakeCXXCompilerId.obj
+        CompilerIdCXX.vcxproj -> C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\3.26.3\\CompilerIdCXX\\CompilerIdCXX.exe
+      PostBuildEvent:
+        for %%i in (cl.exe) do @echo CMAKE_CXX_COMPILER=%%~$PATH:i
+        :VCEnd
+        CMAKE_CXX_COMPILER=C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\Hostx64\\x64\\cl.exe
+      FinalizeBuildStatus:
+        Deleting file "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild".
+        Touching "Debug\\CompilerIdCXX.tlog\\CompilerIdCXX.lastbuildstate".
+      Done Building Project "C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\3.26.3\\CompilerIdCXX\\CompilerIdCXX.vcxproj" (default targets).
+      
+      Build succeeded.
+          0 Warning(s)
+          0 Error(s)
+      
+      Time Elapsed 00:00:00.67
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.vcxproj"
+      
+      The CXX compiler identification is MSVC, found in:
+        C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/3.26.3/CompilerIdCXX/CompilerIdCXX.exe
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/CMakeScratch/TryCompile-sqj8ws"
+      binary: "C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/CMakeScratch/TryCompile-sqj8ws"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /GR /EHsc"
+      CMAKE_CXX_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/CMakeScratch/TryCompile-sqj8ws
+        
+        Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/MSBuild/Current/Bin/MSBuild.exe cmTC_4f574.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=16.0 /v:n && Microsoft (R) Build Engine version 16.11.2+f32259642 for .NET Framework
+        Copyright (C) Microsoft Corporation. All rights reserved.
+        
+        Build started 4/26/2023 5:32:50 PM.
+        Project "C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-sqj8ws\\cmTC_4f574.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Creating directory "cmTC_4f574.dir\\Debug\\".
+          Creating directory "C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-sqj8ws\\Debug\\".
+          Creating directory "cmTC_4f574.dir\\Debug\\cmTC_4f574.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_4f574.dir\\Debug\\cmTC_4f574.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+        ClCompile:
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_4f574.dir\\Debug\\\\" /Fd"cmTC_4f574.dir\\Debug\\vc142.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.26\\Modules\\CMakeCXXCompilerABI.cpp"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.29.30148 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          CMakeCXXCompilerABI.cpp
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_4f574.dir\\Debug\\\\" /Fd"cmTC_4f574.dir\\Debug\\vc142.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.26\\Modules\\CMakeCXXCompilerABI.cpp"
+        Link:
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-sqj8ws\\Debug\\cmTC_4f574.exe" /INCREMENTAL /ILK:"cmTC_4f574.dir\\Debug\\cmTC_4f574.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/CMakeScratch/TryCompile-sqj8ws/Debug/cmTC_4f574.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/CMakeScratch/TryCompile-sqj8ws/Debug/cmTC_4f574.lib" /MACHINE:X64  /machine:x64 cmTC_4f574.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_4f574.vcxproj -> C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-sqj8ws\\Debug\\cmTC_4f574.exe
+        FinalizeBuildStatus:
+          Deleting file "cmTC_4f574.dir\\Debug\\cmTC_4f574.tlog\\unsuccessfulbuild".
+          Touching "cmTC_4f574.dir\\Debug\\cmTC_4f574.tlog\\cmTC_4f574.lastbuildstate".
+        Done Building Project "C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-sqj8ws\\cmTC_4f574.vcxproj" (default targets).
+        
+        Build succeeded.
+            0 Warning(s)
+            0 Error(s)
+        
+        Time Elapsed 00:00:00.51
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "build/_deps/googletest-src/CMakeLists.txt:10 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler:  
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      Microsoft (R) Build Engine version 16.11.2+f32259642 for .NET Framework
+      Copyright (C) Microsoft Corporation. All rights reserved.
+      
+      Build started 4/26/2023 5:32:55 PM.
+      Project "C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\3.26.3\\CompilerIdC\\CompilerIdC.vcxproj" on node 1 (default targets).
+      PrepareForBuild:
+        Creating directory "Debug\\".
+        Creating directory "Debug\\CompilerIdC.tlog\\".
+      InitializeBuildStatus:
+        Creating "Debug\\CompilerIdC.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+      ClCompile:
+        C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\CL.exe /c /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\\\" /Fd"Debug\\vc142.pdb" /external:W0 /Gd /TC /FC /errorReport:queue CMakeCCompilerId.c
+        CMakeCCompilerId.c
+      Link:
+        C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdC.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdC.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdC.lib" /MACHINE:X64 Debug\\CMakeCCompilerId.obj
+        CompilerIdC.vcxproj -> C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\3.26.3\\CompilerIdC\\CompilerIdC.exe
+      PostBuildEvent:
+        for %%i in (cl.exe) do @echo CMAKE_C_COMPILER=%%~$PATH:i
+        :VCEnd
+        CMAKE_C_COMPILER=C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\Hostx64\\x64\\cl.exe
+      FinalizeBuildStatus:
+        Deleting file "Debug\\CompilerIdC.tlog\\unsuccessfulbuild".
+        Touching "Debug\\CompilerIdC.tlog\\CompilerIdC.lastbuildstate".
+      Done Building Project "C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\3.26.3\\CompilerIdC\\CompilerIdC.vcxproj" (default targets).
+      
+      Build succeeded.
+          0 Warning(s)
+          0 Error(s)
+      
+      Time Elapsed 00:00:00.52
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.vcxproj"
+      
+      The C compiler identification is MSVC, found in:
+        C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/3.26.3/CompilerIdC/CompilerIdC.exe
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "build/_deps/googletest-src/CMakeLists.txt:10 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/CMakeScratch/TryCompile-t24czq"
+      binary: "C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/CMakeScratch/TryCompile-t24czq"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/CMakeScratch/TryCompile-t24czq
+        
+        Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/MSBuild/Current/Bin/MSBuild.exe cmTC_4f2ee.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=16.0 /v:n && Microsoft (R) Build Engine version 16.11.2+f32259642 for .NET Framework
+        Copyright (C) Microsoft Corporation. All rights reserved.
+        
+        Build started 4/26/2023 5:32:56 PM.
+        Project "C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-t24czq\\cmTC_4f2ee.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Creating directory "cmTC_4f2ee.dir\\Debug\\".
+          Creating directory "C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-t24czq\\Debug\\".
+          Creating directory "cmTC_4f2ee.dir\\Debug\\cmTC_4f2ee.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_4f2ee.dir\\Debug\\cmTC_4f2ee.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+        ClCompile:
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_4f2ee.dir\\Debug\\\\" /Fd"cmTC_4f2ee.dir\\Debug\\vc142.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.26\\Modules\\CMakeCCompilerABI.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.29.30148 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          CMakeCCompilerABI.c
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_4f2ee.dir\\Debug\\\\" /Fd"cmTC_4f2ee.dir\\Debug\\vc142.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.26\\Modules\\CMakeCCompilerABI.c"
+        Link:
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-t24czq\\Debug\\cmTC_4f2ee.exe" /INCREMENTAL /ILK:"cmTC_4f2ee.dir\\Debug\\cmTC_4f2ee.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/CMakeScratch/TryCompile-t24czq/Debug/cmTC_4f2ee.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/CMakeScratch/TryCompile-t24czq/Debug/cmTC_4f2ee.lib" /MACHINE:X64  /machine:x64 cmTC_4f2ee.dir\\Debug\\CMakeCCompilerABI.obj
+          cmTC_4f2ee.vcxproj -> C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-t24czq\\Debug\\cmTC_4f2ee.exe
+        FinalizeBuildStatus:
+          Deleting file "cmTC_4f2ee.dir\\Debug\\cmTC_4f2ee.tlog\\unsuccessfulbuild".
+          Touching "cmTC_4f2ee.dir\\Debug\\cmTC_4f2ee.tlog\\cmTC_4f2ee.lastbuildstate".
+        Done Building Project "C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-t24czq\\cmTC_4f2ee.vcxproj" (default targets).
+        
+        Build succeeded.
+            0 Warning(s)
+            0 Error(s)
+        
+        Time Elapsed 00:00:00.50
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CheckCSourceCompiles.cmake:76 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/FindThreads.cmake:97 (CHECK_C_SOURCE_COMPILES)"
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/FindThreads.cmake:163 (_threads_check_libc)"
+      - "build/_deps/googletest-src/googletest/cmake/internal_utils.cmake:65 (find_package)"
+      - "build/_deps/googletest-src/googletest/CMakeLists.txt:93 (config_compiler_and_linker)"
+    checks:
+      - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
+    directories:
+      source: "C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/CMakeScratch/TryCompile-t9ugi4"
+      binary: "C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/CMakeScratch/TryCompile-t9ugi4"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+    buildResult:
+      variable: "CMAKE_HAVE_LIBC_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/CMakeScratch/TryCompile-t9ugi4
+        
+        Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/MSBuild/Current/Bin/MSBuild.exe cmTC_62574.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=16.0 /v:n && Microsoft (R) Build Engine version 16.11.2+f32259642 for .NET Framework
+        Copyright (C) Microsoft Corporation. All rights reserved.
+        
+        Build started 4/26/2023 5:32:58 PM.
+        Project "C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-t9ugi4\\cmTC_62574.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Creating directory "cmTC_62574.dir\\Debug\\".
+          Creating directory "C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-t9ugi4\\Debug\\".
+          Creating directory "cmTC_62574.dir\\Debug\\cmTC_62574.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_62574.dir\\Debug\\cmTC_62574.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+        ClCompile:
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CMAKE_HAVE_LIBC_PTHREAD /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_62574.dir\\Debug\\\\" /Fd"cmTC_62574.dir\\Debug\\vc142.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-t9ugi4\\src.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.29.30148 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          src.c
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CMAKE_HAVE_LIBC_PTHREAD /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_62574.dir\\Debug\\\\" /Fd"cmTC_62574.dir\\Debug\\vc142.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-t9ugi4\\src.c"
+        C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-t9ugi4\\src.c(1,10): fatal error C1083: Cannot open include file: 'pthread.h': No such file or directory [C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-t9ugi4\\cmTC_62574.vcxproj]
+        Done Building Project "C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-t9ugi4\\cmTC_62574.vcxproj" (default targets) -- FAILED.
+        
+        Build FAILED.
+        
+        "C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-t9ugi4\\cmTC_62574.vcxproj" (default target) (1) ->
+        (ClCompile target) -> 
+          C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-t9ugi4\\src.c(1,10): fatal error C1083: Cannot open include file: 'pthread.h': No such file or directory [C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-t9ugi4\\cmTC_62574.vcxproj]
+        
+            0 Warning(s)
+            1 Error(s)
+        
+        Time Elapsed 00:00:00.34
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CheckLibraryExists.cmake:71 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/FindThreads.cmake:112 (CHECK_LIBRARY_EXISTS)"
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/FindThreads.cmake:175 (_threads_check_lib)"
+      - "build/_deps/googletest-src/googletest/cmake/internal_utils.cmake:65 (find_package)"
+      - "build/_deps/googletest-src/googletest/CMakeLists.txt:93 (config_compiler_and_linker)"
+    checks:
+      - "Looking for pthread_create in pthreads"
+    directories:
+      source: "C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/CMakeScratch/TryCompile-zesd85"
+      binary: "C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/CMakeScratch/TryCompile-zesd85"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+    buildResult:
+      variable: "CMAKE_HAVE_PTHREADS_CREATE"
+      cached: true
+      stdout: |
+        Change Dir: C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/CMakeScratch/TryCompile-zesd85
+        
+        Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/MSBuild/Current/Bin/MSBuild.exe cmTC_e6dbf.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=16.0 /v:n && Microsoft (R) Build Engine version 16.11.2+f32259642 for .NET Framework
+        Copyright (C) Microsoft Corporation. All rights reserved.
+        
+        Build started 4/26/2023 5:32:58 PM.
+        Project "C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-zesd85\\cmTC_e6dbf.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Creating directory "cmTC_e6dbf.dir\\Debug\\".
+          Creating directory "C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-zesd85\\Debug\\".
+          Creating directory "cmTC_e6dbf.dir\\Debug\\cmTC_e6dbf.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_e6dbf.dir\\Debug\\cmTC_e6dbf.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+        ClCompile:
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_e6dbf.dir\\Debug\\\\" /Fd"cmTC_e6dbf.dir\\Debug\\vc142.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-zesd85\\CheckFunctionExists.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.29.30148 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          CheckFunctionExists.c
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_e6dbf.dir\\Debug\\\\" /Fd"cmTC_e6dbf.dir\\Debug\\vc142.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-zesd85\\CheckFunctionExists.c"
+        Link:
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-zesd85\\Debug\\cmTC_e6dbf.exe" /INCREMENTAL /ILK:"cmTC_e6dbf.dir\\Debug\\cmTC_e6dbf.ilk" /NOLOGO pthreads.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/CMakeScratch/TryCompile-zesd85/Debug/cmTC_e6dbf.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/CMakeScratch/TryCompile-zesd85/Debug/cmTC_e6dbf.lib" /MACHINE:X64  /machine:x64 cmTC_e6dbf.dir\\Debug\\CheckFunctionExists.obj
+        LINK : fatal error LNK1104: cannot open file 'pthreads.lib' [C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-zesd85\\cmTC_e6dbf.vcxproj]
+        Done Building Project "C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-zesd85\\cmTC_e6dbf.vcxproj" (default targets) -- FAILED.
+        
+        Build FAILED.
+        
+        "C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-zesd85\\cmTC_e6dbf.vcxproj" (default target) (1) ->
+        (Link target) -> 
+          LINK : fatal error LNK1104: cannot open file 'pthreads.lib' [C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-zesd85\\cmTC_e6dbf.vcxproj]
+        
+            0 Warning(s)
+            1 Error(s)
+        
+        Time Elapsed 00:00:00.42
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/CheckLibraryExists.cmake:71 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/FindThreads.cmake:112 (CHECK_LIBRARY_EXISTS)"
+      - "C:/Program Files/CMake/share/cmake-3.26/Modules/FindThreads.cmake:176 (_threads_check_lib)"
+      - "build/_deps/googletest-src/googletest/cmake/internal_utils.cmake:65 (find_package)"
+      - "build/_deps/googletest-src/googletest/CMakeLists.txt:93 (config_compiler_and_linker)"
+    checks:
+      - "Looking for pthread_create in pthread"
+    directories:
+      source: "C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/CMakeScratch/TryCompile-jgi519"
+      binary: "C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/CMakeScratch/TryCompile-jgi519"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+    buildResult:
+      variable: "CMAKE_HAVE_PTHREAD_CREATE"
+      cached: true
+      stdout: |
+        Change Dir: C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/CMakeScratch/TryCompile-jgi519
+        
+        Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/MSBuild/Current/Bin/MSBuild.exe cmTC_f52a5.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=16.0 /v:n && Microsoft (R) Build Engine version 16.11.2+f32259642 for .NET Framework
+        Copyright (C) Microsoft Corporation. All rights reserved.
+        
+        Build started 4/26/2023 5:32:59 PM.
+        Project "C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-jgi519\\cmTC_f52a5.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Creating directory "cmTC_f52a5.dir\\Debug\\".
+          Creating directory "C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-jgi519\\Debug\\".
+          Creating directory "cmTC_f52a5.dir\\Debug\\cmTC_f52a5.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_f52a5.dir\\Debug\\cmTC_f52a5.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+        ClCompile:
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_f52a5.dir\\Debug\\\\" /Fd"cmTC_f52a5.dir\\Debug\\vc142.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-jgi519\\CheckFunctionExists.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.29.30148 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          CheckFunctionExists.c
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_f52a5.dir\\Debug\\\\" /Fd"cmTC_f52a5.dir\\Debug\\vc142.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-jgi519\\CheckFunctionExists.c"
+        Link:
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-jgi519\\Debug\\cmTC_f52a5.exe" /INCREMENTAL /ILK:"cmTC_f52a5.dir\\Debug\\cmTC_f52a5.ilk" /NOLOGO pthread.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/CMakeScratch/TryCompile-jgi519/Debug/cmTC_f52a5.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/CMakeFiles/CMakeScratch/TryCompile-jgi519/Debug/cmTC_f52a5.lib" /MACHINE:X64  /machine:x64 cmTC_f52a5.dir\\Debug\\CheckFunctionExists.obj
+        LINK : fatal error LNK1104: cannot open file 'pthread.lib' [C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-jgi519\\cmTC_f52a5.vcxproj]
+        Done Building Project "C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-jgi519\\cmTC_f52a5.vcxproj" (default targets) -- FAILED.
+        
+        Build FAILED.
+        
+        "C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-jgi519\\cmTC_f52a5.vcxproj" (default target) (1) ->
+        (Link target) -> 
+          LINK : fatal error LNK1104: cannot open file 'pthread.lib' [C:\\Users\\Joel\\Documents\\Github\\cs180-22-untouchables\\build\\CMakeFiles\\CMakeScratch\\TryCompile-jgi519\\cmTC_f52a5.vcxproj]
+        
+            0 Warning(s)
+            1 Error(s)
+        
+        Time Elapsed 00:00:00.42
+        
+      exitCode: 1
+...
