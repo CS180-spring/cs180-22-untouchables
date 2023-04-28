@@ -29,7 +29,64 @@ struct DataBase {
     vector <Movie_Document> storedDocuments; //documents linked with this DataBase
 };
 
-void messageDisplayer(){
+//fyi, I think DataBase should've been Database and no capitalized values in Movie_Document but oh well
+void addDocumentManually(DataBase& current) {
+    Movie_Document addMe;
+    string user_input;
+    cout << "Input the series title: " << endl;
+    getline(cin,addMe.series_title);
+    cout << "Input the release year: " << endl;
+    cin >> addMe.released_year;
+    cout << "Input the runtime (int): " << endl;
+    cin >> addMe.runtime;
+    cout << "Input the genre: " << endl;
+    cin.ignore();
+    getline(cin, addMe.genre);
+    cout << "Input the IMDB_rating (double): " << endl;
+    cin >> addMe.IMDB_rating;
+    cout << "Input the description: " << endl;
+    cin.ignore();
+    getline(cin, addMe.overview);
+    cout << "Input the meta_score: " << endl;
+    cin >> addMe.meta_score;
+    cout << "Input the Director's name: " << endl;
+    cin.ignore();
+    getline(cin, addMe.Director);;
+    cout << "Input the star: " << endl;
+    cin >> addMe.Star;
+    current.storedDocuments.push_back(addMe);
+    cout << "Movie added successfully" << endl;
+}
+
+/*
+//helper function that searches based on name, UNFINISHED
+Movie_Document findMovie(DataBase& current, string name) {
+    for (int i = 0; i < current.storedDocuments.size(); i++) {
+        if (name == current.storedDocuments[i].series_title)
+            return current.storedDocuments[i];
+    }
+    //return NULL; //needs to return something if it can't find it, NULL doesn't have a proper converter
+}
+*/
+
+
+void printAllTables(DataBase& current) {
+    for (int i = 0; i < current.storedDocuments.size(); i++) {
+        cout << "Movie title: " << current.storedDocuments.at(i).series_title << endl;
+        cout << "Description: " << current.storedDocuments.at(i).overview << endl;
+        cout << "Director: " << current.storedDocuments.at(i).Director << endl; 
+        cout << "Release Year: " << current.storedDocuments.at(i).released_year << endl;
+        cout << "Genre: " << current.storedDocuments.at(i).genre << endl;
+        cout << "Runtime: " << current.storedDocuments.at(i).runtime << endl;
+        cout << "IMBD Rating: " << current.storedDocuments.at(i).IMDB_rating << endl;
+        cout << "Meta Score: " << current.storedDocuments.at(i).meta_score << endl;
+        cout << "Star rating: " << current.storedDocuments.at(i).Star << endl << endl;
+    }
+}
+
+
+
+void messageDisplayer() {
     cout << "input command to interact with the system:" << endl;
     cout << "enter 'db' to display current database" << endl;
     cout << "enter 'element <index>' to display an element of the current database" << endl;
@@ -38,6 +95,8 @@ void messageDisplayer(){
     cout << "enter 'use <name>' to switch to another database" << endl;
     cout << "enter 'rm <name>' to remove an existing database" << endl;
     cout << "enter 'man' to revisit the command list" << endl;
+    cout << "enter 'addm' to enter a movie in the current database" << endl;
+    cout << "enter 'view' to show all tables in the current database" << endl; //this could be combined with 'db', I'm keeping it separate for now 
     cout << "enter 'exit' to exit from the system" << endl;
 }
 
@@ -123,6 +182,13 @@ int main(){
             cout << endl;
         }
 
+        if (user_input.substr(0, user_input.find(" ")) == "addm") {
+            addDocumentManually(*currentDataBase);
+        }
+
+         if (user_input.substr(0, user_input.find(" ")) == "view") {
+            printAllTables(*currentDataBase);
+        }
         //add a new database, if the database does not already exist, name of database have to be one word
         if (user_input.substr(0, user_input.find(" ")) == "add"){
             if (check_num_word(user_input, 2) == "false"){
