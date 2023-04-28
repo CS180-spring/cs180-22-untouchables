@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/Joel/Documents/Github/cs180-22-untouchables",
-      "program": "c:/Users/Joel/Documents/Github/cs180-22-untouchables/build/Debug/outDebug",
+      "cwd": "c:/Users/borau/Downloads/cs180-22-untouchables",
+      "program": "c:/Users/borau/Downloads/cs180-22-untouchables/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
