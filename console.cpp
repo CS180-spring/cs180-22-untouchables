@@ -70,6 +70,21 @@ Movie_Document findMovie(DataBase& current, string name) {
 }
 */
 
+void deleteDocumentManually(DataBase& current) {
+    cout << "input the name of the movie to be removed" << endl;
+    string user_input;
+    getline(cin, user_input);
+    //if the Document exists in the storedDocument array
+    for (auto i = current.storedDocuments.begin(); i != current.storedDocuments.end(); ++i) {
+        if (i->series_title == user_input) {
+            current.storedDocuments.erase(i);
+            cout << "Document " << user_input << " has been successfully deleted." << endl;
+            return;
+        }
+    }
+    //if the Document does not exist
+    cout << "Document does not exist in the current Database" << endl;
+}
 
 void printAllTables(DataBase& current) {
     for (int i = 0; i < current.storedDocuments.size(); i++) {
@@ -95,6 +110,7 @@ void messageDisplayer() {
     cout << "enter 'rm <name>' to remove an existing database" << endl;
     cout << "enter 'man' to revisit the command list" << endl;
     cout << "enter 'addm' to enter a movie in the current database" << endl;
+    cout << "enter 'rmm' to enter a movie in the current database" << endl;
     cout << "enter 'view' to show all tables in the current database" << endl; //this could be combined with 'db', I'm keeping it separate for now 
     cout << "enter 'exit' to exit from the system" << endl;
 }
@@ -184,7 +200,11 @@ int main(){
         if (user_input.substr(0, user_input.find(" ")) == "addm") {
             addDocumentManually(*currentDataBase);
         }
-
+        
+        if (user_input.substr(0, user_input.find(" ")) == "rmm") {
+            deleteDocumentManually(*currentDataBase);
+        }
+        
          if (user_input.substr(0, user_input.find(" ")) == "view") {
             printAllTables(*currentDataBase);
         }
