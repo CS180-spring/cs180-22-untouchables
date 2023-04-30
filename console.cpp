@@ -80,7 +80,7 @@ Movie_Document findMovie(DataBase& current, string name) {
 }
 */
 
-void importCSV(DataBase& current_DB){
+void importCSV(DataBase* current_DB){
     
     //temp variables to hold data for parsing
     int inQoute = 0;
@@ -178,17 +178,17 @@ void importCSV(DataBase& current_DB){
         //the entire database is pushed to the referenced db
         //movie documents are stored in "vector<Movie_Documents*> movieDocs"
         //can access data elements through pointer -> 
-        current_DB.movieDocs.push_back(tmpDoc);
+        current_DB->movieDocs.push_back(tmpDoc);
     }
 
     cout << ".csv data import successful\n";
 
 }
 
-void printEntireDB(DataBase& db){
+void printEntireDB(DataBase* db){
     int cnt = 0;
 
-    for(auto i : db.movieDocs){
+    for(auto i : db->movieDocs){
         printf("Document %d\n",cnt);
         cout << "poster-link: " << i->poster_Link << endl;
         cout << "series-title: " << i->series_title << endl;
@@ -205,7 +205,7 @@ void printEntireDB(DataBase& db){
         cout << "gross: " << i->gross << endl << endl;
         cnt++;
     }
-    cout << "size of current data base is: " << db.movieDocs.size() << endl;
+    cout << "size of current data base is: " << db->movieDocs.size() << endl;
 
 }
 
@@ -242,9 +242,10 @@ void printAllTables(DataBase& current) {
 void messageDisplayer() {
     cout << "input command to interact with the system:" << endl;
     cout << "enter 'db' to display current database" << endl;
+    cout << "enter 'import csv' to import data file into database\n";        //added this to import .csv/JSON files
     cout << "enter 'element <index>' to display an element of the current database" << endl;
     cout << "enter 'db-all' to display all available database" << endl;
-    cout << "enter 'db.printEntireDB' to display all of the current database movie documents" << endl;
+    cout << "enter 'print -a' to print all movie documents of current database" << endl;
     cout << "enter 'add <name>' to add a new database" << endl;
     cout << "enter 'use <name>' to switch to another database" << endl;
     cout << "enter 'rm <name>' to remove an existing database" << endl;
@@ -305,9 +306,6 @@ void displayMovieDocument(const DataBase& database, unsigned int index) {
 int main(){
 
     DataBase db = {"default"};
-
-    //initial import of csv file
-    importCSV(db);
   
     //Document doc1 = {"doc1", "content1", "random", time(nullptr)};
 
@@ -318,6 +316,9 @@ int main(){
     vector<DataBase> existingDB;
     existingDB.push_back(db);
     currentDataBase = &existingDB.at(existingDB.size()-1);
+
+    //initial import of csv file
+    //importCSV(currentDataBase);
     
     string user_input;
     messageDisplayer();
@@ -332,9 +333,14 @@ int main(){
             cout << "current database is: " << currentDataBase->name << endl;
         }
         
+        //added this to import .csv file into current database
+        if(user_input == "import csv"){
+            importCSV(currentDataBase);
+        }
+
         //added this to print all documents of referenced db.
-        if(user_input == "db.printEntireDB"){
-            printEntireDB(db);
+        if(user_input == "print -a"){
+            printEntireDB(currentDataBase);
         }
 
         //display all available databases
