@@ -315,7 +315,7 @@ int main(){
     //used to store existing Database entries
     vector<DataBase> existingDB;
     existingDB.push_back(db);
-    currentDataBase = &existingDB.at(existingDB.size()-1);
+    currentDataBase = &(existingDB.at(0)); //default
 
     //initial import of csv file
     //importCSV(currentDataBase);
@@ -379,6 +379,7 @@ int main(){
                 }else{
                     DataBase db_new = {new_name};
                     existingDB.push_back(db_new);
+                    currentDataBase = &(existingDB.at(0)); //?
                     cout << "new database: " << new_name << " has been successfully added" << endl;
                 }
             }       
@@ -417,7 +418,7 @@ int main(){
                         DataBase db_new = {database_name};
                         existingDB.push_back(db_new);
                         cout << "new database: " << database_name << " has been successfully added" << endl;
-                        currentDataBase = &existingDB.at(existingDB.size()-1);
+                        currentDataBase = &existingDB.at(existingDB.size()-1); //last in the existingDB
                         cout << "current database has been switched to: " << database_name << endl;
                     } else {
                         cout << "'use' operation cancelled" << endl;
