@@ -278,9 +278,9 @@ void messageDisplayer() {
     cout << "enter 'add <name>' to add a new database" << endl;
     cout << "enter 'use <name>' to switch to another database" << endl;
     cout << "enter 'rm <name>' to remove an existing database" << endl;
-    cout << "enter 'man' to revisit the command list" << endl;
+    cout << "enter 'menu' to revisit the command list" << endl;
     cout << "enter 'addm' to enter a movie in the current database" << endl;
-    cout << "enter 'rmm' to enter a movie in the current database" << endl;
+    cout << "enter 'enter' to enter a movie in the current database" << endl;
     cout << "enter 'view' to show all tables in the current database" << endl; //this could be combined with 'db', I'm keeping it separate for now 
     cout << "enter 'exit' to exit from the system" << endl;
 }
