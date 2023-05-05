@@ -13,7 +13,7 @@
 //#include "console.h"
 
 using namespace std;
-using json = nlohmann::json;
+//using json = nlohmann::json;
 
 //chatgpt generated sample document structure to store document in database
 struct Movie_Document {
@@ -90,48 +90,37 @@ void add_movie_to_database(const string& filename, DataBase& database) {
   // Add the new Movie_Document to the database
   database.storedDocuments.push_back(new_movie);
   database.movieDocs.push_back(&database.storedDocuments.back());
-}
+} 
 
-
-//fyi, I think DataBase should've been Database and no capitalized values in Movie_Document but oh well
-void addDocumentManually(DataBase& current) {
-    Movie_Document addMe;
+//NEEDS INPUT VALIDATION, TODO
+void addDocumentManually(DataBase* current) {
+    Movie_Document* addMe = new Movie_Document();
     string user_input;
     cout << "Input the series title: " << endl;
-    getline(cin,addMe.series_title);
+    getline(cin,addMe->series_title);
     cout << "Input the release year: " << endl;
-    cin >> addMe.released_year;
+    cin >> addMe->released_year;
     cout << "Input the runtime (int): " << endl;
-    cin >> addMe.runtime;
-    cout << "Input the genre: " << endl;
+    cin >> addMe->runtime;
+    cout << "Input the genre: " << endl; 
     cin.ignore();
-    getline(cin, addMe.genre);
+    getline(cin, addMe->genre);
     cout << "Input the IMDB_rating (double): " << endl;
-    cin >> addMe.IMDB_rating;
+    cin >> addMe->IMDB_rating;
     cout << "Input the description: " << endl;
     cin.ignore();
-    getline(cin, addMe.overview);
+    getline(cin, addMe->overview);
     cout << "Input the meta_score: " << endl;
-    cin >> addMe.meta_score;
+    cin >> addMe->meta_score;
     cout << "Input the Director's name: " << endl;
     cin.ignore();
-    getline(cin, addMe.Director);;
-    cout << "Input the star: " << endl;
-    cin >> addMe.Star1;
-    current.storedDocuments.push_back(addMe);
+    getline(cin, addMe->Director);
+    cout << "Input the star: " << endl; //also this is just the wrong format, TODO
+    cin >> addMe->Star1;
+    current->movieDocs.push_back(addMe);
     cout << "Movie added successfully" << endl;
 }
 
-/*
-//helper function that searches based on name, UNFINISHED
-Movie_Document findMovie(DataBase& current, string name) {
-    for (int i = 0; i < current.storedDocuments.size(); i++) {
-        if (name == current.storedDocuments[i].series_title)
-            return current.storedDocuments[i];
-    }
-    //return NULL; //needs to return something if it can't find it, NULL doesn't have a proper converter
-}
-*/
 
 void importCSV(DataBase* current_DB){
     
@@ -289,6 +278,157 @@ void printEntireDB(DataBase* db){
     cout << "size of current data base is: " << db->movieDocs.size() << endl;
 }
 
+//helper function, takes a string, returns true if convertable to an int
+bool isStringInt(string str) {
+  int num;
+  istringstream iss(str);
+  iss >> num;
+  return iss.eof() && !iss.fail();
+}
+
+//same as isStringInt but with doubles
+bool isStringDouble(string str) {
+  double num;
+  istringstream iss(str);
+  iss >> num;
+  return iss.eof() && !iss.fail();
+}
+
+void updateEntry(DataBase* db){
+    int cnt = 0;
+    cout << "Please enter name of movie you want to update" << endl;
+    string user_input;
+    getline(cin, user_input);
+    bool flag = true;
+    for(auto i : db->movieDocs){
+        if (i->series_title == user_input) {
+            flag = false;
+            printf("Document %d\n",cnt);
+            cout << "poster-link: " << i->poster_Link << endl;
+            cout << "series-title: " << i->series_title << endl;
+            cout << "released-year: " << i->released_year << endl;
+            cout << "certificate: " << i->certificate << endl;
+            cout << "runtime: " << i->runtime << endl;
+            cout << "genre: " << i->genre<< endl;
+            cout << "IMDB-rating: " << i->IMDB_rating << endl;
+            cout << "overview: " << i->overview << endl;
+            cout << "meta-score: " << i->meta_score << endl;
+            cout << "director: " << i->Director << endl;
+            cout << "Stars: " << i->Star1 << ", " << i->Star2 << ", " << i->Star3 << ", " << i->Star4 << endl;
+            cout << "number-votes: " << i->numVotes << endl;
+            cout << "gross: " << i->gross << endl << endl;
+            cout << "What value would you like to modify? Type in the name (ex. series-title)" << endl;
+            getline(cin, user_input);
+            bool flag1 = false; //use this to check if entry has been modified correctly
+            if (user_input == "poster-link") {
+                cout << "What would you like to change it to?" << endl;
+                getline(cin, user_input);
+                i->poster_Link = user_input;
+                flag1 = true;
+            }
+            else if (user_input == "series-title") {
+                cout << "What would you like to change it to?" << endl;
+                getline(cin, user_input);
+                i->series_title = user_input;
+                flag1 = true;
+            }
+            else if (user_input == "released-year") {
+                cout << "What would you like to change it to? Enter a year " << endl;
+                getline(cin, user_input);
+                if (isStringInt(user_input)) {
+                    if (stoi(user_input) >  1890 && stoi(user_input) < 2050) {
+                        i->released_year = stoi(user_input);
+                        flag1 = true;
+                    }
+                }
+            }
+            else if (user_input == "certificate") {
+                cout << "What would you like to change it to?" << endl;
+                getline(cin, user_input);
+                i->certificate = user_input;
+                flag1 = true;
+            }
+            else if (user_input == "runtime") {
+                cout << "What would you like to change it to? Enter the number of minutes as an integer" << endl;
+                getline(cin, user_input);
+                if (isStringInt(user_input)) {
+                    if (stoi(user_input) > 0) {
+                        i->runtime = stoi(user_input);
+                        flag1 = true;
+                    }
+                }
+            }
+            else if (user_input == "genre") {
+                cout << "What would you like to change it to?" << endl;
+                getline(cin, user_input);
+                i->genre = user_input;
+                flag1 = true;
+            }
+            else if (user_input == "IMDB-rating") {
+                cout << "What would you like to change it to? Enter a number" << endl;
+                getline(cin, user_input);
+                if (isStringDouble(user_input)) {
+                    if (stod(user_input) > 0) {
+                        i->IMDB_rating = stoi(user_input);
+                        flag1 = true;
+                    }
+                }
+            }
+            else if (user_input == "overview") {
+                cout << "What would you like to change it to?" << endl;
+                getline(cin, user_input);
+                i->overview = user_input;
+                flag1 = true;
+            }
+            else if (user_input == "meta-score") {
+                cout << "What would you like to change it to? Enter an integer" << endl;
+                getline(cin, user_input);
+                if (isStringInt(user_input)) {
+                    if (stoi(user_input) > 0) {
+                        i->meta_score = stoi(user_input);
+                        flag1 = true;
+                    }
+                }
+            }
+            else if (user_input == "director") {
+                cout << "What would you like to change it to?" << endl;
+                getline(cin, user_input);
+                i->Director = user_input;
+                flag1 = true;
+            }
+            //I'm leaving out stars for now, TODO
+            else if (user_input == "number-votes") {
+                cout << "What would you like to change it to? Enter an integer" << endl;
+                getline(cin, user_input);
+                 if (isStringInt(user_input)) {
+                    if (stoi(user_input) > 0) {
+                        i->numVotes = stoi(user_input);
+                        flag1 = true;
+                    }
+                }
+            }
+            else if (user_input == "gross") {
+                cout << "What would you like to change it to? Enter an integer" << endl;
+                getline(cin, user_input);
+                 if (isStringInt(user_input)) {
+                    if (stoi(user_input) > 0) {
+                        i->gross = stoi(user_input);
+                        flag1 = true;
+                    }
+                }
+            }
+            if (flag1) {
+                cout << "Document updated successfully" << endl; //this could create issues if we had 2 entries with same name
+            } else {cout << "Document could not be updated due to invalid input, try again" << endl;}
+        }   
+        cnt++;
+    }
+    if (flag)
+        cout << "Movie does not exist in the current Database" << endl;
+}
+
+
+
 void deleteDocumentManually(DataBase& current){
     cout << "input the name of the movie to be removed" << endl;
     string user_input;
@@ -327,6 +467,7 @@ void messageDisplayer() {
     cout << "enter 'element <index>' to display an element of the current database" << endl;
     cout << "enter 'db-all' to display all available database" << endl;
     cout << "enter 'print -a' to print all movie documents of current database" << endl;
+    cout << "enter 'modify' to change a movie's information in the curret database" << endl;
     cout << "enter 'add <name>' to add a new database" << endl;
     cout << "enter 'use <name>' to switch to another database" << endl;
     cout << "enter 'rm <name>' to remove an existing database" << endl;
@@ -441,8 +582,12 @@ int main(){
             cout << endl;
         }
 
+        if (user_input == "modify") {
+            updateEntry(currentDataBase);
+        }
+
         if (user_input.substr(0, user_input.find(" ")) == "addm") {
-            addDocumentManually(*currentDataBase);
+            addDocumentManually(currentDataBase);
         }
         
         if (user_input.substr(0, user_input.find(" ")) == "rmm") {
