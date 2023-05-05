@@ -8,7 +8,7 @@
 #include <sstream>
 #include <algorithm>
 #include <fstream>
-#include <nlohmann/json.hpp>
+#include "json.hpp"
 #include "filter.cpp"
 //#include "console.h"
 
