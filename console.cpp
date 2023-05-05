@@ -8,9 +8,12 @@
 #include <sstream>
 #include <algorithm>
 #include <fstream>
+#include <nlohmann/json.hpp>
+#include "filter.cpp"
 //#include "console.h"
 
 using namespace std;
+//using json = nlohmann::json;
 
 //chatgpt generated sample document structure to store document in database
 struct Movie_Document {
@@ -40,48 +43,88 @@ struct DataBase {
     vector <Movie_Document*> movieDocs;  //documents linked with this DataBase
 };
 
-//fyi, I think DataBase should've been Database and no capitalized values in Movie_Document but oh well
-void addDocumentManually(DataBase& current) {
-    Movie_Document addMe;
+void add_movie_to_database(const string& filename, DataBase& database) {
+  // Load the JSON file
+  ifstream input(filename);
+  json json_data;
+  input >> json_data;
+
+  // Extract the fields from the JSON object
+  string posterLink = json_data["Poster Link"];
+  string seriesTitle = json_data["Series Title"];
+  int releasedYear = json_data["Release Year"];
+  string certificate = json_data["Certificate"];
+  int runtime = json_data["Runtime"];
+  string genre = json_data["Genre"];
+  double imdbRating = json_data["IMDB_Rating"];
+  string overview = json_data["Overview"];
+  int metaScore = json_data["Meta_score"];
+  string director = json_data["Director"];
+  string star1 = json_data["Star1"];
+  string star2 = json_data["Star2"];
+  string star3 = json_data["Star3"];
+  string star4 = json_data["Star4"];
+  int numVotes = json_data["No_of_Votes"];
+  int gross = json_data["Gross"];
+
+  // Create a new Movie_Document object
+  Movie_Document new_movie = {
+    posterLink,
+    seriesTitle,
+    releasedYear,
+    certificate,
+    runtime,
+    genre,
+    imdbRating,
+    overview,
+    metaScore,
+    director,
+    star1,
+    star2,
+    star3,
+    star4,
+    numVotes,
+    gross
+  };
+
+  // Add the new Movie_Document to the database
+  database.storedDocuments.push_back(new_movie);
+  database.movieDocs.push_back(&database.storedDocuments.back());
+} 
+
+//NEEDS INPUT VALIDATION, TODO
+void addDocumentManually(DataBase* current) {
+    Movie_Document* addMe = new Movie_Document();
     string user_input;
     cout << "Input the series title: " << endl;
-    getline(cin,addMe.series_title);
+    getline(cin,addMe->series_title);
     cout << "Input the release year: " << endl;
-    cin >> addMe.released_year;
+    cin >> addMe->released_year;
     cout << "Input the runtime (int): " << endl;
-    cin >> addMe.runtime;
-    cout << "Input the genre: " << endl;
+    cin >> addMe->runtime;
+    cout << "Input the genre: " << endl; 
     cin.ignore();
-    getline(cin, addMe.genre);
+    getline(cin, addMe->genre);
     cout << "Input the IMDB_rating (double): " << endl;
-    cin >> addMe.IMDB_rating;
+    cin >> addMe->IMDB_rating;
     cout << "Input the description: " << endl;
     cin.ignore();
-    getline(cin, addMe.overview);
+    getline(cin, addMe->overview);
     cout << "Input the meta_score: " << endl;
-    cin >> addMe.meta_score;
+    cin >> addMe->meta_score;
     cout << "Input the Director's name: " << endl;
     cin.ignore();
-    getline(cin, addMe.Director);;
-    cout << "Input the star: " << endl;
-    cin >> addMe.Star1;
-    current.storedDocuments.push_back(addMe);
+    getline(cin, addMe->Director);
+    cout << "Input the star: " << endl; //also this is just the wrong format, TODO
+    cin >> addMe->Star1;
+    current->movieDocs.push_back(addMe);
     cout << "Movie added successfully" << endl;
 }
 
-/*
-//helper function that searches based on name, UNFINISHED
-Movie_Document findMovie(DataBase& current, string name) {
-    for (int i = 0; i < current.storedDocuments.size(); i++) {
-        if (name == current.storedDocuments[i].series_title)
-            return current.storedDocuments[i];
-    }
-    //return NULL; //needs to return something if it can't find it, NULL doesn't have a proper converter
-}
-*/
 
 void importCSV(DataBase* current_DB){
     
+    int badcnt = 0;
     //temp variables to hold data for parsing
     int inQoute = 0;
     string tmpStr = "";
@@ -108,7 +151,6 @@ void importCSV(DataBase* current_DB){
     //get entire line of csv file with getline
     //increment through entire file with while loop
     while(getline(input_File, iString)){
-
         //create movie_document via new and assign to movie_document pointer
         Movie_Document* tmpDoc = new Movie_Document();
         
@@ -136,6 +178,7 @@ void importCSV(DataBase* current_DB){
                     line = line + tmpStr;
                 }
                 //push quoted data
+                //cout << line << endl;
                 tmpData.push_back(line);
                 getline(sstream, line, ',');
             }
@@ -150,40 +193,67 @@ void importCSV(DataBase* current_DB){
                     line = "N/A";
                 }
                 //push data to temp vector container
+                //cout << line << endl;
                 tmpData.push_back(line);
-            }
-        }
+            }  
+            
+        }   
 
         //assign parsed data to newly created movie_document
         //parsed data was put into vector and is now being assigned
         //to data members of movie_document object
         tmpDoc->poster_Link = tmpData[0];
         tmpDoc->series_title = tmpData[1];
-        tmpDoc->released_year = stoi(tmpData[2]);
+        
+        if(tmpData[2] != "N/A"){
+            tmpDoc->released_year = stoi(tmpData[2]);}
+        else{tmpDoc->released_year = -1;}
+        
         tmpDoc->certificate = tmpData[3];
-        tmpDoc->runtime = stoi(tmpData[4]);
+
+        if(tmpData[4] != "N/A"){
+            tmpDoc->runtime = stoi(tmpData[4]);}
+        else{tmpDoc->runtime = -1;}
+        
         tmpDoc->genre = tmpData[5];
-        tmpDoc->IMDB_rating = stoi(tmpData[6]);
+        
+        if(tmpData[6] != "N/A"){
+            tmpDoc->IMDB_rating = stod(tmpData[6]);}
+        else{tmpDoc->IMDB_rating = -1;}
+      
         tmpDoc->overview = tmpData[7];
-        tmpDoc->meta_score = stoi(tmpData[8]);
+
+        if(tmpData[8] != "N/A"){
+            tmpDoc->meta_score = stoi(tmpData[8]);}
+        else{tmpDoc->meta_score = -1;};
+
         tmpDoc->Director = tmpData[9];
         tmpDoc->Star1 = tmpData[10];
         tmpDoc->Star2 = tmpData[11];
         tmpDoc->Star3 = tmpData[12];
         tmpDoc->Star4 = tmpData[13];
-        tmpDoc->numVotes = stoi(tmpData[14]);
-        tmpDoc->gross = stoi(tmpData[15]);
+        
+        if(tmpData[14] != "N/A"){
+            tmpDoc->numVotes = stoi(tmpData[14]);}
+        else{tmpDoc->numVotes = -1;};
+        
+        if(tmpData[15] != "N/A"){
+            tmpDoc->gross = stoi(tmpData[15]);}
+        else{tmpDoc->gross = -1;};
 
         //push new movie document to current database object
         //the entire database is pushed to the referenced db
         //movie documents are stored in "vector<Movie_Documents*> movieDocs"
         //can access data elements through pointer -> 
         current_DB->movieDocs.push_back(tmpDoc);
+
+        //clear tmp vector for more data
+        tmpData.clear();
     }
 
     cout << ".csv data import successful\n";
-
 }
+
 
 void printEntireDB(DataBase* db){
     int cnt = 0;
@@ -206,8 +276,158 @@ void printEntireDB(DataBase* db){
         cnt++;
     }
     cout << "size of current data base is: " << db->movieDocs.size() << endl;
-
 }
+
+//helper function, takes a string, returns true if convertable to an int
+bool isStringInt(string str) {
+  int num;
+  istringstream iss(str);
+  iss >> num;
+  return iss.eof() && !iss.fail();
+}
+
+//same as isStringInt but with doubles
+bool isStringDouble(string str) {
+  double num;
+  istringstream iss(str);
+  iss >> num;
+  return iss.eof() && !iss.fail();
+}
+
+void updateEntry(DataBase* db){
+    int cnt = 0;
+    cout << "Please enter name of movie you want to update" << endl;
+    string user_input;
+    getline(cin, user_input);
+    bool flag = true;
+    for(auto i : db->movieDocs){
+        if (i->series_title == user_input) {
+            flag = false;
+            printf("Document %d\n",cnt);
+            cout << "poster-link: " << i->poster_Link << endl;
+            cout << "series-title: " << i->series_title << endl;
+            cout << "released-year: " << i->released_year << endl;
+            cout << "certificate: " << i->certificate << endl;
+            cout << "runtime: " << i->runtime << endl;
+            cout << "genre: " << i->genre<< endl;
+            cout << "IMDB-rating: " << i->IMDB_rating << endl;
+            cout << "overview: " << i->overview << endl;
+            cout << "meta-score: " << i->meta_score << endl;
+            cout << "director: " << i->Director << endl;
+            cout << "Stars: " << i->Star1 << ", " << i->Star2 << ", " << i->Star3 << ", " << i->Star4 << endl;
+            cout << "number-votes: " << i->numVotes << endl;
+            cout << "gross: " << i->gross << endl << endl;
+            cout << "What value would you like to modify? Type in the name (ex. series-title)" << endl;
+            getline(cin, user_input);
+            bool flag1 = false; //use this to check if entry has been modified correctly
+            if (user_input == "poster-link") {
+                cout << "What would you like to change it to?" << endl;
+                getline(cin, user_input);
+                i->poster_Link = user_input;
+                flag1 = true;
+            }
+            else if (user_input == "series-title") {
+                cout << "What would you like to change it to?" << endl;
+                getline(cin, user_input);
+                i->series_title = user_input;
+                flag1 = true;
+            }
+            else if (user_input == "released-year") {
+                cout << "What would you like to change it to? Enter a year " << endl;
+                getline(cin, user_input);
+                if (isStringInt(user_input)) {
+                    if (stoi(user_input) >  1890 && stoi(user_input) < 2050) {
+                        i->released_year = stoi(user_input);
+                        flag1 = true;
+                    }
+                }
+            }
+            else if (user_input == "certificate") {
+                cout << "What would you like to change it to?" << endl;
+                getline(cin, user_input);
+                i->certificate = user_input;
+                flag1 = true;
+            }
+            else if (user_input == "runtime") {
+                cout << "What would you like to change it to? Enter the number of minutes as an integer" << endl;
+                getline(cin, user_input);
+                if (isStringInt(user_input)) {
+                    if (stoi(user_input) > 0) {
+                        i->runtime = stoi(user_input);
+                        flag1 = true;
+                    }
+                }
+            }
+            else if (user_input == "genre") {
+                cout << "What would you like to change it to?" << endl;
+                getline(cin, user_input);
+                i->genre = user_input;
+                flag1 = true;
+            }
+            else if (user_input == "IMDB-rating") {
+                cout << "What would you like to change it to? Enter a number" << endl;
+                getline(cin, user_input);
+                if (isStringDouble(user_input)) {
+                    if (stod(user_input) > 0) {
+                        i->IMDB_rating = stoi(user_input);
+                        flag1 = true;
+                    }
+                }
+            }
+            else if (user_input == "overview") {
+                cout << "What would you like to change it to?" << endl;
+                getline(cin, user_input);
+                i->overview = user_input;
+                flag1 = true;
+            }
+            else if (user_input == "meta-score") {
+                cout << "What would you like to change it to? Enter an integer" << endl;
+                getline(cin, user_input);
+                if (isStringInt(user_input)) {
+                    if (stoi(user_input) > 0) {
+                        i->meta_score = stoi(user_input);
+                        flag1 = true;
+                    }
+                }
+            }
+            else if (user_input == "director") {
+                cout << "What would you like to change it to?" << endl;
+                getline(cin, user_input);
+                i->Director = user_input;
+                flag1 = true;
+            }
+            //I'm leaving out stars for now, TODO
+            else if (user_input == "number-votes") {
+                cout << "What would you like to change it to? Enter an integer" << endl;
+                getline(cin, user_input);
+                 if (isStringInt(user_input)) {
+                    if (stoi(user_input) > 0) {
+                        i->numVotes = stoi(user_input);
+                        flag1 = true;
+                    }
+                }
+            }
+            else if (user_input == "gross") {
+                cout << "What would you like to change it to? Enter an integer" << endl;
+                getline(cin, user_input);
+                 if (isStringInt(user_input)) {
+                    if (stoi(user_input) > 0) {
+                        i->gross = stoi(user_input);
+                        flag1 = true;
+                    }
+                }
+            }
+            if (flag1) {
+                cout << "Document updated successfully" << endl; //this could create issues if we had 2 entries with same name
+            } else {cout << "Document could not be updated due to invalid input, try again" << endl;}
+        }   
+        cnt++;
+    }
+    if (flag)
+        cout << "Movie does not exist in the current Database" << endl;
+}
+
+
 
 void deleteDocumentManually(DataBase& current){
     cout << "input the name of the movie to be removed" << endl;
@@ -243,9 +463,11 @@ void messageDisplayer() {
     cout << "input command to interact with the system:" << endl;
     cout << "enter 'db' to display current database" << endl;
     cout << "enter 'import csv' to import data file into database\n";        //added this to import .csv/JSON files
+    cout << "enter 'filter' to filter by categories in the current database" << endl;
     cout << "enter 'element <index>' to display an element of the current database" << endl;
     cout << "enter 'db-all' to display all available database" << endl;
     cout << "enter 'print -a' to print all movie documents of current database" << endl;
+    cout << "enter 'modify' to change a movie's information in the curret database" << endl;
     cout << "enter 'add <name>' to add a new database" << endl;
     cout << "enter 'use <name>' to switch to another database" << endl;
     cout << "enter 'rm <name>' to remove an existing database" << endl;
@@ -315,7 +537,7 @@ int main(){
     //used to store existing Database entries
     vector<DataBase> existingDB;
     existingDB.push_back(db);
-    currentDataBase = &existingDB.at(existingDB.size()-1);
+    currentDataBase = &(existingDB.at(0)); //default
 
     //initial import of csv file
     //importCSV(currentDataBase);
@@ -343,6 +565,10 @@ int main(){
             printEntireDB(currentDataBase);
         }
 
+        if (user_input == "filter"){
+        filter();
+        }
+
         //display all available databases
         if (user_input == "db-all"){
             if (existingDB.size() == 0){
@@ -356,17 +582,63 @@ int main(){
             cout << endl;
         }
 
+        if (user_input == "modify") {
+            updateEntry(currentDataBase);
+        }
+
         if (user_input.substr(0, user_input.find(" ")) == "addm") {
-            addDocumentManually(*currentDataBase);
+            addDocumentManually(currentDataBase);
         }
         
         if (user_input.substr(0, user_input.find(" ")) == "rmm") {
             deleteDocumentManually(*currentDataBase);
         }
         
-         if (user_input.substr(0, user_input.find(" ")) == "view") {
-            printAllTables(*currentDataBase);
+        if (user_input.substr(0, user_input.find(" ")) == "view") {
+            cout << "type \"all\" to print all documents in the existing database, else will print 5 at a time" <<endl;
+            cout << "type \"exit\" to return to main manual" << endl;
+            string temp_input;
+            cout << ">>> ";
+            int impl = 0;
+            getline(cin,temp_input);
+            
+            if(temp_input == "exit"){
+                cout << "you have successfully exited the movie document viewer" << endl;
+            } else if(temp_input == "all"){
+                printAllTables(*currentDataBase);
+            }else{
+                for (int i = 0 + impl*5; i < 5 + impl*5; ++i){
+                    displayMovieDocument(*currentDataBase, i);
+                    cout << endl;
+                }
+                cout << "type \"next\" to view next 5 movie documents, type \"previous\" to view the previous 5 movie documents" << endl;
+                while(temp_input != "exit"){
+                    cout << ">>> ";
+                    getline(cin,temp_input);
+                    if (temp_input == "next"){
+                        cout << "===================================================================================" << endl;
+                        impl = impl + 1;
+                        for (int i = 0 + impl*5; i < 5 + impl*5; ++i){
+                            displayMovieDocument(*currentDataBase, i);
+                            cout << endl;
+                        }
+                    } else if (temp_input == "previous"){
+                        if (impl == 0){
+                            cout << "you are already at the start of the documents" << endl;
+                        }else{
+                            cout << "===================================================================================" << endl;
+                            impl = impl - 1;
+                            for (int i = 0 + impl*5; i < 5 + impl*5; ++i){
+                                displayMovieDocument(*currentDataBase, i);
+                                cout << endl;
+                            }
+                        }
+                    }
+                }
+                cout << "you have successfully exited the movie document viewer" << endl;
+            }
         }
+        
         //add a new database, if the database does not already exist, name of database have to be one word
         if (user_input.substr(0, user_input.find(" ")) == "add"){
             if (check_num_word(user_input, 2) == "false"){
@@ -379,6 +651,7 @@ int main(){
                 }else{
                     DataBase db_new = {new_name};
                     existingDB.push_back(db_new);
+                    currentDataBase = &(existingDB.at(0)); //?
                     cout << "new database: " << new_name << " has been successfully added" << endl;
                 }
             }       
@@ -417,7 +690,7 @@ int main(){
                         DataBase db_new = {database_name};
                         existingDB.push_back(db_new);
                         cout << "new database: " << database_name << " has been successfully added" << endl;
-                        currentDataBase = &existingDB.at(existingDB.size()-1);
+                        currentDataBase = &existingDB.at(existingDB.size()-1); //last in the existingDB
                         cout << "current database has been switched to: " << database_name << endl;
                     } else {
                         cout << "'use' operation cancelled" << endl;
