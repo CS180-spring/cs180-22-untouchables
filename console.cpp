@@ -8,10 +8,12 @@
 #include <sstream>
 #include <algorithm>
 #include <fstream>
+#include <nlohmann/json.hpp>
 #include "filter.cpp"
 //#include "console.h"
 
 using namespace std;
+using json = nlohmann::json;
 
 //chatgpt generated sample document structure to store document in database
 struct Movie_Document {
@@ -40,6 +42,56 @@ struct DataBase {
     vector <Movie_Document> storedDocuments;
     vector <Movie_Document*> movieDocs;  //documents linked with this DataBase
 };
+
+void add_movie_to_database(const string& filename, DataBase& database) {
+  // Load the JSON file
+  ifstream input(filename);
+  json json_data;
+  input >> json_data;
+
+  // Extract the fields from the JSON object
+  string posterLink = json_data["Poster Link"];
+  string seriesTitle = json_data["Series Title"];
+  int releasedYear = json_data["Release Year"];
+  string certificate = json_data["Certificate"];
+  int runtime = json_data["Runtime"];
+  string genre = json_data["Genre"];
+  double imdbRating = json_data["IMDB_Rating"];
+  string overview = json_data["Overview"];
+  int metaScore = json_data["Meta_score"];
+  string director = json_data["Director"];
+  string star1 = json_data["Star1"];
+  string star2 = json_data["Star2"];
+  string star3 = json_data["Star3"];
+  string star4 = json_data["Star4"];
+  int numVotes = json_data["No_of_Votes"];
+  int gross = json_data["Gross"];
+
+  // Create a new Movie_Document object
+  Movie_Document new_movie = {
+    posterLink,
+    seriesTitle,
+    releasedYear,
+    certificate,
+    runtime,
+    genre,
+    imdbRating,
+    overview,
+    metaScore,
+    director,
+    star1,
+    star2,
+    star3,
+    star4,
+    numVotes,
+    gross
+  };
+
+  // Add the new Movie_Document to the database
+  database.storedDocuments.push_back(new_movie);
+  database.movieDocs.push_back(&database.storedDocuments.back());
+}
+
 
 //fyi, I think DataBase should've been Database and no capitalized values in Movie_Document but oh well
 void addDocumentManually(DataBase& current) {
