@@ -39,7 +39,8 @@
     "iosfwd": "cpp",
     "iostream": "cpp",
     "string": "cpp",
-    "string_view": "cpp"
+    "string_view": "cpp",
+    "xstring": "cpp"
   },
   "C_Cpp_Runner.showCompilationTime": false,
   "cmake.configureSettings": { "gtest_build_samples": "ON" 
