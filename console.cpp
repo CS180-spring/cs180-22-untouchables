@@ -8,6 +8,7 @@
 #include <sstream>
 #include <algorithm>
 #include <fstream>
+#include "filter.cpp"
 //#include "console.h"
 
 using namespace std;
@@ -270,6 +271,7 @@ void messageDisplayer() {
     cout << "input command to interact with the system:" << endl;
     cout << "enter 'db' to display current database" << endl;
     cout << "enter 'import csv' to import data file into database\n";        //added this to import .csv/JSON files
+    cout << "enter 'filter' to filter by categories in the current database" << endl;
     cout << "enter 'element <index>' to display an element of the current database" << endl;
     cout << "enter 'db-all' to display all available database" << endl;
     cout << "enter 'print -a' to print all movie documents of current database" << endl;
@@ -368,6 +370,10 @@ int main(){
         //added this to print all documents of referenced db.
         if(user_input == "print -a"){
             printEntireDB(currentDataBase);
+        }
+
+        if (user_input == "filter"){
+        filter();
         }
 
         //display all available databases
