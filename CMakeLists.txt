@@ -21,6 +21,8 @@ add_library(GTest::GTest INTERFACE IMPORTED)
 
 add_library(console console.cpp)
 
+include_directories(json-develop/single_include)
+
 target_include_directories(console PUBLIC include)
 
 target_link_libraries(GTest::GTest INTERFACE gtest_main)

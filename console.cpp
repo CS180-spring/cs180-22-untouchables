@@ -8,12 +8,11 @@
 #include <sstream>
 #include <algorithm>
 #include <fstream>
-#include "json.hpp"
+#include <nlohmann/json.hpp>
 #include "filter.cpp"
-//#include "console.h"
 
 using namespace std;
-//using json = nlohmann::json;
+using json = nlohmann::json;
 
 //chatgpt generated sample document structure to store document in database
 struct Movie_Document {
