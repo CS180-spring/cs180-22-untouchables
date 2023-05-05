@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <fstream>
 #include <nlohmann/json.hpp>
+#include "filter.cpp"
 //#include "console.h"
 
 using namespace std;
@@ -134,6 +135,7 @@ Movie_Document findMovie(DataBase& current, string name) {
 
 void importCSV(DataBase* current_DB){
     
+    int badcnt = 0;
     //temp variables to hold data for parsing
     int inQoute = 0;
     string tmpStr = "";
@@ -160,7 +162,6 @@ void importCSV(DataBase* current_DB){
     //get entire line of csv file with getline
     //increment through entire file with while loop
     while(getline(input_File, iString)){
-
         //create movie_document via new and assign to movie_document pointer
         Movie_Document* tmpDoc = new Movie_Document();
         
@@ -188,6 +189,7 @@ void importCSV(DataBase* current_DB){
                     line = line + tmpStr;
                 }
                 //push quoted data
+                //cout << line << endl;
                 tmpData.push_back(line);
                 getline(sstream, line, ',');
             }
@@ -202,40 +204,67 @@ void importCSV(DataBase* current_DB){
                     line = "N/A";
                 }
                 //push data to temp vector container
+                //cout << line << endl;
                 tmpData.push_back(line);
-            }
-        }
+            }  
+            
+        }   
 
         //assign parsed data to newly created movie_document
         //parsed data was put into vector and is now being assigned
         //to data members of movie_document object
         tmpDoc->poster_Link = tmpData[0];
         tmpDoc->series_title = tmpData[1];
-        tmpDoc->released_year = stoi(tmpData[2]);
+        
+        if(tmpData[2] != "N/A"){
+            tmpDoc->released_year = stoi(tmpData[2]);}
+        else{tmpDoc->released_year = -1;}
+        
         tmpDoc->certificate = tmpData[3];
-        tmpDoc->runtime = stoi(tmpData[4]);
+
+        if(tmpData[4] != "N/A"){
+            tmpDoc->runtime = stoi(tmpData[4]);}
+        else{tmpDoc->runtime = -1;}
+        
         tmpDoc->genre = tmpData[5];
-        tmpDoc->IMDB_rating = stoi(tmpData[6]);
+        
+        if(tmpData[6] != "N/A"){
+            tmpDoc->IMDB_rating = stod(tmpData[6]);}
+        else{tmpDoc->IMDB_rating = -1;}
+      
         tmpDoc->overview = tmpData[7];
-        tmpDoc->meta_score = stoi(tmpData[8]);
+
+        if(tmpData[8] != "N/A"){
+            tmpDoc->meta_score = stoi(tmpData[8]);}
+        else{tmpDoc->meta_score = -1;};
+
         tmpDoc->Director = tmpData[9];
         tmpDoc->Star1 = tmpData[10];
         tmpDoc->Star2 = tmpData[11];
         tmpDoc->Star3 = tmpData[12];
         tmpDoc->Star4 = tmpData[13];
-        tmpDoc->numVotes = stoi(tmpData[14]);
-        tmpDoc->gross = stoi(tmpData[15]);
+        
+        if(tmpData[14] != "N/A"){
+            tmpDoc->numVotes = stoi(tmpData[14]);}
+        else{tmpDoc->numVotes = -1;};
+        
+        if(tmpData[15] != "N/A"){
+            tmpDoc->gross = stoi(tmpData[15]);}
+        else{tmpDoc->gross = -1;};
 
         //push new movie document to current database object
         //the entire database is pushed to the referenced db
         //movie documents are stored in "vector<Movie_Documents*> movieDocs"
         //can access data elements through pointer -> 
         current_DB->movieDocs.push_back(tmpDoc);
+
+        //clear tmp vector for more data
+        tmpData.clear();
     }
 
     cout << ".csv data import successful\n";
-
 }
+
 
 void printEntireDB(DataBase* db){
     int cnt = 0;
@@ -258,7 +287,6 @@ void printEntireDB(DataBase* db){
         cnt++;
     }
     cout << "size of current data base is: " << db->movieDocs.size() << endl;
-
 }
 
 void deleteDocumentManually(DataBase& current){
@@ -295,6 +323,7 @@ void messageDisplayer() {
     cout << "input command to interact with the system:" << endl;
     cout << "enter 'db' to display current database" << endl;
     cout << "enter 'import csv' to import data file into database\n";        //added this to import .csv/JSON files
+    cout << "enter 'filter' to filter by categories in the current database" << endl;
     cout << "enter 'element <index>' to display an element of the current database" << endl;
     cout << "enter 'db-all' to display all available database" << endl;
     cout << "enter 'print -a' to print all movie documents of current database" << endl;
@@ -395,6 +424,10 @@ int main(){
             printEntireDB(currentDataBase);
         }
 
+        if (user_input == "filter"){
+        filter();
+        }
+
         //display all available databases
         if (user_input == "db-all"){
             if (existingDB.size() == 0){
@@ -416,9 +449,51 @@ int main(){
             deleteDocumentManually(*currentDataBase);
         }
         
-         if (user_input.substr(0, user_input.find(" ")) == "view") {
-            printAllTables(*currentDataBase);
+        if (user_input.substr(0, user_input.find(" ")) == "view") {
+            cout << "type \"all\" to print all documents in the existing database, else will print 5 at a time" <<endl;
+            cout << "type \"exit\" to return to main manual" << endl;
+            string temp_input;
+            cout << ">>> ";
+            int impl = 0;
+            getline(cin,temp_input);
+            
+            if(temp_input == "exit"){
+                cout << "you have successfully exited the movie document viewer" << endl;
+            } else if(temp_input == "all"){
+                printAllTables(*currentDataBase);
+            }else{
+                for (int i = 0 + impl*5; i < 5 + impl*5; ++i){
+                    displayMovieDocument(*currentDataBase, i);
+                    cout << endl;
+                }
+                cout << "type \"next\" to view next 5 movie documents, type \"previous\" to view the previous 5 movie documents" << endl;
+                while(temp_input != "exit"){
+                    cout << ">>> ";
+                    getline(cin,temp_input);
+                    if (temp_input == "next"){
+                        cout << "===================================================================================" << endl;
+                        impl = impl + 1;
+                        for (int i = 0 + impl*5; i < 5 + impl*5; ++i){
+                            displayMovieDocument(*currentDataBase, i);
+                            cout << endl;
+                        }
+                    } else if (temp_input == "previous"){
+                        if (impl == 0){
+                            cout << "you are already at the start of the documents" << endl;
+                        }else{
+                            cout << "===================================================================================" << endl;
+                            impl = impl - 1;
+                            for (int i = 0 + impl*5; i < 5 + impl*5; ++i){
+                                displayMovieDocument(*currentDataBase, i);
+                                cout << endl;
+                            }
+                        }
+                    }
+                }
+                cout << "you have successfully exited the movie document viewer" << endl;
+            }
         }
+        
         //add a new database, if the database does not already exist, name of database have to be one word
         if (user_input.substr(0, user_input.find(" ")) == "add"){
             if (check_num_word(user_input, 2) == "false"){
