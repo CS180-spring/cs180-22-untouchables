@@ -364,9 +364,51 @@ int main(){
             deleteDocumentManually(*currentDataBase);
         }
         
-         if (user_input.substr(0, user_input.find(" ")) == "view") {
-            printAllTables(*currentDataBase);
+        if (user_input.substr(0, user_input.find(" ")) == "view") {
+            cout << "type \"all\" to print all documents in the existing database, else will print 5 at a time" <<endl;
+            cout << "type \"exit\" to return to main manual" << endl;
+            string temp_input;
+            cout << ">>> ";
+            int impl = 0;
+            getline(cin,temp_input);
+            
+            if(temp_input == "exit"){
+                cout << "you have successfully exited the movie document viewer" << endl;
+            } else if(temp_input == "all"){
+                printAllTables(*currentDataBase);
+            }else{
+                for (int i = 0 + impl*5; i < 5 + impl*5; ++i){
+                    displayMovieDocument(*currentDataBase, i);
+                    cout << endl;
+                }
+                cout << "type \"next\" to view next 5 movie documents, type \"previous\" to view the previous 5 movie documents" << endl;
+                while(temp_input != "exit"){
+                    cout << ">>> ";
+                    getline(cin,temp_input);
+                    if (temp_input == "next"){
+                        cout << "===================================================================================" << endl;
+                        impl = impl + 1;
+                        for (int i = 0 + impl*5; i < 5 + impl*5; ++i){
+                            displayMovieDocument(*currentDataBase, i);
+                            cout << endl;
+                        }
+                    } else if (temp_input == "previous"){
+                        if (impl == 0){
+                            cout << "you are already at the start of the documents" << endl;
+                        }else{
+                            cout << "===================================================================================" << endl;
+                            impl = impl - 1;
+                            for (int i = 0 + impl*5; i < 5 + impl*5; ++i){
+                                displayMovieDocument(*currentDataBase, i);
+                                cout << endl;
+                            }
+                        }
+                    }
+                }
+                cout << "you have successfully exited the movie document viewer" << endl;
+            }
         }
+        
         //add a new database, if the database does not already exist, name of database have to be one word
         if (user_input.substr(0, user_input.find(" ")) == "add"){
             if (check_num_word(user_input, 2) == "false"){
