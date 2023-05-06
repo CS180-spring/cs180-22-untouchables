@@ -8,6 +8,7 @@
 
 using namespace std;
 string userinput;
+void messageDisplayer();
 
 void alphabetSort(){
 }
@@ -619,7 +620,7 @@ else if(userinput == "GR"){
 grossRevenueFilter();
 }
 else if(userinput == "B"){
-
+messageDisplayer();
 }
 else{
 cout << "Please give a valid input" << endl;
