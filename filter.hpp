@@ -1,106 +1,31 @@
-#include "filter.hpp"
+#include <iostream>
+#include <map> //linking documents with databases
+#include <string>
+#include <vector>
+#include <sstream>
+#include <algorithm>
+#include <fstream>
 
 using namespace std;
+
 string userinput;
-void messageDisplayer();
 
-void alphabetSort(){
-}
+class filter{
 
-void numberSort(){
-}
-
-void output(){
-}
-
-void titleView(){
-cout << "A = View all" << endl;
-cout << "T = Just titles" << endl;
-getline(cin, userinput);
-if (userinput == "A"){
-output();
-}
-else if(userinput == "T"){
-
-}
-else{
-cout << "Please give a valid input." << endl;
-titleView();
-}
-}
+    public:
+    void messageDisplayer();
+    void alphabetSort();
+    void numberSort();
+    void output();
+    void titleView();
+    void titleFilter(){
+    void titleSort();
+    void alphabetSort();
+    void yearView();
+    void yearSort();
+    void yearFilter();
 
 
-void titleSort(){
-getline(cin, userinput);
-if (userinput == "0"){
-alphabetSort();
-cout << "Would you like to view all information or just the title?" << endl;
-titleView();
-}
-else if(userinput == "1"){
-alphabetSort();
-cout << "Would you like to view all information or just the title?" << endl;
-titleView();
-}
-else if (userinput == "2"){
-}
-else{
-cout << "Please give a valid input:" << endl;
-titleSort();
-}
-}
-
-void titleFilter(){
-cout << "Input:" << endl;
-cout << "0 for A-Z" << endl;
-cout << "1 for Z-A" << endl;
-cout << "2 for no alphabetization" << endl;
-titleSort();
-}
-
-void yearView(){
-cout << "A = View all" << endl;
-cout << "T = Just titles and years" << endl;
-getline(cin, userinput);
-if (userinput == "A"){
-output();
-}
-else if(userinput == "T"){
-
-}
-else{
-cout << "Please give a valid input." << endl;
-yearView();
-}
-}
-
-
-void yearSort(){
-getline(cin, userinput);
-if (userinput == "0"){
-numberSort();
-yearView();
-}
-else if(userinput == "1"){
-numberSort();
-yearView();
-}
-else if (userinput == "2"){
-yearView();
-}
-else{
-cout << "Please give a valid input:" << endl;
-yearSort();
-}
-}
-
-void yearFilter(){
-cout << "Input:" << endl;
-cout << "0 for oldest to newest" << endl;
-cout << "1 for newest to oldest" << endl;
-cout << "2 for no numerical sort" << endl;
-yearSort();
-}
 
 void certificateView(){
 cout << "A = View all" << endl;
@@ -413,12 +338,10 @@ directorView();
 }
 else if (userinput == "2"){
 directorView();
-}cout << "Input:" << endl;
-cout << "0 for oldest to newest" << endl;
-cout << "1 for newest to oldest" << endl;
-cout << "2 for no numerical sort" << endl;
-yearSort();
 }
+else{
+cout << "Please give a valid input:" << endl;
+directorSort();
 }
 }
 
@@ -622,4 +545,8 @@ else{
 cout << "Please give a valid input" << endl;
 filter();
 }
+    private:
+
 }
+
+
