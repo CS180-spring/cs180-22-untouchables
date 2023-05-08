@@ -45,10 +45,10 @@ void messageDisplayer() {
     cout << "enter 'use <name>' to switch to another database" << endl;
     cout << "enter 'filter' to filter by categories in the current database" << endl;
     cout << "enter 'element <index>' to display an element of the current database" << endl;
-    cout << "enter 'modify' to change a movie's information in the curret database" << endl;
+    cout << "enter 'modify <movie_title>' to change a movie's information in the curret database" << endl;
     cout << "enter 'rm <name>' to remove an existing database" << endl;
     cout << "enter 'menu' to revisit the command list" << endl;
-    cout << "enter 'addm' to enter a movie in the current database" << endl;
+    cout << "enter 'add -m' to enter a movie in the current database" << endl;
     cout << "enter 'enter' to enter a movie in the current database" << endl;
     cout << "enter 'view' to show all tables in the current database" << endl; //this could be combined with 'db', I'm keeping it separate for now 
     cout << "enter 'exit' to exit from the system" << endl;
@@ -61,20 +61,30 @@ void userInstruction(Database& db, vector<string>& instructions){
 
     //output current database
     if(instruction == "db"){
-       
+        if (instructions.size() != 1){
+            cout << "please use proper command, recommanded command: \"db\"" << endl;
+            return;
+        }
         db.printCurrentClt();
         
     }
     
     //prints list of all collections
     else if(instruction == "db-all"){                   
-     
+        if (instructions.size() != 1){
+            cout << "please use proper command, recommanded command: \"db-all\"" << endl;
+            return;
+        }
         db.dbAll();
        
     }
     
     // imports data from file and takes three parameters
-    else if(instruction == "import"){                   
+    else if(instruction == "import"){
+        if (instructions.size() != 4){
+            cout << "please use proper command, recommanded command: \"import -<format> <collection> <file>\"" << endl;
+            return;
+        }
         if(instructions[1] == "-csv"){
             string cltName = "", fileName = "";
 
@@ -99,6 +109,10 @@ void userInstruction(Database& db, vector<string>& instructions){
     // prints data and takes multiple 
     // parameters see "man" for syntax
     else if(instruction == "print"){
+        if (instructions.size() < 3){
+            cout << "please use proper command, recommanded command: \"print -<flag> <collection>\"" << endl;
+            return;
+        }
         string tmp = instructions[1];
         if(tmp == "-a"){
             string tmpClt = instructions[2];
@@ -111,6 +125,10 @@ void userInstruction(Database& db, vector<string>& instructions){
     }
 
     else if(instruction == "modify"){
+        if (instructions.size() != 2){
+            cout << "please use proper command, recommanded command: \"modify <movie_title>\"" << endl;
+            return;
+        }
         string movTitle = "";
         movTitle = instructions[1]; 
         //db.updateEntry(movTitle);
@@ -119,19 +137,35 @@ void userInstruction(Database& db, vector<string>& instructions){
     // add collection and takes multiple
     // parameters see "man" for syntax
     else if(instruction == "add"){
-        if(instructions[1] == "-m"){
-            //db.addDocumentManually();
+         if(instructions.size() > 1){
+            if(instructions[1] == "-m"){
+                if (instructions.size() != 2){
+                    cout << "please use proper command, recommanded command: \"add -m\"" << endl;
+                    return;
+                }  
+                //db.addDocumentManually();
+            }
+            else if(instructions[1] != "-m"){
+                if (instructions.size() != 2){
+                    cout << "please use proper command, recommanded command: \"add <name>\"" << endl;
+                    return;
+                }
+                string cltName = instructions[1];
+                db.addCollection(cltName);
+            }
+        }else{
+            cout << "please use proper command, recommanded command: \"add <name> or add -m\"" << endl;
+            return;
         }
-        else if(instructions[1] != "-m"){
-            string cltName = instructions[1];
-            db.addCollection(cltName);
-        }
-        
     }  
 
     // updates current collection
     // pointer for console
     else if(instruction == "use"){
+        if (instructions.size() != 2){
+            cout << "please use proper command, recommanded command: \"use <name>\"" << endl;
+            return;
+        }
         string cltName = instructions[1];   
 
         //update current collection pointer
@@ -141,12 +175,8 @@ void userInstruction(Database& db, vector<string>& instructions){
     // delete data and takes multiple parameters
     // for collections and docs, see "man"
     else if(instruction == "rm"){
-        string cltName = instructions[1];
-        string docName = instructions[2];
-        
-        // if parsed data < 3 then delete entire collection
-        // else get additional parsed data for movie docs
         if(instructions.size() < 3){
+            string cltName = instructions[1];
             if(db.deleteCollectionByName(cltName)){
                 cout << "Collection " << cltName << " deleted.\n";
             }
@@ -155,20 +185,37 @@ void userInstruction(Database& db, vector<string>& instructions){
             }
         }
         else if(instructions.size() == 3){
+            string cltName = instructions[1];
+            string docName = instructions[2];
             //db.deleteDocManual(string cltName, string docName);
-
+        }else{
+            cout << "please use proper command, recommanded command: \"rm <name> or rm <name> <document_name>\"" << endl;
+            return;
         }
     }    
     else if(instruction == "menu"){
+        if (instructions.size() != 1){
+            cout << "please use proper command, recommanded command: \"man\"" << endl;
+            return;
+        }
         messageDisplayer();    
     }
     else if(instruction == "enter"){
         
     }
     else if(instruction == "view"){
+        if (instructions.size() != 1){
+            cout << "please use proper command, recommanded command: \"view\"" << endl;
+            return;
+        }
+        db.printSingleClt(db.printCurrentClt_name());
         
     }
     else if(instruction == "exit"){
+        if (instructions.size() != 1){
+            cout << "please use proper command, recommanded command: \"exit\"" << endl;
+            return;
+        }
         //exit the database system
         if (instruction == "exit"){
             exit(1);
