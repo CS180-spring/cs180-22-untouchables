@@ -69,6 +69,10 @@ void Database::printCurrentClt(){
     cout << "current collection is: " << currentClt->name << "\n";
 }
 
+string Database::printCurrentClt_name(){
+    return currentClt->name;
+}
+
 // delete collection by name and check if not current collection
 // function will call deleteAllDocs to clean up memory allocation
 // then it will delete memory allocated for collection and return bool
