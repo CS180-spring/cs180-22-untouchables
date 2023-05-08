@@ -45,6 +45,7 @@ class Database{
         void addCollection(string cltName);
         void useCollection(string cltName);
         void printCurrentClt();
+        string printCurrentClt_name();
         //collection* useCollection(string cltName);
         void importCSV(string cltName, string fileName);
         void importJSON(collection* db, string fileName);
