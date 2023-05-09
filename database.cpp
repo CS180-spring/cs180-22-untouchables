@@ -252,12 +252,15 @@ void Database::importCSV(string cltName, string fname){
 
 void Database::printSingleClt(string cltName){
     int cnt = 0;
-
     collection* tmpClt = getCollectionByName(cltName);
-    vector<Movie_Document*> tmpDocs = tmpClt->getMovieDocs();
-
-    if(tmpClt != nullptr && (!tmpDocs.empty())){
-        for(auto i : tmpDocs){
+    if (tmpClt == nullptr){
+        cout << "Collection not found.\n";
+    }else{
+        vector<Movie_Document*> tmpDocs = tmpClt->getMovieDocs();
+        if(tmpDocs.empty()){
+            cout << "Collection has a empty document.\n";
+        }else{
+            for(auto i : tmpDocs){
             printf("Document %d\n",cnt);
             cout << "poster-link: " << i->poster_Link << endl;
             cout << "series-title: " << i->series_title << endl;
@@ -275,13 +278,8 @@ void Database::printSingleClt(string cltName){
             cnt++;
         }
         cout << "size of current data base is: " << tmpClt->movieDocs.size() << endl;
-
+        }
     }
-    else{
-
-        cout << "Collection not found.\n";
-    }
-
 }
 
 //NEEDS INPUT VALIDATION, TODO
