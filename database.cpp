@@ -251,7 +251,6 @@ void Database::importCSV(string cltName, string fname){
 }
 
 void Database::printSingleClt(string cltName){
-    int cnt = 0;
     collection* tmpClt = getCollectionByName(cltName);
     if (tmpClt == nullptr){
         cout << "Collection not found.\n";
@@ -259,25 +258,96 @@ void Database::printSingleClt(string cltName){
         vector<Movie_Document*> tmpDocs = tmpClt->getMovieDocs();
         if(tmpDocs.empty()){
             cout << "Collection has a empty document.\n";
-        }else{
-            for(auto i : tmpDocs){
-            printf("Document %d\n",cnt);
-            cout << "poster-link: " << i->poster_Link << endl;
-            cout << "series-title: " << i->series_title << endl;
-            cout << "released-year: " << i->released_year << endl;
-            cout << "certificate: " << i->certificate << endl;
-            cout << "runtime: " << i->runtime << endl;
-            cout << "genre: " << i->genre<< endl;
-            cout << "IMDB-rating: " << i->IMDB_rating << endl;
-            cout << "overview: " << i->overview << endl;
-            cout << "meta-score: " << i->meta_score << endl;
-            cout << "director: " << i->Director << endl;
-            cout << "Stars: " << i->Star1 << ", " << i->Star2 << ", " << i->Star3 << ", " << i->Star4 << endl;
-            cout << "number-votes: " << i->numVotes << endl;
-            cout << "gross: " << i->gross << endl << endl;
-            cnt++;
-        }
-        cout << "size of current data base is: " << tmpClt->movieDocs.size() << endl;
+        }else{  
+            string temp_input;    
+            int impl = 0;
+            /*
+            int higher_bound = 0;
+            if (5 + impl*5 > tmpDocs.size()){
+                higher_bound = 5 + impl*5;
+            }else{
+                higher_bound = tmpDocs.size();
+            }*/
+            for (int i = 0 + impl*5; i < 5 + impl*5; ++i){
+                Movie_Document* curr = tmpDocs[i];
+                if(curr != nullptr){
+                    printf("Document %d\n",i);
+                    cout << "poster-link: " << curr->poster_Link << endl;
+                    cout << "series-title: " << curr->series_title << endl;
+                    cout << "released-year: " << curr->released_year << endl;
+                    cout << "certificate: " << curr->certificate << endl;
+                    cout << "runtime: " << curr->runtime << endl;
+                    cout << "genre: " << curr->genre<< endl;
+                    cout << "IMDB-rating: " << curr->IMDB_rating << endl;
+                    cout << "overview: " << curr->overview << endl;
+                    cout << "meta-score: " << curr->meta_score << endl;
+                    cout << "director: " << curr->Director << endl;
+                    cout << "Stars: " << curr->Star1 << ", " << curr->Star2 << ", " << curr->Star3 << ", " << curr->Star4 << endl;
+                    cout << "number-votes: " << curr->numVotes << endl;
+                    cout << "gross: " << curr->gross << endl << endl;
+                }
+            }
+            cout << "type \"next\" to view next 5 movie documents, type \"previous\" to view the previous 5 movie documents" << endl;
+            cout << "type \"exit\" to return to main manual" << endl;
+            while(temp_input != "exit"){
+                cout << ">>> ";
+                getline(cin,temp_input);
+                if (temp_input == "next"){
+                    cout << "===================================================================================" << endl;
+                    impl = impl + 1;
+                    if(tmpDocs[0+impl*5] == nullptr){
+                        cout << "you are already at the end of the documents" << endl;
+                    }else{
+                        for (int i = 0 + impl*5; i < 5 + impl*5; ++i){
+                            Movie_Document* curr = tmpDocs[i];
+                            if(curr != nullptr){
+                                printf("Document %d\n",i);
+                                cout << "poster-link: " << curr->poster_Link << endl;
+                                cout << "series-title: " << curr->series_title << endl;
+                                cout << "released-year: " << curr->released_year << endl;
+                                cout << "certificate: " << curr->certificate << endl;
+                                cout << "runtime: " << curr->runtime << endl;
+                                cout << "genre: " << curr->genre<< endl;
+                                cout << "IMDB-rating: " << curr->IMDB_rating << endl;
+                                cout << "overview: " << curr->overview << endl;
+                                cout << "meta-score: " << curr->meta_score << endl;
+                                cout << "director: " << curr->Director << endl;
+                                cout << "Stars: " << curr->Star1 << ", " << curr->Star2 << ", " << curr->Star3 << ", " << curr->Star4 << endl;
+                                cout << "number-votes: " << curr->numVotes << endl;
+                                cout << "gross: " << curr->gross << endl << endl;
+                            }
+                        }
+                    }
+                } else if (temp_input == "previous"){
+                    if (impl == 0){
+                        cout << "you are already at the start of the documents" << endl;
+                    }else{
+                        cout << "===================================================================================" << endl;
+                        impl = impl - 1;
+                        for (int i = 0 + impl*5; i < 5 + impl*5; ++i){
+                            Movie_Document* curr = tmpDocs[i];
+                            if(curr != nullptr){
+                                printf("Document %d\n",i);
+                                cout << "poster-link: " << curr->poster_Link << endl;
+                                cout << "series-title: " << curr->series_title << endl;
+                                cout << "released-year: " << curr->released_year << endl;
+                                cout << "certificate: " << curr->certificate << endl;
+                                cout << "runtime: " << curr->runtime << endl;
+                                cout << "genre: " << curr->genre<< endl;
+                                cout << "IMDB-rating: " << curr->IMDB_rating << endl;
+                                cout << "overview: " << curr->overview << endl;
+                                cout << "meta-score: " << curr->meta_score << endl;
+                                cout << "director: " << curr->Director << endl;
+                                cout << "Stars: " << curr->Star1 << ", " << curr->Star2 << ", " << curr->Star3 << ", " << curr->Star4 << endl;
+                                cout << "number-votes: " << curr->numVotes << endl;
+                                cout << "gross: " << curr->gross << endl << endl;
+                            }
+                        }
+                    }
+                }
+            }
+            cout << "you have successfully exit the movie document viewer" << endl;
+            cout << ">>> ";cout << "size of current data base is: " << tmpClt->movieDocs.size() << endl;
         }
     }
 }
