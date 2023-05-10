@@ -271,7 +271,7 @@ void Database::printSingleClt(string cltName){
             for (int i = 0 + impl*5; i < 5 + impl*5; ++i){
                 Movie_Document* curr = tmpDocs[i];
                 if(curr != nullptr){
-                    printf("Document %d\n",i);
+                    printf("Document %d\n",i+1);
                     cout << "poster-link: " << curr->poster_Link << endl;
                     cout << "series-title: " << curr->series_title << endl;
                     cout << "released-year: " << curr->released_year << endl;
@@ -301,7 +301,7 @@ void Database::printSingleClt(string cltName){
                         for (int i = 0 + impl*5; i < 5 + impl*5; ++i){
                             Movie_Document* curr = tmpDocs[i];
                             if(curr != nullptr){
-                                printf("Document %d\n",i);
+                                printf("Document %d\n",i+1);
                                 cout << "poster-link: " << curr->poster_Link << endl;
                                 cout << "series-title: " << curr->series_title << endl;
                                 cout << "released-year: " << curr->released_year << endl;
@@ -327,7 +327,7 @@ void Database::printSingleClt(string cltName){
                         for (int i = 0 + impl*5; i < 5 + impl*5; ++i){
                             Movie_Document* curr = tmpDocs[i];
                             if(curr != nullptr){
-                                printf("Document %d\n",i);
+                                printf("Document %d\n",i+1);
                                 cout << "poster-link: " << curr->poster_Link << endl;
                                 cout << "series-title: " << curr->series_title << endl;
                                 cout << "released-year: " << curr->released_year << endl;
