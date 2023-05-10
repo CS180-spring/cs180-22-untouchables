@@ -58,10 +58,12 @@ void Database::addCollection(string cltName){
 // update currentClt ptr to passed parameter
 // and use for reference in other functions
 void Database::useCollection(string cltName){
-
-    this->currentClt = getCollectionByName(cltName);
-    
-    cout << "Switched to " << this->currentClt->name << " collection.\n";
+    if(getCollectionByName(cltName) == nullptr){
+        cout << "The collection does not exist, use add <name> to add the collection first" << endl;
+    }else{
+        this->currentClt = getCollectionByName(cltName);
+        cout << "Switched to " << this->currentClt->name << " collection.\n";
+    }   
 }
 
 // use private collection* currentClt to print current collection
