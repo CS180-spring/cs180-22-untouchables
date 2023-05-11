@@ -2,6 +2,10 @@
 
 using namespace std;
 string userinput;
+
+filter::filter(){
+    
+}
 void messageDisplayer();
 
 void alphabetSort(){

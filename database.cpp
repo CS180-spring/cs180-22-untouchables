@@ -8,6 +8,9 @@ Database::Database(){
     currentClt = defaultClt;
 }
 
+// Function simply returns a collection ptr to
+// to referenced collection else returns nullptr
+// if collection does not exist
 collection* Database::getCollectionByName(string name){
 
     for(int i = 0; i < collectionDB.size(); i++){
@@ -160,6 +163,7 @@ void Database::importCSV(string cltName, string fname){
             if(sstream.peek() == '\"'){
                 getline(sstream, line, '\"');
                 getline(sstream, line, '\"');
+               
                 if(sstream.peek() == '\"'){
                     string tmp = "";
                     tmp = sstream.get();
@@ -174,7 +178,6 @@ void Database::importCSV(string cltName, string fname){
                     line = line + tmpStr;
                 }
                 //push quoted data
-                //cout << line << endl;
                 tmpData.push_back(line);
                 getline(sstream, line, ',');
             }
@@ -189,7 +192,6 @@ void Database::importCSV(string cltName, string fname){
                     line = "N/A";
                 }
                 //push data to temp vector container
-                //cout << line << endl;
                 tmpData.push_back(line);
             }  
             
@@ -233,9 +235,18 @@ void Database::importCSV(string cltName, string fname){
             tmpDoc->numVotes = stoi(tmpData[14]);}
         else{tmpDoc->numVotes = -1;};
         
-        if(tmpData[15] != "N/A"){
-            tmpDoc->gross = stoi(tmpData[15]);}
-        else{tmpDoc->gross = -1;};
+        if(tmpData[15] != "0"){
+            string str = tmpData[15];
+
+            for (int i = 0, len = str.size(); i < len; i++){
+                // check whether parsing character is punctuation or not
+                if (ispunct(str[i])){
+                    str.erase(i--, 1);
+                    len = str.size();
+                }
+            }
+            tmpDoc->gross = stoi(str);}
+        else{tmpDoc->gross = 0;};
 
         //push new movie document to current database object
         //the entire database is pushed to the referenced db
@@ -245,9 +256,83 @@ void Database::importCSV(string cltName, string fname){
 
         //clear tmp vector for more data
         tmpData.clear();
+        tmpData[15] = '0';
     }
 
-    cout << ".csv data import successful\n";
+    cout << ".csv data import successful\n\n";
+}
+
+// Function takes collection name for parameter
+// checks is collection exists, if collection exists
+// exports data to file named after collection
+// to local directory else prints collection does not exist
+void Database::exportCSV(string cltName){
+
+    collection* exportClt = getCollectionByName(cltName);
+
+    if(exportClt != nullptr){
+        
+        // Name of collection to be exported
+        // used for name of exported file 
+        string fileName = exportClt->name;
+    
+        fileName = fileName + ".txt";
+
+        // Output file stream
+        ofstream oFile;
+
+        // Open file
+        oFile.open(fileName);
+
+        // Check for any error
+        if(!oFile){
+            cout << "Error in creating export file!\n\n";
+        }
+        else{
+
+            // Export header
+            oFile << "Poster_Link,Series_Title,Released_Year,Certificate,Runtime,Genre,IMDB_Rating,Overview,Meta_score,Director,Star1,Star2,Star3,Star4,No_of_Votes,Gross\n";
+            
+            // Loop through all movieDocs of collection 
+            // and export to .csv format
+            for(auto i : exportClt->movieDocs){
+                
+                oFile << "\"" << i->poster_Link << "\"";
+                oFile << "," << i->series_title;
+                oFile << "," << i->released_year;
+                oFile << "," << i->certificate;
+                oFile << "," << i->runtime;
+                oFile << "," << i->genre;
+                oFile << "," << i->IMDB_rating;
+                oFile << "\"";
+                oFile << "," << i->overview;
+                oFile << "\"";
+                oFile << "," << i->meta_score;
+                oFile << "," << i->Director;
+                oFile << "," << i->Star1;
+                oFile << "," << i->Star2;
+                oFile << "," << i->Star3;
+                oFile << "," << i->Star4;
+                oFile << "," << i->numVotes;
+                oFile << ",\"" << i->gross << "\"";
+                oFile << "\n";
+
+            }
+
+            // Close file
+            oFile.close();
+
+            // Export successful
+            cout << "Data export successful\n\n";
+        }
+
+    }
+    // Collection not found
+    else if(exportClt == nullptr){
+
+        cout << "Collection not found\n\n";
+    }
+    
 }
 
 void Database::printSingleClt(string cltName){
@@ -285,7 +370,7 @@ void Database::printSingleClt(string cltName){
 }
 
 //NEEDS INPUT VALIDATION, TODO
-void Database::addDocumentManually(collection* current) {
+void Database::addDocumentManually() {
     Movie_Document* addMe = new Movie_Document();
     string user_input;
     cout << "Input the series title: " << endl;
@@ -309,7 +394,7 @@ void Database::addDocumentManually(collection* current) {
     getline(cin, addMe->Director);
     cout << "Input the star: " << endl; //also this is just the wrong format, TODO
     cin >> addMe->Star1;
-    current->movieDocs.push_back(addMe);
+    currentClt->movieDocs.push_back(addMe);
     cout << "Movie added successfully" << endl;
 }
 

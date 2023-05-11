@@ -13,12 +13,13 @@ string userinput;
 class filter{
 
     public:
+    filter();
     void messageDisplayer();
     void alphabetSort();
     void numberSort();
     void output();
     void titleView();
-    void titleFilter(){
+    void titleFilter();
     void titleSort();
     void alphabetSort();
     void yearView();
@@ -120,7 +121,6 @@ cout << "Please give a valid input." << endl;
 runtimeView();
 }
 }
-
 
 void runtimeSort(){
 getline(cin, userinput);

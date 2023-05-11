@@ -49,8 +49,10 @@ class Database{
         //collection* useCollection(string cltName);
         void importCSV(string cltName, string fileName);
         void importJSON(collection* db, string fileName);
+        void exportCSV(string cltName);                                             //takes name of collection and exports data to csv format on file in directory 
+        void exportJSON(string cltName);                                             //takes name of collection and exports data to JSON format on file in directory
         void exportData(collection* cc, Movie_Document* movDoc, string format);
-        void addDocumentManually(collection*);
+        void addDocumentManually();
         void addDocManual(string cltName, Movie_Document* movDoc);
         void deleteCollections(string cltName);
         void deleteAllDocs(string cltName);
