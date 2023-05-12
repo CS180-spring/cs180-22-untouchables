@@ -130,6 +130,11 @@ void Database::importCSV(string cltName, string fname){
 
     collection* collection = getCollectionByName(cltName);
     
+    if(collection == nullptr){
+        cout << "Collection not found\n";
+        return;
+    }
+    
     //define your file name
     string file_name = fname; //"imdb_top_1000.csv";
 
