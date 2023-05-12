@@ -8,6 +8,9 @@ Database::Database(){
     currentClt = defaultClt;
 }
 
+// Function simply returns a collection ptr to
+// to referenced collection else returns nullptr
+// if collection does not exist
 collection* Database::getCollectionByName(string name){
 
     for(int i = 0; i < collectionDB.size(); i++){
@@ -58,10 +61,12 @@ void Database::addCollection(string cltName){
 // update currentClt ptr to passed parameter
 // and use for reference in other functions
 void Database::useCollection(string cltName){
-
-    this->currentClt = getCollectionByName(cltName);
-    
-    cout << "Switched to " << this->currentClt->name << " collection.\n";
+    if(getCollectionByName(cltName) == nullptr){
+        cout << "The collection does not exist, use add <name> to add the collection first" << endl;
+    }else{
+        this->currentClt = getCollectionByName(cltName);
+        cout << "Switched to " << this->currentClt->name << " collection.\n";
+    }   
 }
 
 // use private collection* currentClt to print current collection
@@ -69,7 +74,9 @@ void Database::printCurrentClt(){
     cout << "current collection is: " << currentClt->name << "\n";
 }
 
-
+string Database::printCurrentClt_name(){
+    return currentClt->name;
+}
 
 // delete collection by name and check if not current collection
 // function will call deleteAllDocs to clean up memory allocation
@@ -123,6 +130,11 @@ void Database::importCSV(string cltName, string fname){
 
     collection* collection = getCollectionByName(cltName);
     
+    if(collection == nullptr){
+        cout << "Collection not found\n";
+        return;
+    }
+    
     //define your file name
     string file_name = fname; //"imdb_top_1000.csv";
 
@@ -158,6 +170,7 @@ void Database::importCSV(string cltName, string fname){
             if(sstream.peek() == '\"'){
                 getline(sstream, line, '\"');
                 getline(sstream, line, '\"');
+               
                 if(sstream.peek() == '\"'){
                     string tmp = "";
                     tmp = sstream.get();
@@ -172,7 +185,6 @@ void Database::importCSV(string cltName, string fname){
                     line = line + tmpStr;
                 }
                 //push quoted data
-                //cout << line << endl;
                 tmpData.push_back(line);
                 getline(sstream, line, ',');
             }
@@ -187,7 +199,6 @@ void Database::importCSV(string cltName, string fname){
                     line = "N/A";
                 }
                 //push data to temp vector container
-                //cout << line << endl;
                 tmpData.push_back(line);
             }  
             
@@ -231,9 +242,18 @@ void Database::importCSV(string cltName, string fname){
             tmpDoc->numVotes = stoi(tmpData[14]);}
         else{tmpDoc->numVotes = -1;};
         
-        if(tmpData[15] != "N/A"){
-            tmpDoc->gross = stoi(tmpData[15]);}
-        else{tmpDoc->gross = -1;};
+        if(tmpData[15] != "0"){
+            string str = tmpData[15];
+
+            for (int i = 0, len = str.size(); i < len; i++){
+                // check whether parsing character is punctuation or not
+                if (ispunct(str[i])){
+                    str.erase(i--, 1);
+                    len = str.size();
+                }
+            }
+            tmpDoc->gross = stoi(str);}
+        else{tmpDoc->gross = 0;};
 
         //push new movie document to current database object
         //the entire database is pushed to the referenced db
@@ -243,53 +263,235 @@ void Database::importCSV(string cltName, string fname){
 
         //clear tmp vector for more data
         tmpData.clear();
+        tmpData[15] = '0';
     }
 
-    cout << ".csv data import successful\n";
+    cout << ".csv data import successful\n\n";
 }
 
-string Database::getCurrentClt_name() {
-    return currentClt->name;
+// Function takes collection name for parameter
+// checks is collection exists, if collection exists
+// exports data to file named after collection
+// to local directory else prints collection does not exist
+void Database::exportCSV(string cltName){
+
+    collection* exportClt = getCollectionByName(cltName);
+
+    if(exportClt != nullptr){
+        
+        // Name of collection to be exported
+        // used for name of exported file 
+        string fileName = exportClt->name;
+    
+        fileName = fileName + ".txt";
+
+        // Output file stream
+        ofstream oFile;
+
+        // Open file
+        oFile.open(fileName);
+
+        // Check for any error
+        if(!oFile){
+            cout << "Error in creating export file!\n\n";
+        }
+        else{
+
+            // Export header
+            oFile << "Poster_Link,Series_Title,Released_Year,Certificate,Runtime,Genre,IMDB_Rating,Overview,Meta_score,Director,Star1,Star2,Star3,Star4,No_of_Votes,Gross\n";
+            
+            // Loop through all movieDocs of collection 
+            // and export to .csv format
+            for(auto i : exportClt->movieDocs){
+                
+                oFile << "\"" << i->poster_Link << "\"";
+                oFile << "," << i->series_title;
+                oFile << "," << i->released_year;
+                oFile << "," << i->certificate;
+                oFile << "," << i->runtime;
+                oFile << "," << i->genre;
+                oFile << "," << i->IMDB_rating;
+                oFile << "\"";
+                oFile << "," << i->overview;
+                oFile << "\"";
+                oFile << "," << i->meta_score;
+                oFile << "," << i->Director;
+                oFile << "," << i->Star1;
+                oFile << "," << i->Star2;
+                oFile << "," << i->Star3;
+                oFile << "," << i->Star4;
+                oFile << "," << i->numVotes;
+                oFile << ",\"" << i->gross << "\"";
+                oFile << "\n";
+
+            }
+
+            // Close file
+            oFile.close();
+
+            // Export successful
+            cout << "Data export successful\n\n";
+        }
+
+    }
+    // Collection not found
+    else if(exportClt == nullptr){
+
+        cout << "Collection not found\n\n";
+    }
+    
 }
 
 void Database::printSingleClt(string cltName){
-    int cnt = 0;
-
     collection* tmpClt = getCollectionByName(cltName);
-    vector<Movie_Document*> tmpDocs = tmpClt->getMovieDocs();
-
-    if(tmpClt != nullptr && (!tmpDocs.empty())){
-        for(auto i : tmpDocs){
-            printf("Document %d\n",cnt);
-            cout << "poster-link: " << i->poster_Link << endl;
-            cout << "series-title: " << i->series_title << endl;
-            cout << "released-year: " << i->released_year << endl;
-            cout << "certificate: " << i->certificate << endl;
-            cout << "runtime: " << i->runtime << endl;
-            cout << "genre: " << i->genre<< endl;
-            cout << "IMDB-rating: " << i->IMDB_rating << endl;
-            cout << "overview: " << i->overview << endl;
-            cout << "meta-score: " << i->meta_score << endl;
-            cout << "director: " << i->Director << endl;
-            cout << "Stars: " << i->Star1 << ", " << i->Star2 << ", " << i->Star3 << ", " << i->Star4 << endl;
-            cout << "number-votes: " << i->numVotes << endl;
-            cout << "gross: " << i->gross << endl << endl;
-            cnt++;
-        }
-        cout << "size of current data base is: " << tmpClt->movieDocs.size() << endl;
-
-    }
-    else{
-
+    if (tmpClt == nullptr){
         cout << "Collection not found.\n";
+    }else{
+        vector<Movie_Document*> tmpDocs = tmpClt->getMovieDocs();
+        if(tmpDocs.empty()){
+            cout << "Collection has a empty document.\n";
+        }else{  
+            string temp_input;    
+            int impl = 0;
+            int higher_bound = 0;
+            if (5 + impl*5 < tmpDocs.size()){
+                higher_bound = 5 + impl*5;
+            }else{
+                higher_bound = tmpDocs.size();
+            }
+            for (int i = 0 + impl*5; i < higher_bound; ++i){
+                Movie_Document* curr = tmpDocs[i];
+                if(curr != nullptr){
+                    printf("Document %d\n",i+1);
+                    cout << "poster-link: " << curr->poster_Link << endl;
+                    cout << "series-title: " << curr->series_title << endl;
+                    cout << "released-year: " << curr->released_year << endl;
+                    cout << "certificate: " << curr->certificate << endl;
+                    cout << "runtime: " << curr->runtime << endl;
+                    cout << "genre: " << curr->genre<< endl;
+                    cout << "IMDB-rating: " << curr->IMDB_rating << endl;
+                    cout << "overview: " << curr->overview << endl;
+                    cout << "meta-score: " << curr->meta_score << endl;
+                    cout << "director: " << curr->Director << endl;
+                    cout << "Stars: " << curr->Star1 << ", " << curr->Star2 << ", " << curr->Star3 << ", " << curr->Star4 << endl;
+                    cout << "number-votes: " << curr->numVotes << endl;
+                    cout << "gross: " << curr->gross << endl << endl;
+                }
+            }
+            cout << "type \"next\" to view next 5 movie documents, type \"previous\" to view the previous 5 movie documents" << endl;
+            cout << "type \"view\" to view current 5 movie documents again, type \"exit\" to return to main manual" << endl;
+            while(temp_input != "exit"){
+                cout << ">>> ";
+                getline(cin,temp_input);
+                if (temp_input == "next"){
+                    cout << "===================================================================================" << endl;
+                    impl = impl + 1;
+                    double div = 5;
+                    if((tmpDocs.size()/div) <= impl){
+                        cout << "you are already at the end of the documents" << endl;
+                        impl = impl - 1;
+                    }else{
+                        int higher_bound = 0;
+                        if (5 + impl*5 < tmpDocs.size()){
+                            higher_bound = 5 + impl*5;
+                        }else{
+                            higher_bound = tmpDocs.size();
+                        }
+                        for (int i = 0 + impl*5; i < higher_bound; ++i){
+                            Movie_Document* curr = tmpDocs[i];
+                            if(curr != nullptr){
+                                printf("Document %d\n",i+1);
+                                cout << "poster-link: " << curr->poster_Link << endl;
+                                cout << "series-title: " << curr->series_title << endl;
+                                cout << "released-year: " << curr->released_year << endl;
+                                cout << "certificate: " << curr->certificate << endl;
+                                cout << "runtime: " << curr->runtime << endl;
+                                cout << "genre: " << curr->genre<< endl;
+                                cout << "IMDB-rating: " << curr->IMDB_rating << endl;
+                                cout << "overview: " << curr->overview << endl;
+                                cout << "meta-score: " << curr->meta_score << endl;
+                                cout << "director: " << curr->Director << endl;
+                                cout << "Stars: " << curr->Star1 << ", " << curr->Star2 << ", " << curr->Star3 << ", " << curr->Star4 << endl;
+                                cout << "number-votes: " << curr->numVotes << endl;
+                                cout << "gross: " << curr->gross << endl << endl;
+                            }
+                        }
+                    }
+                } else if (temp_input == "previous"){
+                    if (impl == 0){
+                        cout << "you are already at the start of the documents" << endl;
+                    }else{
+                        cout << "===================================================================================" << endl;
+                        impl = impl - 1;
+                        int higher_bound = 0;
+                        if (5 + impl*5 < tmpDocs.size()){
+                            higher_bound = 5 + impl*5;
+                        }else{
+                            higher_bound = tmpDocs.size();
+                        }
+                        for (int i = 0 + impl*5; i < higher_bound; ++i){
+                            Movie_Document* curr = tmpDocs[i];
+                            if(curr != nullptr){
+                                printf("Document %d\n",i+1);
+                                cout << "poster-link: " << curr->poster_Link << endl;
+                                cout << "series-title: " << curr->series_title << endl;
+                                cout << "released-year: " << curr->released_year << endl;
+                                cout << "certificate: " << curr->certificate << endl;
+                                cout << "runtime: " << curr->runtime << endl;
+                                cout << "genre: " << curr->genre<< endl;
+                                cout << "IMDB-rating: " << curr->IMDB_rating << endl;
+                                cout << "overview: " << curr->overview << endl;
+                                cout << "meta-score: " << curr->meta_score << endl;
+                                cout << "director: " << curr->Director << endl;
+                                cout << "Stars: " << curr->Star1 << ", " << curr->Star2 << ", " << curr->Star3 << ", " << curr->Star4 << endl;
+                                cout << "number-votes: " << curr->numVotes << endl;
+                                cout << "gross: " << curr->gross << endl << endl;
+                            }
+                        }
+                    }
+                }else if (temp_input == "view"){
+                    cout << "===================================================================================" << endl;
+                    int higher_bound = 0;
+                    if (5 + impl*5 < tmpDocs.size()){
+                        higher_bound = 5 + impl*5;
+                    }else{
+                        higher_bound = tmpDocs.size();
+                    }
+                    for (int i = 0 + impl*5; i < higher_bound; ++i){
+                        Movie_Document* curr = tmpDocs[i];
+                        if(curr != nullptr){
+                            printf("Document %d\n",i+1);
+                            cout << "poster-link: " << curr->poster_Link << endl;
+                            cout << "series-title: " << curr->series_title << endl;
+                            cout << "released-year: " << curr->released_year << endl;
+                            cout << "certificate: " << curr->certificate << endl;
+                            cout << "runtime: " << curr->runtime << endl;
+                            cout << "genre: " << curr->genre<< endl;
+                            cout << "IMDB-rating: " << curr->IMDB_rating << endl;
+                            cout << "overview: " << curr->overview << endl;
+                            cout << "meta-score: " << curr->meta_score << endl;
+                            cout << "director: " << curr->Director << endl;
+                            cout << "Stars: " << curr->Star1 << ", " << curr->Star2 << ", " << curr->Star3 << ", " << curr->Star4 << endl;
+                            cout << "number-votes: " << curr->numVotes << endl;
+                            cout << "gross: " << curr->gross << endl << endl;
+                        }
+                    }
+                }
+            }
+            cout << "you have successfully exit the movie document viewer" << endl;
+            cout << ">>> ";cout << "size of current data base is: " << tmpClt->movieDocs.size() << endl;
+        }
     }
 
 }
 
 //NEEDS INPUT VALIDATION, TODO
-void Database::addDocumentManually() { //currentClt
+void Database::addDocumentManually() {
+    collection* collection = getCollectionByName(printCurrentClt_name());
     Movie_Document* addMe = new Movie_Document();
     string user_input;
+    cout << "Input the poster link: " << endl;
+    getline(cin,addMe->poster_Link);
     cout << "Input the series title: " << endl;
     getline(cin,addMe->series_title);
     cout << "Input the release year: " << endl;
@@ -309,11 +511,21 @@ void Database::addDocumentManually() { //currentClt
     cout << "Input the Director's name: " << endl;
     cin.ignore();
     getline(cin, addMe->Director);
-    cout << "Input the star: " << endl;
-    cin >> addMe->Star1;
-    currentClt->movieDocs.push_back(addMe);
-    cin.ignore();
+    cout << "Input the star1: " << endl; //also this is just the wrong format, TODO
+    getline(cin, addMe->Star1);
+    cout << "Input the star2: " << endl; //also this is just the wrong format, TODO
+    getline(cin, addMe->Star2);
+    cout << "Input the star3: " << endl; //also this is just the wrong format, TODO
+    getline(cin, addMe->Star3);
+    cout << "Input the star4: " << endl; //also this is just the wrong format, TODO
+    getline(cin, addMe->Star4);
+    cout << "Input the number of votes: " << endl;
+    cin >> addMe->numVotes;
+    cout << "Input the gross revenue: " << endl;
+    cin >> addMe->gross;
+    collection->movieDocs.push_back(addMe);
     cout << "Movie added successfully" << endl;
+    cin.ignore();
 }
 
 
@@ -405,15 +617,16 @@ void displayMovieDocument(const DataBase& database, unsigned int index) {
 
 
 */
-
-void Database::updateEntry(){
+/*
+void Database::updateEntry(string cltName){
     int cnt = 0;
+    collection* collection = getCollectionByName(cltName);
     cout << "Please enter name of movie you want to update" << endl;
     string user_input;
     getline(cin, user_input);
     bool flag = true;
-    for(auto i : currentClt->movieDocs){
-        if (i->series_title == user_input) {
+    for(auto i : ){
+        if (i. == user_input) {
             flag = false;
             printf("Document %d\n",cnt);
             cout << "poster-link: " << i->poster_Link << endl;
@@ -539,21 +752,7 @@ void Database::updateEntry(){
         cout << "Movie does not exist in the current Database" << endl;
 }
 
-//helper function, takes a string, returns true if convertable to an int
-bool Database::isStringInt(string str) {
-  int num;
-  istringstream iss(str);
-  iss >> num;
-  return iss.eof() && !iss.fail();
-}
 
-//same as isStringInt but with doubles
-bool Database::isStringDouble(string str) {
-  double num;
-  istringstream iss(str);
-  iss >> num;
-  return iss.eof() && !iss.fail();
-}
 /*
 void printAllTables(DataBase& current) {
     for (int i = 0; i < current.storedDocuments.size(); i++) {

@@ -2,7 +2,21 @@
 
 //using json = nlohmann::json;
 
+//helper function, takes a string, returns true if convertable to an int
+bool isStringInt(string str) {
+  int num;
+  istringstream iss(str);
+  iss >> num;
+  return iss.eof() && !iss.fail();
+}
 
+//same as isStringInt but with doubles
+bool isStringDouble(string str) {
+  double num;
+  istringstream iss(str);
+  iss >> num;
+  return iss.eof() && !iss.fail();
+}
 
 //helper function to parse user input from terminal
 vector<string> parseUserInput(string userInput){
@@ -89,7 +103,7 @@ void userInstruction(Database& db, vector<string>& instructions){
         }
         string cltName = instructions[1];
 
-        //db.exportCSV(cltName);
+        db.exportCSV(cltName);
     }
     
     else if(instruction == "filter"){
@@ -131,7 +145,7 @@ void userInstruction(Database& db, vector<string>& instructions){
         }
         string movTitle = "";
         movTitle = instructions[1]; 
-        db.updateEntry();
+        //db.updateEntry(movTitle);
     }
 
     // add collection and takes multiple
@@ -143,7 +157,7 @@ void userInstruction(Database& db, vector<string>& instructions){
                     cout << "please use proper command, recommanded command: \"add -m\"" << endl;
                     return;
                 }  
-                db.addDocumentManually();
+                //db.addDocumentManually();
             }
             else if(instructions[1] != "-m"){
                 if (instructions.size() != 2){
@@ -208,7 +222,7 @@ void userInstruction(Database& db, vector<string>& instructions){
             cout << "please use proper command, recommanded command: \"view\"" << endl;
             return;
         }
-        db.printSingleClt(db.getCurrentClt_name());
+        db.printSingleClt(db.printCurrentClt_name());        
     }
     else if(instruction == "exit"){
         if (instructions.size() != 1){
