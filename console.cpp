@@ -125,6 +125,11 @@ void userInstruction(Database& db, vector<string>& instructions){
         }        
         else if(tmp == "-d"){           
             //need to define print function to handle multiple parameters
+            for (int i = 2; i < instructions.size(); ++i){
+                cout << "===================================================================================" <<endl;
+                cout << "printing collection " << instructions[i] << ":" << endl;
+                db.printSingleClt(instructions[i]);
+            }
         }
     }
 
