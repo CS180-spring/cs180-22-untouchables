@@ -160,6 +160,7 @@ void userInstruction(Database& db, vector<string>& instructions){
         }else{
             cout << "please use proper command, recommanded command: \"add <name> or add -m\"" << endl;
             return;
+        }
     }  
 
     // updates current collection
