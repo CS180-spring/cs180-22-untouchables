@@ -490,7 +490,15 @@ void Database::addDocumentManually() {
     string checkMe;
     string user_input;
     cout << "Input the poster link: " << endl;
-    getline(cin,addMe->poster_Link);
+    getline(cin, checkMe);
+    if (isValidLink(checkMe)) {
+        addMe->poster_Link = checkMe;
+    }
+    else {
+        cout << "Error, invalid input" << endl;
+        delete addMe;
+        return;
+    }
     cout << "Input the series title: " << endl;
     getline(cin,addMe->series_title);
     cout << "Input the release year: " << endl;
@@ -691,8 +699,10 @@ void Database::updateEntry(string user_input){
             if (user_input == "poster-link") {
                 cout << "What would you like to change it to?" << endl;
                 getline(cin, user_input);
-                i->poster_Link = user_input;
-                flag1 = true;
+                if (isValidLink(user_input)) {
+                    i->poster_Link = user_input;
+                    flag1 = true;
+                }
             }
             else if (user_input == "series-title") {
                 cout << "What would you like to change it to?" << endl;
@@ -835,7 +845,6 @@ bool Database::isStringDouble(string str) {
   return iss.eof() && !iss.fail();
 }
 
-/* Save for a day where everyone hates each other and themselves
 bool Database::isValidLink(const std::string& link) { 
   regex linkPattern(
       R"(^(https?|ftp)://[^\s/$.?#].[^\s]*$)", std::regex::icase);

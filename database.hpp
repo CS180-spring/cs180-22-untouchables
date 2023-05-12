@@ -76,10 +76,10 @@ class Database{
         collection* currentClt;
         vector<collection*> collectionDB;
 
-        //helper functions, used in updateEntry
+        //helper functions, used in updateEntry/addDocManually for input validation
         bool isStringInt(string str);
         bool isStringDouble(string str);
-        //bool isValidLink(const std::string& link);
+        bool isValidLink(const std::string& link);
 
 
 };
