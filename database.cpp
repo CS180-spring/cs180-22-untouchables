@@ -353,14 +353,13 @@ void Database::printSingleClt(string cltName){
         }else{  
             string temp_input;    
             int impl = 0;
-            /*
             int higher_bound = 0;
-            if (5 + impl*5 > tmpDocs.size()){
+            if (5 + impl*5 < tmpDocs.size()){
                 higher_bound = 5 + impl*5;
             }else{
                 higher_bound = tmpDocs.size();
-            }*/
-            for (int i = 0 + impl*5; i < 5 + impl*5; ++i){
+            }
+            for (int i = 0 + impl*5; i < higher_bound; ++i){
                 Movie_Document* curr = tmpDocs[i];
                 if(curr != nullptr){
                     printf("Document %d\n",i+1);
@@ -380,17 +379,25 @@ void Database::printSingleClt(string cltName){
                 }
             }
             cout << "type \"next\" to view next 5 movie documents, type \"previous\" to view the previous 5 movie documents" << endl;
-            cout << "type \"exit\" to return to main manual" << endl;
+            cout << "type \"view\" to view current 5 movie documents again, type \"exit\" to return to main manual" << endl;
             while(temp_input != "exit"){
                 cout << ">>> ";
                 getline(cin,temp_input);
                 if (temp_input == "next"){
                     cout << "===================================================================================" << endl;
                     impl = impl + 1;
-                    if(tmpDocs[0+impl*5] == nullptr){
+                    double div = 5;
+                    if((tmpDocs.size()/div) <= impl){
                         cout << "you are already at the end of the documents" << endl;
+                        impl = impl - 1;
                     }else{
-                        for (int i = 0 + impl*5; i < 5 + impl*5; ++i){
+                        int higher_bound = 0;
+                        if (5 + impl*5 < tmpDocs.size()){
+                            higher_bound = 5 + impl*5;
+                        }else{
+                            higher_bound = tmpDocs.size();
+                        }
+                        for (int i = 0 + impl*5; i < higher_bound; ++i){
                             Movie_Document* curr = tmpDocs[i];
                             if(curr != nullptr){
                                 printf("Document %d\n",i+1);
@@ -416,7 +423,13 @@ void Database::printSingleClt(string cltName){
                     }else{
                         cout << "===================================================================================" << endl;
                         impl = impl - 1;
-                        for (int i = 0 + impl*5; i < 5 + impl*5; ++i){
+                        int higher_bound = 0;
+                        if (5 + impl*5 < tmpDocs.size()){
+                            higher_bound = 5 + impl*5;
+                        }else{
+                            higher_bound = tmpDocs.size();
+                        }
+                        for (int i = 0 + impl*5; i < higher_bound; ++i){
                             Movie_Document* curr = tmpDocs[i];
                             if(curr != nullptr){
                                 printf("Document %d\n",i+1);
@@ -436,18 +449,49 @@ void Database::printSingleClt(string cltName){
                             }
                         }
                     }
+                }else if (temp_input == "view"){
+                    cout << "===================================================================================" << endl;
+                    int higher_bound = 0;
+                    if (5 + impl*5 < tmpDocs.size()){
+                        higher_bound = 5 + impl*5;
+                    }else{
+                        higher_bound = tmpDocs.size();
+                    }
+                    for (int i = 0 + impl*5; i < higher_bound; ++i){
+                        Movie_Document* curr = tmpDocs[i];
+                        if(curr != nullptr){
+                            printf("Document %d\n",i+1);
+                            cout << "poster-link: " << curr->poster_Link << endl;
+                            cout << "series-title: " << curr->series_title << endl;
+                            cout << "released-year: " << curr->released_year << endl;
+                            cout << "certificate: " << curr->certificate << endl;
+                            cout << "runtime: " << curr->runtime << endl;
+                            cout << "genre: " << curr->genre<< endl;
+                            cout << "IMDB-rating: " << curr->IMDB_rating << endl;
+                            cout << "overview: " << curr->overview << endl;
+                            cout << "meta-score: " << curr->meta_score << endl;
+                            cout << "director: " << curr->Director << endl;
+                            cout << "Stars: " << curr->Star1 << ", " << curr->Star2 << ", " << curr->Star3 << ", " << curr->Star4 << endl;
+                            cout << "number-votes: " << curr->numVotes << endl;
+                            cout << "gross: " << curr->gross << endl << endl;
+                        }
+                    }
                 }
             }
             cout << "you have successfully exit the movie document viewer" << endl;
             cout << ">>> ";cout << "size of current data base is: " << tmpClt->movieDocs.size() << endl;
         }
     }
+
 }
 
 //NEEDS INPUT VALIDATION, TODO
 void Database::addDocumentManually() {
+    collection* collection = getCollectionByName(printCurrentClt_name());
     Movie_Document* addMe = new Movie_Document();
     string user_input;
+    cout << "Input the poster link: " << endl;
+    getline(cin,addMe->poster_Link);
     cout << "Input the series title: " << endl;
     getline(cin,addMe->series_title);
     cout << "Input the release year: " << endl;
@@ -467,10 +511,21 @@ void Database::addDocumentManually() {
     cout << "Input the Director's name: " << endl;
     cin.ignore();
     getline(cin, addMe->Director);
-    cout << "Input the star: " << endl; //also this is just the wrong format, TODO
-    cin >> addMe->Star1;
-    currentClt->movieDocs.push_back(addMe);
+    cout << "Input the star1: " << endl; //also this is just the wrong format, TODO
+    getline(cin, addMe->Star1);
+    cout << "Input the star2: " << endl; //also this is just the wrong format, TODO
+    getline(cin, addMe->Star2);
+    cout << "Input the star3: " << endl; //also this is just the wrong format, TODO
+    getline(cin, addMe->Star3);
+    cout << "Input the star4: " << endl; //also this is just the wrong format, TODO
+    getline(cin, addMe->Star4);
+    cout << "Input the number of votes: " << endl;
+    cin >> addMe->numVotes;
+    cout << "Input the gross revenue: " << endl;
+    cin >> addMe->gross;
+    collection->movieDocs.push_back(addMe);
     cout << "Movie added successfully" << endl;
+    cin.ignore();
 }
 
 
