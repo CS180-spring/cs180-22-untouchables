@@ -40,6 +40,7 @@ void messageDisplayer() {
     cout << "enter 'db' to display current collection" << endl;
     cout << "enter 'db-all' to display all available collections" << endl;
     cout << "enter 'import -<format> <collection> <file>' to import data file into collection\n";           //added this to import .csv/JSON files into specified collection
+    cout << "enter 'export <collection>' to export collection into data file\n";
     cout << "enter 'print -<flag> <collection>' to print all movie documents of current database\n";        //added this to print data
     cout << "enter 'add <name>' to add a new database" << endl;
     cout << "enter 'use <name>' to switch to another database" << endl;
@@ -96,6 +97,10 @@ void userInstruction(Database& db, vector<string>& instructions){
     }
 
     else if(instruction == "export"){
+        if (instructions.size() != 2){
+            cout << "please use proper command, recommanded command: \"export <collection>\"" << endl;
+            return;
+        }
         string cltName = instructions[1];
 
         db.exportCSV(cltName);
