@@ -74,7 +74,7 @@ void Database::printCurrentClt(){
     cout << "current collection is: " << currentClt->name << "\n";
 }
 
-string Database::printCurrentClt_name(){
+string Database::getCurrentClt_name(){
     return currentClt->name;
 }
 
@@ -484,46 +484,93 @@ void Database::printSingleClt(string cltName){
     }
 
 }
-
 //NEEDS INPUT VALIDATION, TODO
 void Database::addDocumentManually() {
-    collection* collection = getCollectionByName(printCurrentClt_name());
     Movie_Document* addMe = new Movie_Document();
+    string checkMe;
     string user_input;
     cout << "Input the poster link: " << endl;
     getline(cin,addMe->poster_Link);
     cout << "Input the series title: " << endl;
     getline(cin,addMe->series_title);
     cout << "Input the release year: " << endl;
-    cin >> addMe->released_year;
+    cin >> checkMe;
+    if (isStringInt(checkMe) && stoi(checkMe) > 1887 && stoi(checkMe) <= 2050)
+        addMe->released_year = stoi(checkMe);
+    else {
+        cout << "Error, invalid input" << endl;
+        delete addMe;
+        cin.ignore();
+        return;
+    }
     cout << "Input the runtime (int): " << endl;
-    cin >> addMe->runtime;
+    cin >> checkMe;
+    if (isStringInt(checkMe) && stoi(checkMe) > 0)
+        addMe->runtime = stoi(checkMe);
+    else {
+        cout << "Error, invalid input" << endl;
+        delete addMe;
+        cin.ignore();
+        return;
+    }
     cout << "Input the genre: " << endl; 
     cin.ignore();
     getline(cin, addMe->genre);
     cout << "Input the IMDB_rating (double): " << endl;
-    cin >> addMe->IMDB_rating;
+    cin >> checkMe;
+    if (isStringDouble(checkMe) && stod(checkMe) >= 0 && stod(checkMe) <= 10) 
+        addMe->IMDB_rating = stod(checkMe);
+    else {
+        cout << "Error, invalid input" << endl;
+        delete addMe;
+        cin.ignore();
+        return;
+    }
     cout << "Input the description: " << endl;
     cin.ignore();
     getline(cin, addMe->overview);
     cout << "Input the meta_score: " << endl;
-    cin >> addMe->meta_score;
+    cin >> checkMe;
+    if (isStringInt(checkMe) && stoi(checkMe) >= 0 && stoi(checkMe) <= 100)
+        addMe->meta_score = stoi(checkMe);
+    else {
+        cout << "Error, invalid input" << endl;
+        delete addMe;
+        cin.ignore();
+        return;
+    }
     cout << "Input the Director's name: " << endl;
     cin.ignore();
     getline(cin, addMe->Director);
-    cout << "Input the star1: " << endl; //also this is just the wrong format, TODO
+    cout << "Input the first star's name: " << endl; //also this is just the wrong format, TODO
     getline(cin, addMe->Star1);
-    cout << "Input the star2: " << endl; //also this is just the wrong format, TODO
+    cout << "Input the second star's name: " << endl; //also this is just the wrong format, TODO
     getline(cin, addMe->Star2);
-    cout << "Input the star3: " << endl; //also this is just the wrong format, TODO
+    cout << "Input the third star's name: " << endl; //also this is just the wrong format, TODO
     getline(cin, addMe->Star3);
-    cout << "Input the star4: " << endl; //also this is just the wrong format, TODO
+    cout << "Input the fourth star's name: " << endl; //also this is just the wrong format, TODO
     getline(cin, addMe->Star4);
     cout << "Input the number of votes: " << endl;
-    cin >> addMe->numVotes;
+    cin >> checkMe;
+    if (isStringInt(checkMe) && stoi(checkMe) > 0)
+        addMe->numVotes = stoi(checkMe);
+    else {
+        cout << "Error, invalid input" << endl;
+        delete addMe;
+        cin.ignore();
+        return;
+    }
     cout << "Input the gross revenue: " << endl;
-    cin >> addMe->gross;
-    collection->movieDocs.push_back(addMe);
+    cin >> checkMe;
+     if (isStringInt(checkMe) && stoi(checkMe) > 0)
+        addMe->gross = stoi(checkMe);
+    else {
+        cout << "Error, invalid input" << endl;
+        delete addMe;
+        cin.ignore();
+        return;
+    }
+    currentClt->movieDocs.push_back(addMe);
     cout << "Movie added successfully" << endl;
     cin.ignore();
 }
@@ -657,7 +704,7 @@ void Database::updateEntry(string user_input){
                 cout << "What would you like to change it to? Enter a year " << endl;
                 getline(cin, user_input);
                 if (isStringInt(user_input)) {
-                    if (stoi(user_input) >  1890 && stoi(user_input) < 2050) {
+                    if (stoi(user_input) >  1887 && stoi(user_input) < 2050) {
                         i->released_year = stoi(user_input);
                         flag1 = true;
                     }
@@ -786,6 +833,14 @@ bool Database::isStringDouble(string str) {
   istringstream iss(str);
   iss >> num;
   return iss.eof() && !iss.fail();
+}
+
+/* Save for a day where everyone hates each other and themselves
+bool Database::isValidLink(const std::string& link) { 
+  regex linkPattern(
+      R"(^(https?|ftp)://[^\s/$.?#].[^\s]*$)", std::regex::icase);
+
+  return regex_match(link, linkPattern);
 }
 
 /*

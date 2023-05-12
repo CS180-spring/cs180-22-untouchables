@@ -8,6 +8,7 @@
 #include <string>
 #include <map> //linking documents with databases
 #include <algorithm>
+#include <regex>
 //#include <nlohmann/json.hpp>
 
 using namespace std;
@@ -48,7 +49,7 @@ class Database{
         void addCollection(string cltName);
         void useCollection(string cltName);
         void printCurrentClt();
-        string printCurrentClt_name();
+        string getCurrentClt_name();
         //collection* useCollection(string cltName);
         void importCSV(string cltName, string fileName);
         void importJSON(collection* db, string fileName);
@@ -78,6 +79,7 @@ class Database{
         //helper functions, used in updateEntry
         bool isStringInt(string str);
         bool isStringDouble(string str);
+        //bool isValidLink(const std::string& link);
 
 
 };

@@ -148,7 +148,7 @@ void userInstruction(Database& db, vector<string>& instructions){
                     cout << "please use proper command, recommanded command: \"add -m\"" << endl;
                     return;
                 }  
-                //db.addDocumentManually();
+                db.addDocumentManually();
             }
             else if(instructions[1] != "-m"){
                 if (instructions.size() != 2){
@@ -213,7 +213,7 @@ void userInstruction(Database& db, vector<string>& instructions){
             cout << "please use proper command, recommanded command: \"view\"" << endl;
             return;
         }
-        db.printSingleClt(db.printCurrentClt_name());        
+        db.printSingleClt(db.getCurrentClt_name());        
     }
     else if(instruction == "exit"){
         if (instructions.size() != 1){
