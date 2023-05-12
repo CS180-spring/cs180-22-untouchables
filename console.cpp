@@ -2,21 +2,7 @@
 
 //using json = nlohmann::json;
 
-//helper function, takes a string, returns true if convertable to an int
-bool isStringInt(string str) {
-  int num;
-  istringstream iss(str);
-  iss >> num;
-  return iss.eof() && !iss.fail();
-}
 
-//same as isStringInt but with doubles
-bool isStringDouble(string str) {
-  double num;
-  istringstream iss(str);
-  iss >> num;
-  return iss.eof() && !iss.fail();
-}
 
 //helper function to parse user input from terminal
 vector<string> parseUserInput(string userInput){
@@ -139,13 +125,18 @@ void userInstruction(Database& db, vector<string>& instructions){
     }
 
     else if(instruction == "modify"){
-        if (instructions.size() != 2){
+        if (instructions.size() <= 1){
             cout << "please use proper command, recommanded command: \"modify <movie_title>\"" << endl;
             return;
         }
         string movTitle = "";
-        movTitle = instructions[1]; 
-        //db.updateEntry(movTitle);
+        for (int i = 1; i < instructions.size(); i++) {
+            movTitle += instructions[i];
+            if (i != instructions.size() - 1 ) { // check to see if not last in vector
+                movTitle += " ";    
+            }
+        }
+        db.updateEntry(movTitle);
     }
 
     // add collection and takes multiple

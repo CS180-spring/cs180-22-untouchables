@@ -617,16 +617,12 @@ void displayMovieDocument(const DataBase& database, unsigned int index) {
 
 
 */
-/*
-void Database::updateEntry(string cltName){
+
+void Database::updateEntry(string user_input){
     int cnt = 0;
-    collection* collection = getCollectionByName(cltName);
-    cout << "Please enter name of movie you want to update" << endl;
-    string user_input;
-    getline(cin, user_input);
     bool flag = true;
-    for(auto i : ){
-        if (i. == user_input) {
+    for(auto i : currentClt->movieDocs){
+        if (i->series_title == user_input) {
             flag = false;
             printf("Document %d\n",cnt);
             cout << "poster-link: " << i->poster_Link << endl;
@@ -722,6 +718,30 @@ void Database::updateEntry(string cltName){
                 flag1 = true;
             }
             //I'm leaving out stars for now, TODO
+            else if (user_input == "Star1") {
+                cout << "What would you like to change it to?" << endl;
+                getline(cin, user_input);
+                i->Star1 = user_input;
+                flag1 = true;
+            }
+            else if (user_input == "Star2") {
+                cout << "What would you like to change it to?" << endl;
+                getline(cin, user_input);
+                i->Star2 = user_input;
+                flag1 = true;
+            }
+            else if (user_input == "Star3") {
+                cout << "What would you like to change it to?" << endl;
+                getline(cin, user_input);
+                i->Star3 = user_input;
+                flag1 = true;
+            }
+            else if (user_input == "Star4") {
+                cout << "What would you like to change it to?" << endl;
+                getline(cin, user_input);
+                i->Star4 = user_input;
+                flag1 = true;
+            }
             else if (user_input == "number-votes") {
                 cout << "What would you like to change it to? Enter an integer" << endl;
                 getline(cin, user_input);
@@ -752,6 +772,21 @@ void Database::updateEntry(string cltName){
         cout << "Movie does not exist in the current Database" << endl;
 }
 
+//helper function, takes a string, returns true if convertable to an int
+bool Database::isStringInt(string str) {
+  int num;
+  istringstream iss(str);
+  iss >> num;
+  return iss.eof() && !iss.fail();
+}
+
+//same as isStringInt but with doubles
+bool Database::isStringDouble(string str) {
+  double num;
+  istringstream iss(str);
+  iss >> num;
+  return iss.eof() && !iss.fail();
+}
 
 /*
 void printAllTables(DataBase& current) {

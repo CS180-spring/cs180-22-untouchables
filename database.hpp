@@ -1,3 +1,6 @@
+#ifndef DATABASE_H
+#define DATABASE_H
+
 #include <iostream>
 #include <vector>
 #include <fstream>
@@ -72,4 +75,10 @@ class Database{
         collection* currentClt;
         vector<collection*> collectionDB;
 
+        //helper functions, used in updateEntry
+        bool isStringInt(string str);
+        bool isStringDouble(string str);
+
+
 };
+#endif

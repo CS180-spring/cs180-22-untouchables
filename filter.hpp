@@ -1,3 +1,6 @@
+#ifndef FILTER_H
+#define FILTER_H
+
 #include <iostream>
 #include <map> //linking documents with databases
 #include <string>
@@ -549,4 +552,4 @@ filter();
 
 }
 
-
+#endif
