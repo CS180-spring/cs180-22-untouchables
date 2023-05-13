@@ -93,8 +93,8 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
     }
     
     else if(instruction == "filter"){
-        //filter.alphabetSort(db);
-        filter.numberSort();
+        filter.alphabetSort();
+       
     }
     
     else if(instruction == "element"){
@@ -250,7 +250,7 @@ string check_num_word(string user_input, int limit){
 int main(){
 
     Database db;
-    Filter filter;
+    Filter filter(db);
     
     string user_input;
     vector<string> userInstruct;

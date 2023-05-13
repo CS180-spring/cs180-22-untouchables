@@ -8,25 +8,25 @@
 #include <algorithm>
 #include <fstream>
 
-using namespace std;
-
-string userinput;
-
 class Filter{
 
     public:
+    Filter(Database& db);
+    vector<Movie_Document*> copyMovieDocs(string cltName);
     void messageDisplayer();
-    void alphabetSort(Database& db);
+    void alphabetSort();
+    //bool alphaSortHelper(Movie_Document x, Movie_Document y);
     void numberSort();
     void output();
     void titleView();
     void titleFilter();
     void titleSort();
-    void alphabetSort();
     void yearView();
     void yearSort();
     void yearFilter();
 
+    private:
+    Database& db;
 
 };
 /*

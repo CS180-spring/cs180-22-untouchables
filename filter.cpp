@@ -1,19 +1,57 @@
 #include "filter.hpp"
 
-void messageDisplayer();
+// constructor with member initializer list
+// to set reference to db so db reference does
+// not have to be passed to filter class every time
+Filter::Filter(Database& db): db{db}{}
 
-void alphabetSort(Database& db){
+//void Filter::messageDisplayer();
 
-    collection clt = db.rtnCollectionByName("default");
+// Helper function for sorting
+bool alphaSortHelper( Movie_Document* x, Movie_Document* y){
 
-    cout << clt.name << endl;
+    return x->series_title < y->series_title;
+}
+
+vector<Movie_Document*> Filter::copyMovieDocs(string cltName){
+    
+    // use db function to get collection by name
+    // pointer to collection is returned
+    collection* clt = db.getCollectionByName("default");
+
+    // set variable to size of vector to be copied
+    int size = clt->movieDocs.size();
+
+    // vector to hold copied movie data
+    vector<Movie_Document*> copyVec(size);
+
+    // copy takes beginning iterator, end iterator, and beginning iterator of new vector to copy to
+    copy(clt->movieDocs.begin(),clt->movieDocs.begin() + size, copyVec.begin());
+
+    return copyVec;
 
 }
 
-void numberSort(){
+// sorts by series title right now 
+void Filter::alphabetSort(){
+
+    // gets movie data copied over
+    vector<Movie_Document*> copyVec = copyMovieDocs("default"); // can change this to a passed string variable passed to alphasort()
+    
+    // sorts with a helper function
+    sort(copyVec.begin(), copyVec.end(), alphaSortHelper);
+
+    // add new collection
+    // the parameters can be changed within your class so you can let user
+    // pick name of new collection for example.
+    db.addFltCollection("alphaSort", copyVec);
+
 }
 
-void output(){
+void Filter::numberSort(){
+}
+
+void Filter::output(){
 }
 
 /*

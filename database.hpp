@@ -45,6 +45,7 @@ class Database{
         Database();
         void dbAll();
         void addCollection(string cltName);
+        void addFltCollection(string name, vector<Movie_Document*> movieDocs);
         void useCollection(string cltName);
         void printCurrentClt();
         string getCurrentClt_name();
@@ -66,7 +67,6 @@ class Database{
         void print();
         void printAllClt();
         void printSingleClt(string name);
-        void createCollection(string name);
         void updateEntry(string cltName);
         vector<string> getCollectionsList();
 

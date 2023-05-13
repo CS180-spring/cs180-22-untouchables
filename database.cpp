@@ -69,6 +69,21 @@ void Database::addCollection(string cltName){
     cout << "New Collection \'"<< Clt->name << "\' added to database.\n";
 }
 
+// add collection from filtered results function 
+// takes additional vector<Movie_Documents*> parameter
+ void Database::addFltCollection(string cltName, vector<Movie_Document*> movieDocs){
+
+    collection* clt = new collection;
+
+    clt->name = cltName;
+
+    clt->movieDocs = movieDocs;
+
+    collectionDB.push_back(clt);
+
+    cout << "New Collection \'"<< clt->name << "\' added to database.\n\n";
+ }
+
 // update currentClt ptr to passed parameter
 // and use for reference in other functions
 void Database::useCollection(string cltName){
