@@ -1,11 +1,8 @@
 movieDB: main.o
-	g++ -o movieDB console.o database.o
+	g++ -o movieDB console.o filter.o database.o 
 
-main.o: console.cpp database.cpp
-	g++ -c console.cpp database.cpp
-
-filter.o: filter.cpp
-	g++ -c filter.cpp
+main.o: console.cpp filter.cpp database.cpp 
+	g++ -c console.cpp filter.cpp database.cpp 
 
 clean:
 	rm -f *.o

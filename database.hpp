@@ -1,5 +1,3 @@
-#ifndef DATABASE_H
-#define DATABASE_H
 
 #include <iostream>
 #include <vector>
@@ -63,6 +61,7 @@ class Database{
         //Movie_Document* updateEntry(string cltName);
         void deleteDocManual();
         collection* getCollectionByName(string name);
+        collection rtnCollectionByName(string name);
         bool deleteCollectionByName(string name);
         void print();
         void printAllClt();
@@ -83,4 +82,3 @@ class Database{
 
 
 };
-#endif

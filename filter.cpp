@@ -1,14 +1,13 @@
 #include "filter.hpp"
 
-using namespace std;
-string userinput;
-
-filter::filter(){
-    
-}
 void messageDisplayer();
 
-void alphabetSort(){
+void alphabetSort(Database& db){
+
+    collection clt = db.rtnCollectionByName("default");
+
+    cout << clt.name << endl;
+
 }
 
 void numberSort(){
@@ -17,6 +16,7 @@ void numberSort(){
 void output(){
 }
 
+/*
 void titleView(){
 cout << "A = View all" << endl;
 cout << "T = Just titles" << endl;
@@ -627,3 +627,4 @@ cout << "Please give a valid input" << endl;
 filter();
 }
 }
+*/

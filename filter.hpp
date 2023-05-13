@@ -1,5 +1,4 @@
-#ifndef FILTER_H
-#define FILTER_H
+#include "database.hpp"
 
 #include <iostream>
 #include <map> //linking documents with databases
@@ -13,12 +12,11 @@ using namespace std;
 
 string userinput;
 
-class filter{
+class Filter{
 
     public:
-    filter();
     void messageDisplayer();
-    void alphabetSort();
+    void alphabetSort(Database& db);
     void numberSort();
     void output();
     void titleView();
@@ -30,7 +28,8 @@ class filter{
     void yearFilter();
 
 
-
+};
+/*
 void certificateView(){
 cout << "A = View all" << endl;
 cout << "T = Just titles and certificates" << endl;
@@ -553,3 +552,4 @@ filter();
 }
 
 #endif
+*/

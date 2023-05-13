@@ -1,4 +1,4 @@
-#include "database.hpp"
+#include "filter.hpp"
 
 //using json = nlohmann::json;
 
@@ -42,7 +42,7 @@ void messageDisplayer() {
 }
 
 //helper function to call db functions based off of parsed user input
-void userInstruction(Database& db, vector<string>& instructions){
+void userInstruction(Filter& filter, Database& db, vector<string>& instructions){
 
     string instruction = instructions[0];
 
@@ -93,8 +93,8 @@ void userInstruction(Database& db, vector<string>& instructions){
     }
     
     else if(instruction == "filter"){
-        //filter();
-    
+        //filter.alphabetSort(db);
+        filter.numberSort();
     }
     
     else if(instruction == "element"){
@@ -250,7 +250,7 @@ string check_num_word(string user_input, int limit){
 int main(){
 
     Database db;
-
+    Filter filter;
     
     string user_input;
     vector<string> userInstruct;
@@ -267,7 +267,7 @@ int main(){
 
         // pass parsed vector to helper 
         // function to call db functions
-        userInstruction(db, userInstruct);
+        userInstruction(filter, db, userInstruct);
 
         /*
         if (user_input.substr(0, user_input.find(" ")) == "view") {

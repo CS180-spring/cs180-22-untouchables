@@ -23,6 +23,17 @@ collection* Database::getCollectionByName(string name){
     return nullptr;
 };
 
+collection Database::rtnCollectionByName(string name){
+
+    for(int i = 0; i < collectionDB.size(); i++){
+        if(collectionDB[i]->name == name){
+            
+            return *collectionDB[i];
+        }
+    }
+
+};
+
 //simple function to get the List of DataBase names
 vector<string>  Database::getCollectionsList(){
     vector<string>cltNameList;
