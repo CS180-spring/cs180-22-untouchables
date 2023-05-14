@@ -93,7 +93,14 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
     }
     
     else if(instruction == "filter"){
-        filter.alphabetSort();
+        if(instructions[1] == "-a"){
+            filter.alphabetSort();
+        }
+        else if(instructions[1] == "-g"){
+            string cltName = instructions[2];
+            string genre = instructions[3];
+            filter.genreSort(cltName, genre);
+        }
        
     }
     

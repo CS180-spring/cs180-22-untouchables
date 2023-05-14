@@ -17,6 +17,7 @@ class Filter{
     void alphabetSort();
     //bool alphaSortHelper(Movie_Document x, Movie_Document y);
     void numberSort();
+    void genreSort(string cltName, string genre);
     void output();
     void titleView();
     void titleFilter();

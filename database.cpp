@@ -84,6 +84,19 @@ void Database::addCollection(string cltName){
     cout << "New Collection \'"<< clt->name << "\' added to database.\n\n";
  }
 
+// Function simply iterates through collectionDB to check
+// if collection with referenced name already exists
+ bool Database::collectionExists(string cltName){
+    for(auto i : collectionDB){
+        if(i->name == cltName){
+            
+            return 1;
+        }
+    }
+    return 0;
+
+ }
+
 // update currentClt ptr to passed parameter
 // and use for reference in other functions
 void Database::useCollection(string cltName){

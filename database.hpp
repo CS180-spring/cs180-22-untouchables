@@ -46,6 +46,7 @@ class Database{
         void dbAll();
         void addCollection(string cltName);
         void addFltCollection(string name, vector<Movie_Document*> movieDocs);
+        bool collectionExists(string cltName);
         void useCollection(string cltName);
         void printCurrentClt();
         string getCurrentClt_name();

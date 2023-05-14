@@ -48,6 +48,26 @@ void Filter::alphabetSort(){
 
 }
 
+void Filter::genreSort(string cltName, string genre){
+    vector<Movie_Document*> copyVec = copyMovieDocs(cltName);
+    vector<Movie_Document*> sortedVec;
+
+    for(auto i : copyVec){
+        
+        if(i->genre.find(genre) != string::npos){
+            sortedVec.push_back(i);
+        }
+    }
+
+    if(!db.collectionExists(genre)){
+        db.addFltCollection(genre, sortedVec);
+    }
+    else if(db.collectionExists(genre)){
+        cout << "Collection with name \"" << genre << "\"" << " already exists\nn";
+    }
+    // Else notify user
+}
+
 void Filter::numberSort(){
 }
 
