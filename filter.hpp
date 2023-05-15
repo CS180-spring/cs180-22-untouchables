@@ -14,7 +14,7 @@ class Filter{
     Filter(Database& db);
     vector<Movie_Document*> copyMovieDocs(string cltName);
     void messageDisplayer();
-    void alphabetSort();
+    void alphabetSort(string cltName, string feature);
     //bool alphaSortHelper(Movie_Document x, Movie_Document y);
     void numberSort();
     void genreSort(string cltName, string genre);

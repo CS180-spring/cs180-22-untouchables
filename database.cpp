@@ -1,12 +1,195 @@
 #include "database.hpp"
 //#include "filter.cpp"
 
+// Helper function to parse csv files
+vector<Movie_Document*> parseCSV(string fname){
+    
+    int badcnt = 0;
+    //temp variables to hold data for parsing
+    int inQoute = 0;
+    string tmpStr = "";
+
+    //collection* collection = getCollectionByName(cltName);
+
+    vector<Movie_Document *> movieData;
+    
+    /*
+    if(collection == nullptr){
+        cout << "Collection not found\n";
+        return;
+    }
+    */
+    
+    //define your file name
+    string file_name = "/home/yt/Desktop/2023_Spring/CS180_Intro_Software_Engineering/Revised_Structure/cs180-22-untouchables/" + fname;
+
+    //attach an input stream to the wanted file
+    ifstream input_File(file_name);
+
+    //check stream status
+    if (!input_File){printf("Can't open input file!");}
+
+    // file contents
+    vector<string> tmpData;
+
+    // one line
+    string iString = "";
+    string line = "";
+
+    //burn header file line in csv document
+    getline(input_File, iString);
+
+    //get entire line of csv file with getline
+    //increment through entire file with while loop
+    while(getline(input_File, iString)){
+        //create movie_document via new and assign to movie_document pointer
+        Movie_Document* tmpDoc = new Movie_Document();
+        
+        //send current 
+        stringstream sstream(iString);
+
+        //check if end of file is reached
+        while(!sstream.eof()){
+
+            //handle quotes
+            if(sstream.peek() == '\"'){
+                getline(sstream, line, '\"');
+                getline(sstream, line, '\"');
+               
+                if(sstream.peek() == '\"'){
+                    string tmp = "";
+                    tmp = sstream.get();
+                    line = line + tmp;
+                    getline(sstream, tmpStr, '\"');
+                    
+                    tmp = sstream.get();
+
+                    line = line + tmpStr + tmp;
+                    
+                    getline(sstream, tmpStr,'\"');
+                    line = line + tmpStr;
+                }
+                //push quoted data
+                tmpData.push_back(line);
+                getline(sstream, line, ',');
+            }
+            else{     
+                //check if end of line is reached
+                if(sstream.rdbuf()->in_avail() == 0){
+                    break;
+                }
+                //get line up to ','
+                getline(sstream, line,',');
+                if(line.empty()){
+                    line = "N/A";
+                }
+                //push data to temp vector container
+                tmpData.push_back(line);
+            }  
+            
+        }   
+
+        //assign parsed data to newly created movie_document
+        //parsed data was put into vector and is now being assigned
+        //to data members of movie_document object
+        tmpDoc->poster_Link = tmpData[0];
+        tmpDoc->series_title = tmpData[1];
+        
+        if(tmpData[2] != "N/A"){
+            tmpDoc->released_year = stoi(tmpData[2]);}
+        else{tmpDoc->released_year = -1;}
+        
+        tmpDoc->certificate = tmpData[3];
+
+        if(tmpData[4] != "N/A"){
+            tmpDoc->runtime = stoi(tmpData[4]);}
+        else{tmpDoc->runtime = -1;}
+        
+        tmpDoc->genre = tmpData[5];
+        
+        if(tmpData[6] != "N/A"){
+            tmpDoc->IMDB_rating = stod(tmpData[6]);}
+        else{tmpDoc->IMDB_rating = -1;}
+      
+        tmpDoc->overview = tmpData[7];
+
+        if(tmpData[8] != "N/A"){
+            tmpDoc->meta_score = stoi(tmpData[8]);}
+        else{tmpDoc->meta_score = -1;};
+
+        tmpDoc->Director = tmpData[9];
+        tmpDoc->Star1 = tmpData[10];
+        tmpDoc->Star2 = tmpData[11];
+        tmpDoc->Star3 = tmpData[12];
+        tmpDoc->Star4 = tmpData[13];
+        
+        if(tmpData[14] != "N/A"){
+            tmpDoc->numVotes = stoi(tmpData[14]);}
+        else{tmpDoc->numVotes = -1;};
+        
+        if(tmpData[15] != "0"){
+            string str = tmpData[15];
+
+            for (int i = 0, len = str.size(); i < len; i++){
+                // check whether parsing character is punctuation or not
+                if (ispunct(str[i])){
+                    str.erase(i--, 1);
+                    len = str.size();
+                }
+            }
+            tmpDoc->gross = stoi(str);}
+        else{tmpDoc->gross = 0;};
+
+        //push new movie document to current database object
+        //the entire database is pushed to the referenced db
+        //movie documents are stored in "vector<Movie_Documents*> movieDocs"
+        //can access data elements through pointer -> 
+        movieData.push_back(tmpDoc);
+
+        //clear tmp vector for more data
+        tmpData.clear();
+        tmpData[15] = '0';
+    }
+
+    return movieData;
+
+}
+
 Database::Database(){
     collection* defaultClt = new collection;
+    mainDB = new collection;
     defaultClt->name = "default";
     collectionDB.push_back(defaultClt);
     currentClt = defaultClt;
+
+    // import main database
+    mainDB->movieDocs = parseCSV("imdb_top_1000.csv");
 }
+
+void Database::printMainDB(){
+    
+    if(!mainDB->movieDocs.empty()){
+        for(auto i : mainDB->movieDocs){
+            //cout << "poster-link: " << curr->poster_Link << endl;
+            cout << "series-title: " << i->series_title << endl;
+            cout << "released-year: " << i->released_year << endl;
+            cout << "certificate: " << i->certificate << endl;
+            cout << "runtime: " << i->runtime << endl;
+            cout << "genre: " << i->genre<< endl;
+            cout << "IMDB-rating: " << i->IMDB_rating << endl;
+            cout << "overview: " << i->overview << endl;
+            cout << "meta-score: " << i->meta_score << endl;
+            cout << "director: " << i->Director << endl;
+            cout << "Stars: " << i->Star1 << ", " << i->Star2 << ", " << i->Star3 << ", " << i->Star4 << endl;
+            cout << "number-votes: " << i->numVotes << endl;
+            cout << "gross: " << i->gross << endl << endl;
+        }
+    }
+    else{
+        cout << "Main database empty\n\n";
+    }
+};
+
 
 // Function simply returns a collection ptr to
 // to referenced collection else returns nullptr
@@ -158,154 +341,22 @@ collection* Database::useCollection(string cltName){
     return getCollectionByName(cltName);
 }
 */
-            
 
 void Database::importCSV(string cltName, string fname){
     
-    int badcnt = 0;
-    //temp variables to hold data for parsing
-    int inQoute = 0;
-    string tmpStr = "";
-
     collection* collection = getCollectionByName(cltName);
     
+    vector<Movie_Document*> movieData = parseCSV(fname);
+
     if(collection == nullptr){
         cout << "Collection not found\n";
-        return;
+
     }
-    
-    //define your file name
-    string file_name = fname; //"imdb_top_1000.csv";
+    else{
 
-    //attach an input stream to the wanted file
-    ifstream input_File(file_name);
-
-    //check stream status
-    if (!input_File){printf("Can't open input file!");}
-
-    // file contents
-    vector<string> tmpData;
-
-    // one line
-    string iString = "";
-    string line = "";
-
-    //burn header file line in csv document
-    getline(input_File, iString);
-
-    //get entire line of csv file with getline
-    //increment through entire file with while loop
-    while(getline(input_File, iString)){
-        //create movie_document via new and assign to movie_document pointer
-        Movie_Document* tmpDoc = new Movie_Document();
-        
-        //send current 
-        stringstream sstream(iString);
-
-        //check if end of file is reached
-        while(!sstream.eof()){
-
-            //handle quotes
-            if(sstream.peek() == '\"'){
-                getline(sstream, line, '\"');
-                getline(sstream, line, '\"');
-               
-                if(sstream.peek() == '\"'){
-                    string tmp = "";
-                    tmp = sstream.get();
-                    line = line + tmp;
-                    getline(sstream, tmpStr, '\"');
-                    
-                    tmp = sstream.get();
-
-                    line = line + tmpStr + tmp;
-                    
-                    getline(sstream, tmpStr,'\"');
-                    line = line + tmpStr;
-                }
-                //push quoted data
-                tmpData.push_back(line);
-                getline(sstream, line, ',');
-            }
-            else{     
-                //check if end of line is reached
-                if(sstream.rdbuf()->in_avail() == 0){
-                    break;
-                }
-                //get line up to ','
-                getline(sstream, line,',');
-                if(line.empty()){
-                    line = "N/A";
-                }
-                //push data to temp vector container
-                tmpData.push_back(line);
-            }  
-            
-        }   
-
-        //assign parsed data to newly created movie_document
-        //parsed data was put into vector and is now being assigned
-        //to data members of movie_document object
-        tmpDoc->poster_Link = tmpData[0];
-        tmpDoc->series_title = tmpData[1];
-        
-        if(tmpData[2] != "N/A"){
-            tmpDoc->released_year = stoi(tmpData[2]);}
-        else{tmpDoc->released_year = -1;}
-        
-        tmpDoc->certificate = tmpData[3];
-
-        if(tmpData[4] != "N/A"){
-            tmpDoc->runtime = stoi(tmpData[4]);}
-        else{tmpDoc->runtime = -1;}
-        
-        tmpDoc->genre = tmpData[5];
-        
-        if(tmpData[6] != "N/A"){
-            tmpDoc->IMDB_rating = stod(tmpData[6]);}
-        else{tmpDoc->IMDB_rating = -1;}
-      
-        tmpDoc->overview = tmpData[7];
-
-        if(tmpData[8] != "N/A"){
-            tmpDoc->meta_score = stoi(tmpData[8]);}
-        else{tmpDoc->meta_score = -1;};
-
-        tmpDoc->Director = tmpData[9];
-        tmpDoc->Star1 = tmpData[10];
-        tmpDoc->Star2 = tmpData[11];
-        tmpDoc->Star3 = tmpData[12];
-        tmpDoc->Star4 = tmpData[13];
-        
-        if(tmpData[14] != "N/A"){
-            tmpDoc->numVotes = stoi(tmpData[14]);}
-        else{tmpDoc->numVotes = -1;};
-        
-        if(tmpData[15] != "0"){
-            string str = tmpData[15];
-
-            for (int i = 0, len = str.size(); i < len; i++){
-                // check whether parsing character is punctuation or not
-                if (ispunct(str[i])){
-                    str.erase(i--, 1);
-                    len = str.size();
-                }
-            }
-            tmpDoc->gross = stoi(str);}
-        else{tmpDoc->gross = 0;};
-
-        //push new movie document to current database object
-        //the entire database is pushed to the referenced db
-        //movie documents are stored in "vector<Movie_Documents*> movieDocs"
-        //can access data elements through pointer -> 
-        collection->movieDocs.push_back(tmpDoc);
-
-        //clear tmp vector for more data
-        tmpData.clear();
-        tmpData[15] = '0';
+        collection->movieDocs = movieData;
+        cout << ".csv data import successful\n\n";
     }
-
-    cout << ".csv data import successful\n\n";
 }
 
 // Function takes collection name for parameter
@@ -402,7 +453,7 @@ void Database::printSingleClt(string cltName){
                 Movie_Document* curr = tmpDocs[i];
                 if(curr != nullptr){
                     printf("Document %d\n",i+1);
-                    cout << "poster-link: " << curr->poster_Link << endl;
+                    //cout << "poster-link: " << curr->poster_Link << endl;
                     cout << "series-title: " << curr->series_title << endl;
                     cout << "released-year: " << curr->released_year << endl;
                     cout << "certificate: " << curr->certificate << endl;

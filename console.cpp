@@ -1,8 +1,5 @@
 #include "filter.hpp"
-
 //using json = nlohmann::json;
-
-
 
 //helper function to parse user input from terminal
 vector<string> parseUserInput(string userInput){
@@ -22,29 +19,42 @@ vector<string> parseUserInput(string userInput){
 
 //terminal console commands
 void messageDisplayer() {
-    cout << "input command to interact with the system:" << endl;
-    cout << "enter 'db' to display current collection" << endl;
-    cout << "enter 'db-all' to display all available collections" << endl;
-    cout << "enter 'import -<format> <collection> <file>' to import data file into collection\n";           //added this to import .csv/JSON files into specified collection
-    cout << "enter 'export <collection>' to export collection into data file\n";
-    cout << "enter 'print -<flag> <collection>' to print all movie documents of current database\n";        //added this to print data
-    cout << "enter 'add <name>' to add a new database" << endl;
-    cout << "enter 'use <name>' to switch to another database" << endl;
-    cout << "enter 'filter' to filter by categories in the current database" << endl;
-    cout << "enter 'element <index>' to display an element of the current database" << endl;
-    cout << "enter 'modify <movie_title>' to change a movie's information in the curret database" << endl;
-    cout << "enter 'rm <name>' to remove an existing database" << endl;
-    cout << "enter 'menu' to revisit the command list" << endl;
-    cout << "enter 'add -m' to enter a movie in the current database" << endl;
-    cout << "enter 'enter' to enter a movie in the current database" << endl;
-    cout << "enter 'view' to show all tables in the current database" << endl; //this could be combined with 'db', I'm keeping it separate for now 
-    cout << "enter 'exit' to exit from the system" << endl;
+    int width = 5;
+    cout << "********************************************************************************************************\n";
+    cout << "*                                            Movie Database                                            *\n";
+    cout << "********************************************************************************************************\n";
+    cout << "*                                                                                                      *\n";
+    cout << left << setw(width) << "*" << left << setw(40) << "db" << left << setw(50) << "display current collection" << right << setw(9) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "db-all" << left << setw(50) << "display all available collections" << right << setw(9) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "import -<format> <collection> <file>" << left << setw(50) << "import data file into collection" << right << setw(9) << "*" << endl; //added this to import .csv/JSON files into specified collection
+    cout << left << setw(width) << "*" << left << setw(40) << "export <collection>" << left << setw(50) << "export collection" << right << setw(9) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "print -<flag> <collection>" << left << setw(50) << "print all movie documents of current database" << right << setw(9) << "*" << endl;        //added this to print data
+    cout << left << setw(width) << "*" << left << setw(40) << "add <name>" << left << setw(50) << "add new database" << right << setw(9) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "use <name>" << left << setw(50) << "switch to another database" << right << setw(9) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "filter" << left << setw(50) << "filter menu" << right << setw(9) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "element <index>" << left << setw(50) << "display an element of the current database" << right << setw(9) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "modify <movie_title>" << left << setw(50) << "change a movie's information in the curret database" << right << setw(8) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "rm <name>" << left << setw(50) << "remove an existing database" << right << setw(9) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "menu" << left << setw(50) << "revisit the command list" << right << setw(9) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "add -m" << left << setw(50) << "enter a movie in the current database" << right << setw(9) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "enter" << left << setw(50) << "enter a movie in the current database" << right << setw(9) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "view" << left << setw(50) << "show all tables in the current database" << right << setw(9) << "*" << endl; //this could be combined with 'db', I'm keeping it separate for now 
+    cout << left << setw(width) << "*" << left << setw(40) << "exit" << left << setw(50) << "exit system" << right << setw(9) << "*" << endl;
+    cout << "*                                                                                                      *" << endl;
+    cout << "********************************************************************************************************" << endl;
+    cout << endl;
 }
 
 //helper function to call db functions based off of parsed user input
 void userInstruction(Filter& filter, Database& db, vector<string>& instructions){
 
     string instruction = instructions[0];
+
+    if(instruction == "print"){
+      if(instructions[1] == "-main"){
+      db.printMainDB();
+      }
+    }
 
     //output current database
     if(instruction == "db"){
@@ -94,7 +104,9 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
     
     else if(instruction == "filter"){
         if(instructions[1] == "-a"){
-            filter.alphabetSort();
+            string cltName = instructions[2];
+            string feature = instructions[3];
+            filter.alphabetSort(cltName, feature);
         }
         else if(instructions[1] == "-g"){
             string cltName = instructions[2];
@@ -210,7 +222,7 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
             cout << "please use proper command, recommanded command: \"man\"" << endl;
             return;
         }
-        messageDisplayer();    
+        messageDisplayer();  
     }
     else if(instruction == "enter"){
         
@@ -262,9 +274,15 @@ int main(){
     string user_input;
     vector<string> userInstruct;
     
+    
     messageDisplayer();
 
+    
+
     while(1){
+
+        //consoleDisplay();
+
         // added this to imitate terminal input
         cout << ">>> ";
         getline(cin,user_input);

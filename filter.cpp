@@ -5,7 +5,33 @@
 // not have to be passed to filter class every time
 Filter::Filter(Database& db): db{db}{}
 
-//void Filter::messageDisplayer();
+void Filter::messageDisplayer(){
+    //terminal console commands
+    int width = 5;
+    cout << "********************************************************************************************************\n";
+    cout << "*                                            Movie Database                                            *\n";
+    cout << "********************************************************************************************************\n";
+    cout << "*                                                                                                      *\n";
+    cout << left << setw(width) << "*" << left << setw(40) << "db" << left << setw(50) << "display current collection" << right << setw(9) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "db-all" << left << setw(50) << "display all available collections" << right << setw(9) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "import -<format> <collection> <file>" << left << setw(50) << "import data file into collection" << right << setw(9) << "*" << endl; //added this to import .csv/JSON files into specified collection
+    cout << left << setw(width) << "*" << left << setw(40) << "export <collection>" << left << setw(50) << "export collection" << right << setw(9) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "print -<flag> <collection>" << left << setw(50) << "print all movie documents of current database" << right << setw(9) << "*" << endl;        //added this to print data
+    cout << left << setw(width) << "*" << left << setw(40) << "add <name>" << left << setw(50) << "add new database" << right << setw(9) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "use <name>" << left << setw(50) << "switch to another database" << right << setw(9) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "filter" << left << setw(50) << "filter menu" << right << setw(9) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "element <index>" << left << setw(50) << "display an element of the current database" << right << setw(9) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "modify <movie_title>" << left << setw(50) << "change a movie's information in the curret database" << right << setw(8) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "rm <name>" << left << setw(50) << "remove an existing database" << right << setw(9) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "menu" << left << setw(50) << "revisit the command list" << right << setw(9) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "add -m" << left << setw(50) << "enter a movie in the current database" << right << setw(9) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "enter" << left << setw(50) << "enter a movie in the current database" << right << setw(9) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "view" << left << setw(50) << "show all tables in the current database" << right << setw(9) << "*" << endl; //this could be combined with 'db', I'm keeping it separate for now 
+    cout << left << setw(width) << "*" << left << setw(40) << "exit" << left << setw(50) << "exit system" << right << setw(9) << "*" << endl;
+    cout << "*                                                                                                      *" << endl;
+    cout << "********************************************************************************************************" << endl;
+    cout << endl;
+};
 
 // Helper function for sorting
 bool alphaSortHelper( Movie_Document* x, Movie_Document* y){
@@ -33,7 +59,7 @@ vector<Movie_Document*> Filter::copyMovieDocs(string cltName){
 }
 
 // sorts by series title right now 
-void Filter::alphabetSort(){
+void Filter::alphabetSort(string cltName, string feature){
 
     // gets movie data copied over
     vector<Movie_Document*> copyVec = copyMovieDocs("default"); // can change this to a passed string variable passed to alphasort()
@@ -75,7 +101,7 @@ void Filter::output(){
 }
 
 /*
-void titleView(){
+void Filter::titleView(){
 cout << "A = View all" << endl;
 cout << "T = Just titles" << endl;
 getline(cin, userinput);
@@ -92,7 +118,7 @@ titleView();
 }
 
 
-void titleSort(){
+void Filter::titleSort(){
 getline(cin, userinput);
 if (userinput == "0"){
 alphabetSort();
@@ -112,7 +138,7 @@ titleSort();
 }
 }
 
-void titleFilter(){
+void Filter::titleFilter(){
 cout << "Input:" << endl;
 cout << "0 for A-Z" << endl;
 cout << "1 for Z-A" << endl;
@@ -120,7 +146,7 @@ cout << "2 for no alphabetization" << endl;
 titleSort();
 }
 
-void yearView(){
+void Filter::yearView(){
 cout << "A = View all" << endl;
 cout << "T = Just titles and years" << endl;
 getline(cin, userinput);

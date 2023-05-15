@@ -1,5 +1,6 @@
 
 #include <iostream>
+#include <iomanip>
 #include <vector>
 #include <fstream>
 #include <sstream>
@@ -66,6 +67,7 @@ class Database{
         collection rtnCollectionByName(string name);
         bool deleteCollectionByName(string name);
         void print();
+        void printMainDB();
         void printAllClt();
         void printSingleClt(string name);
         void updateEntry(string cltName);
@@ -74,6 +76,7 @@ class Database{
 
     private:
         collection* currentClt;
+        collection* mainDB;
         vector<collection*> collectionDB;
 
         //helper functions, used in updateEntry/addDocManually for input validation
