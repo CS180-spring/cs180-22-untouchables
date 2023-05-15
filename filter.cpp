@@ -7,31 +7,79 @@ Filter::Filter(Database& db): db{db}{}
 
 void Filter::messageDisplayer(){
     //terminal console commands
-    int width = 5;
-    cout << "********************************************************************************************************\n";
-    cout << "*                                            Movie Database                                            *\n";
-    cout << "********************************************************************************************************\n";
-    cout << "*                                                                                                      *\n";
-    cout << left << setw(width) << "*" << left << setw(40) << "db" << left << setw(50) << "display current collection" << right << setw(9) << "*" << endl;
-    cout << left << setw(width) << "*" << left << setw(40) << "db-all" << left << setw(50) << "display all available collections" << right << setw(9) << "*" << endl;
-    cout << left << setw(width) << "*" << left << setw(40) << "import -<format> <collection> <file>" << left << setw(50) << "import data file into collection" << right << setw(9) << "*" << endl; //added this to import .csv/JSON files into specified collection
-    cout << left << setw(width) << "*" << left << setw(40) << "export <collection>" << left << setw(50) << "export collection" << right << setw(9) << "*" << endl;
-    cout << left << setw(width) << "*" << left << setw(40) << "print -<flag> <collection>" << left << setw(50) << "print all movie documents of current database" << right << setw(9) << "*" << endl;        //added this to print data
-    cout << left << setw(width) << "*" << left << setw(40) << "add <name>" << left << setw(50) << "add new database" << right << setw(9) << "*" << endl;
-    cout << left << setw(width) << "*" << left << setw(40) << "use <name>" << left << setw(50) << "switch to another database" << right << setw(9) << "*" << endl;
-    cout << left << setw(width) << "*" << left << setw(40) << "filter" << left << setw(50) << "filter menu" << right << setw(9) << "*" << endl;
-    cout << left << setw(width) << "*" << left << setw(40) << "element <index>" << left << setw(50) << "display an element of the current database" << right << setw(9) << "*" << endl;
-    cout << left << setw(width) << "*" << left << setw(40) << "modify <movie_title>" << left << setw(50) << "change a movie's information in the curret database" << right << setw(8) << "*" << endl;
-    cout << left << setw(width) << "*" << left << setw(40) << "rm <name>" << left << setw(50) << "remove an existing database" << right << setw(9) << "*" << endl;
-    cout << left << setw(width) << "*" << left << setw(40) << "menu" << left << setw(50) << "revisit the command list" << right << setw(9) << "*" << endl;
-    cout << left << setw(width) << "*" << left << setw(40) << "add -m" << left << setw(50) << "enter a movie in the current database" << right << setw(9) << "*" << endl;
-    cout << left << setw(width) << "*" << left << setw(40) << "enter" << left << setw(50) << "enter a movie in the current database" << right << setw(9) << "*" << endl;
-    cout << left << setw(width) << "*" << left << setw(40) << "view" << left << setw(50) << "show all tables in the current database" << right << setw(9) << "*" << endl; //this could be combined with 'db', I'm keeping it separate for now 
-    cout << left << setw(width) << "*" << left << setw(40) << "exit" << left << setw(50) << "exit system" << right << setw(9) << "*" << endl;
-    cout << "*                                                                                                      *" << endl;
-    cout << "********************************************************************************************************" << endl;
-    cout << endl;
+
+    string userInput = "";
+
+    while(userInput != "exit"){
+        system("clear");
+        
+        int width = 5;
+        cout << "********************************************************************************************************\n";
+        cout << "*                                            Movie Database                                            *\n";
+        cout << "********************************************************************************************************\n";
+        cout << "*                                                                                                      *\n";
+        cout << left << setw(width) << "*" << left << setw(40) << "filter" << left << setw(50) << "filter menu" << right << setw(9) << "*" << endl;
+        cout << left << setw(width) << "*" << left << setw(40) << "query" << left << setw(50) << "query menu" << right << setw(9) << "*" << endl;
+        cout << left << setw(width) << "*" << left << setw(40) << "sort" << left << setw(50) << "sort menu" << right << setw(9) << "*" << endl; //added this to import .csv/JSON files into specified collection
+        cout << left << setw(width) << "*" << left << setw(40) << "exit" << left << setw(50) << "return to database menu" << right << setw(9) << "*" << endl;
+        cout << "*                                                                                                      *" << endl;
+        cout << "********************************************************************************************************" << endl;
+        cout << endl;
+        cout << ">>> ";
+        getline(cin,userInput);
+
+        if(userInput == "filter"){
+            filterFunction();
+
+        }
+        else if(userInput == "query"){
+
+        }
+        else if(userInput == "sort"){
+
+        }
+
+    }
 };
+
+
+void Filter::filterFunction(){
+    
+    int width = 5;
+    string userInput = "";
+    vector <Movie_Document*> filteredData;
+    
+    while(userInput != "exit"){
+        system("clear");
+
+        cout << "********************************************************************************************************\n";
+        cout << "*                                            Filter Menu                                               *\n";
+        cout << "********************************************************************************************************\n";
+        cout << "*                                                                                                      *\n";
+        cout << left << setw(width) << "*" << left << setw(40) << "1.title" << left << setw(50) << "by title" << right << setw(9) << "*" << endl;
+        cout << left << setw(width) << "*" << left << setw(40) << "2.release year" << left << setw(50) << "by release year" << right << setw(9) << "*" << endl;
+        cout << left << setw(width) << "*" << left << setw(40) << "3.rated" << left << setw(50) << "by rating" << right << setw(9) << "*" << endl; //added this to import .csv/JSON files into specified collection
+        cout << left << setw(width) << "*" << left << setw(40) << "4.runtime" << left << setw(50) << "by runtime" << right << setw(9) << "*" << endl;
+        cout << left << setw(width) << "*" << left << setw(40) << "5.genre" << left << setw(50) << "by genre" << right << setw(9) << "*" << endl;
+        cout << left << setw(width) << "*" << left << setw(40) << "6.MVDb rating" << left << setw(50) << "by MVDb rating" << right << setw(9) << "*" << endl;
+        cout << left << setw(width) << "*" << left << setw(40) << "7.overview" << left << setw(50) << "by overview" << right << setw(9) << "*" << endl;
+        cout << left << setw(width) << "*" << left << setw(40) << "8.meta score" << left << setw(50) << "by meta score" << right << setw(9) << "*" << endl;
+        cout << left << setw(width) << "*" << left << setw(40) << "9.director" << left << setw(50) << "by director" << right << setw(9) << "*" << endl;
+        cout << left << setw(width) << "*" << left << setw(40) << "10.starring" << left << setw(50) << "by actor/actress" << right << setw(9) << "*" << endl;
+        cout << left << setw(width) << "*" << left << setw(40) << "11.number of votes" << left << setw(50) << "by number of votes" << right << setw(9) << "*" << endl;
+        cout << left << setw(width) << "*" << left << setw(40) << "12.Gross" << left << setw(50) << "by gross earnings" << right << setw(9) << "*" << endl;
+        cout << left << setw(width) << "*" << left << setw(40) << "exit" << left << setw(50) << "exit filter menu" << right << setw(9) << "*" << endl;
+        cout << "*                                                                                                      *" << endl;
+        cout << "********************************************************************************************************" << endl;
+        cout << endl;
+        cout << ">>> ";
+
+        getline(cin,userInput);
+
+    }
+
+
+}
 
 // Helper function for sorting
 bool alphaSortHelper( Movie_Document* x, Movie_Document* y){

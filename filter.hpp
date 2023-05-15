@@ -12,8 +12,8 @@ class Filter{
 
     public:
     Filter(Database& db);
-    vector<Movie_Document*> copyMovieDocs(string cltName);
     void messageDisplayer();
+    void filterFunction();
     void alphabetSort(string cltName, string feature);
     //bool alphaSortHelper(Movie_Document x, Movie_Document y);
     void numberSort();
@@ -25,6 +25,7 @@ class Filter{
     void yearView();
     void yearSort();
     void yearFilter();
+    vector<Movie_Document*> copyMovieDocs(string cltName);
 
     private:
     Database& db;

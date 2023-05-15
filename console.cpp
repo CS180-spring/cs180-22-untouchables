@@ -19,6 +19,8 @@ vector<string> parseUserInput(string userInput){
 
 //terminal console commands
 void messageDisplayer() {
+    system("clear");
+
     int width = 5;
     cout << "********************************************************************************************************\n";
     cout << "*                                            Movie Database                                            *\n";
@@ -103,6 +105,10 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
     }
     
     else if(instruction == "filter"){
+
+        filter.messageDisplayer();
+        messageDisplayer();
+        /*
         if(instructions[1] == "-a"){
             string cltName = instructions[2];
             string feature = instructions[3];
@@ -113,6 +119,7 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
             string genre = instructions[3];
             filter.genreSort(cltName, genre);
         }
+        */
        
     }
     
