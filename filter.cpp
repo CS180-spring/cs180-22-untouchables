@@ -3,33 +3,44 @@
 // constructor with member initializer list
 // to set reference to db so db reference does
 // not have to be passed to filter class every time
-Filter::Filter(Database& db): db{db}{}
+Filter::Filter(Database& db): db{db}{workingClt = nullptr;}
 
-void Filter::messageDisplayer(){
+bool isNumber(){
+
+}
+
+void Filter::filterMain(){
     //terminal console commands
 
+    int width = 5;
     string userInput = "";
+    string selectedClt = "";
+
+    displayMenu();
 
     while(userInput != "exit"){
-        system("clear");
-        
-        int width = 5;
-        cout << "********************************************************************************************************\n";
-        cout << "*                                            Movie Database                                            *\n";
-        cout << "********************************************************************************************************\n";
-        cout << "*                                                                                                      *\n";
-        cout << left << setw(width) << "*" << left << setw(40) << "filter" << left << setw(50) << "filter menu" << right << setw(9) << "*" << endl;
-        cout << left << setw(width) << "*" << left << setw(40) << "query" << left << setw(50) << "query menu" << right << setw(9) << "*" << endl;
-        cout << left << setw(width) << "*" << left << setw(40) << "sort" << left << setw(50) << "sort menu" << right << setw(9) << "*" << endl; //added this to import .csv/JSON files into specified collection
-        cout << left << setw(width) << "*" << left << setw(40) << "exit" << left << setw(50) << "return to database menu" << right << setw(9) << "*" << endl;
-        cout << "*                                                                                                      *" << endl;
-        cout << "********************************************************************************************************" << endl;
-        cout << endl;
-        cout << ">>> ";
-        getline(cin,userInput);
+    
+        while(workingClt == nullptr){
 
+            getline(cin,userInput);
+
+            // selectCollection() calls db.collectionExists() and
+            // if collection exists sets Filter workingClt
+            if(selectCollection(userInput)){
+                break;
+            }
+            else if(userInput == "exit"){
+                break;
+            }
+            else{
+                cout << "Collection does not exist\n";
+            }
+        }
+    
+        getline(cin,userInput);
+        
         if(userInput == "filter"){
-            filterFunction();
+            filterDisplay();
 
         }
         else if(userInput == "query"){
@@ -40,14 +51,73 @@ void Filter::messageDisplayer(){
         }
 
     }
+
+    workingClt = nullptr;
 };
 
+void Filter::displayMenu(){
+    
+    int width = 5;
+    system("clear");
 
-void Filter::filterFunction(){
+        cout << "********************************************************************************************************\n";
+        cout << "*                                      Movie Database                                                  *\n";
+        cout << "********************************************************************************************************\n";
+        cout << "*                                                                                                      *\n";
+        cout << left << setw(width) << "*" << left << setw(40) << "1.filter" << left << setw(50) << "filter menu" << right << setw(9) << "*" << endl;
+        cout << left << setw(width) << "*" << left << setw(40) << "2.query" << left << setw(50) << "query menu" << right << setw(9) << "*" << endl;
+        cout << left << setw(width) << "*" << left << setw(40) << "3.sort" << left << setw(50) << "sort menu" << right << setw(9) << "*" << endl; //added this to import .csv/JSON files into specified collection
+        cout << left << setw(width) << "*" << left << setw(40) << "4.collections" << left << setw(50) << "display available collections" << right << setw(9) << "*" << endl;
+        cout << left << setw(width) << "*" << left << setw(40) << "5.mainDB" << left << setw(50) << "select main database" << right << setw(9) << "*" << endl;
+
+        cout << left << setw(width) << "*" << left << setw(40) << "exit" << left << setw(50) << "return to database menu" << right << setw(9) << "*" << endl;
+        cout << "*                                                                                                      *" << endl;
+        cout << "********************************************************************************************************" << endl;
+        cout << "Selected collection: ";
+        if(workingClt != nullptr){
+            cout << workingClt->name << endl;
+            cout << "Select option\n\n";
+        }
+        if(workingClt == nullptr){cout << "\nInput collection to work on:\n\n";}
+        
+        cout << ">>> ";
+}
+
+bool Filter::selectCollection(string cltName){
+
+    string tmpName = cltName;
+
+    cout << "tmpName: " << tmpName << endl;
+    while(!db.collectionExists(tmpName)){
+        cout << "Collection does not exist\n";
+        cout << tmpName << endl;
+        cout << "input collection to work on: \n\n";
+
+        cout << ">>> ";
+        getline(cin,tmpName);
+
+        if(tmpName == "exit"){
+            return 0;
+        }
+
+    }
+    
+    if(db.collectionExists(cltName)){
+    
+        workingClt = db.getCollectionByName(cltName);
+
+        displayMenu();
+        
+        return 1;
+    }
+
+    return 0;
+}
+
+void Filter::filterDisplay(){
     
     int width = 5;
     string userInput = "";
-    vector <Movie_Document*> filteredData;
     
     while(userInput != "exit"){
         system("clear");
@@ -62,24 +132,55 @@ void Filter::filterFunction(){
         cout << left << setw(width) << "*" << left << setw(40) << "4.runtime" << left << setw(50) << "by runtime" << right << setw(9) << "*" << endl;
         cout << left << setw(width) << "*" << left << setw(40) << "5.genre" << left << setw(50) << "by genre" << right << setw(9) << "*" << endl;
         cout << left << setw(width) << "*" << left << setw(40) << "6.MVDb rating" << left << setw(50) << "by MVDb rating" << right << setw(9) << "*" << endl;
-        cout << left << setw(width) << "*" << left << setw(40) << "7.overview" << left << setw(50) << "by overview" << right << setw(9) << "*" << endl;
-        cout << left << setw(width) << "*" << left << setw(40) << "8.meta score" << left << setw(50) << "by meta score" << right << setw(9) << "*" << endl;
-        cout << left << setw(width) << "*" << left << setw(40) << "9.director" << left << setw(50) << "by director" << right << setw(9) << "*" << endl;
-        cout << left << setw(width) << "*" << left << setw(40) << "10.starring" << left << setw(50) << "by actor/actress" << right << setw(9) << "*" << endl;
-        cout << left << setw(width) << "*" << left << setw(40) << "11.number of votes" << left << setw(50) << "by number of votes" << right << setw(9) << "*" << endl;
-        cout << left << setw(width) << "*" << left << setw(40) << "12.Gross" << left << setw(50) << "by gross earnings" << right << setw(9) << "*" << endl;
+        cout << left << setw(width) << "*" << left << setw(40) << "7.meta score" << left << setw(50) << "by meta score" << right << setw(9) << "*" << endl;
+        cout << left << setw(width) << "*" << left << setw(40) << "8.director" << left << setw(50) << "by director" << right << setw(9) << "*" << endl;
+        cout << left << setw(width) << "*" << left << setw(40) << "9.starring" << left << setw(50) << "by actor/actress" << right << setw(9) << "*" << endl;
+        cout << left << setw(width) << "*" << left << setw(40) << "10.number of votes" << left << setw(50) << "by number of votes" << right << setw(9) << "*" << endl;
+        cout << left << setw(width) << "*" << left << setw(40) << "11.Gross" << left << setw(50) << "by gross earnings" << right << setw(9) << "*" << endl;
+        cout << left << setw(width) << "*" << left << setw(40) << "12.multiple filters" << left << setw(50) << "apply multiple filters" << right << setw(9) << "*" << endl;
         cout << left << setw(width) << "*" << left << setw(40) << "exit" << left << setw(50) << "exit filter menu" << right << setw(9) << "*" << endl;
         cout << "*                                                                                                      *" << endl;
         cout << "********************************************************************************************************" << endl;
+        cout << "Selected collection: ";
+        if(workingClt != nullptr){cout << workingClt->name << endl;}
         cout << endl;
         cout << ">>> ";
 
         getline(cin,userInput);
 
+        if(userInput == "1" || userInput == "title"){
+            cout << "Enter name of title: ";
+            getline(cin, userInput);
+            
+            titleFilter(userInput);
+
+        }
+        else if(userInput == "5" || userInput == "genre"){
+            cout << "Enter genre type: ";
+            getline(cin, userInput);
+
+            //genreFilter(userInput);
+        }
     }
+}
+
+void multipleFilters(vector<string> fltNames){
 
 
 }
+
+void Filter::titleFilter(string titleName){
+
+    vector<Movie_Document*> filteredMov;
+
+    for(auto i : workingClt->movieDocs){
+        if(i->series_title == titleName){
+            filteredData.push_back(i);
+        }
+    }
+
+}
+
 
 // Helper function for sorting
 bool alphaSortHelper( Movie_Document* x, Movie_Document* y){

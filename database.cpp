@@ -21,7 +21,7 @@ vector<Movie_Document*> parseCSV(string fname){
     */
     
     //define your file name
-    string file_name = "/home/yt/Desktop/2023_Spring/CS180_Intro_Software_Engineering/Revised_Structure/cs180-22-untouchables/" + fname;
+    string file_name = fname;
 
     //attach an input stream to the wanted file
     ifstream input_File(file_name);
@@ -156,11 +156,11 @@ vector<Movie_Document*> parseCSV(string fname){
 }
 
 Database::Database(){
-    collection* defaultClt = new collection;
+    //collection* defaultClt = new collection;
     mainDB = new collection;
-    defaultClt->name = "default";
-    collectionDB.push_back(defaultClt);
-    currentClt = defaultClt;
+    mainDB->name = "mainDB";
+    //collectionDB.push_back(defaultClt);
+    //currentClt = defaultClt;
 
     // import main database
     mainDB->movieDocs = parseCSV("imdb_top_1000.csv");
@@ -196,13 +196,19 @@ void Database::printMainDB(){
 // if collection does not exist
 collection* Database::getCollectionByName(string name){
 
-    for(int i = 0; i < collectionDB.size(); i++){
-        if(collectionDB[i]->name == name){
-            
-            return collectionDB[i];
+    if(name == "mainDB"){
+        
+        return mainDB;
+    }
+    else{
+        for(int i = 0; i < collectionDB.size(); i++){
+            if(collectionDB[i]->name == name){
+                
+                return collectionDB[i];
+            }
         }
     }
-
+    
     return nullptr;
 };
 
@@ -270,6 +276,11 @@ void Database::addCollection(string cltName){
 // Function simply iterates through collectionDB to check
 // if collection with referenced name already exists
  bool Database::collectionExists(string cltName){
+    if(cltName == "mainDB" && !mainDB->movieDocs.empty()){
+        
+        return 1;
+    }
+    
     for(auto i : collectionDB){
         if(i->name == cltName){
             

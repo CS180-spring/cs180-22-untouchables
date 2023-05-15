@@ -12,16 +12,20 @@ class Filter{
 
     public:
     Filter(Database& db);
-    void messageDisplayer();
-    void filterFunction();
+    bool selectCollection(string cltName);
+    void displayMenu();
+    void filterMain();
+    void filterDisplay();
+    void multipleFilters(vector<string> fltNames);
     void alphabetSort(string cltName, string feature);
     //bool alphaSortHelper(Movie_Document x, Movie_Document y);
     void numberSort();
+    void genreFilter(string genre);
     void genreSort(string cltName, string genre);
     void output();
     void titleView();
-    void titleFilter();
-    void titleSort();
+    void titleFilter(string titleName);
+    void titleSort(string titleName);
     void yearView();
     void yearSort();
     void yearFilter();
@@ -29,6 +33,9 @@ class Filter{
 
     private:
     Database& db;
+    collection* workingClt;
+    vector <Movie_Document*> filteredData;
+    vector <Movie_Document*> sortedData;
 
 };
 /*

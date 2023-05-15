@@ -106,7 +106,7 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
     
     else if(instruction == "filter"){
 
-        filter.messageDisplayer();
+        filter.filterMain();
         messageDisplayer();
         /*
         if(instructions[1] == "-a"){
@@ -295,11 +295,20 @@ int main(){
         getline(cin,user_input);
 
         // parse user input and return in vector or strings
-        userInstruct = parseUserInput(user_input);
+        if(!user_input.empty()){
+            
+            userInstruct = parseUserInput(user_input);
+        
+            // pass parsed vector to helper 
+            // function to call db functions
+            userInstruction(filter, db, userInstruct);
+        }
+        else if(user_input.empty()){
+            
+            cout << "input not valid!\n\n";
+        }
 
-        // pass parsed vector to helper 
-        // function to call db functions
-        userInstruction(filter, db, userInstruct);
+        
 
         /*
         if (user_input.substr(0, user_input.find(" ")) == "view") {
