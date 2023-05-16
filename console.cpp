@@ -30,17 +30,17 @@ void messageDisplayer() {
     cout << left << setw(width) << "*" << left << setw(40) << "db-all" << left << setw(50) << "display all available collections" << right << setw(9) << "*" << endl;
     cout << left << setw(width) << "*" << left << setw(40) << "import -<format> <collection> <file>" << left << setw(50) << "import data file into collection" << right << setw(9) << "*" << endl; //added this to import .csv/JSON files into specified collection
     cout << left << setw(width) << "*" << left << setw(40) << "export <collection>" << left << setw(50) << "export collection" << right << setw(9) << "*" << endl;
-    cout << left << setw(width) << "*" << left << setw(40) << "print -<flag> <collection>" << left << setw(50) << "print all movie documents of current database" << right << setw(9) << "*" << endl;        //added this to print data
-    cout << left << setw(width) << "*" << left << setw(40) << "add <name>" << left << setw(50) << "add new database" << right << setw(9) << "*" << endl;
-    cout << left << setw(width) << "*" << left << setw(40) << "use <name>" << left << setw(50) << "switch to another database" << right << setw(9) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "print -<flag> <collection>" << left << setw(50) << "print all movie documents of selected collection" << right << setw(9) << "*" << endl;        //added this to print data
+    cout << left << setw(width) << "*" << left << setw(40) << "add <name>" << left << setw(50) << "add new collection" << right << setw(9) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "use <name>" << left << setw(50) << "switch to another collection" << right << setw(9) << "*" << endl;
     cout << left << setw(width) << "*" << left << setw(40) << "filter" << left << setw(50) << "filter menu" << right << setw(9) << "*" << endl;
-    cout << left << setw(width) << "*" << left << setw(40) << "element <index>" << left << setw(50) << "display an element of the current database" << right << setw(9) << "*" << endl;
-    cout << left << setw(width) << "*" << left << setw(40) << "modify <movie_title>" << left << setw(50) << "change a movie's information in the curret database" << right << setw(8) << "*" << endl;
-    cout << left << setw(width) << "*" << left << setw(40) << "rm <name>" << left << setw(50) << "remove an existing database" << right << setw(9) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "element <index>" << left << setw(50) << "display an element of the current collection" << right << setw(9) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "modify <movie_title>" << left << setw(50) << "change a movie's information in the curret collection" << right << setw(8) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "rm <name>" << left << setw(50) << "remove an existing collection" << right << setw(9) << "*" << endl;
     cout << left << setw(width) << "*" << left << setw(40) << "menu" << left << setw(50) << "revisit the command list" << right << setw(9) << "*" << endl;
-    cout << left << setw(width) << "*" << left << setw(40) << "add -m" << left << setw(50) << "enter a movie in the current database" << right << setw(9) << "*" << endl;
-    cout << left << setw(width) << "*" << left << setw(40) << "enter" << left << setw(50) << "enter a movie in the current database" << right << setw(9) << "*" << endl;
-    cout << left << setw(width) << "*" << left << setw(40) << "view" << left << setw(50) << "show all tables in the current database" << right << setw(9) << "*" << endl; //this could be combined with 'db', I'm keeping it separate for now 
+    cout << left << setw(width) << "*" << left << setw(40) << "add -m" << left << setw(50) << "enter a movie in the current collection" << right << setw(9) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "enter" << left << setw(50) << "enter a movie in the current collection" << right << setw(9) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "view" << left << setw(50) << "show all tables in the current collection" << right << setw(9) << "*" << endl; //this could be combined with 'db', I'm keeping it separate for now 
     cout << left << setw(width) << "*" << left << setw(40) << "exit" << left << setw(50) << "exit system" << right << setw(9) << "*" << endl;
     cout << "*                                                                                                      *" << endl;
     cout << "********************************************************************************************************" << endl;
