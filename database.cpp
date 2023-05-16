@@ -220,7 +220,7 @@ collection Database::rtnCollectionByName(string name){
             return *collectionDB[i];
         }
     }
-
+    return *collectionDB[0];
 };
 
 //simple function to get the List of DataBase names
@@ -585,7 +585,6 @@ void Database::printSingleClt(string cltName){
     }
 
 }
-//NEEDS INPUT VALIDATION, TODO
 void Database::addDocumentManually() {
     Movie_Document* addMe = new Movie_Document();
     string checkMe;
@@ -601,7 +600,15 @@ void Database::addDocumentManually() {
         return;
     }
     cout << "Input the series title: " << endl;
-    getline(cin,addMe->series_title);
+    getline(cin,checkMe);
+    if (checkMe != "") {
+        addMe->series_title = checkMe;
+    }
+    else {
+        cout << "Error, invalid input" << endl;
+        delete addMe;
+        return;
+    }
     cout << "Input the release year: " << endl;
     cin >> checkMe;
     if (isStringInt(checkMe) && stoi(checkMe) > 1887 && stoi(checkMe) <= 2050)
@@ -650,15 +657,55 @@ void Database::addDocumentManually() {
     }
     cout << "Input the Director's name: " << endl;
     cin.ignore();
-    getline(cin, addMe->Director);
+    getline(cin,checkMe);
+    if (checkMe != "") {
+        addMe->Director = checkMe;
+    }
+    else {
+        cout << "Error, invalid input" << endl;
+        delete addMe;
+        return;
+    }
     cout << "Input the first star's name: " << endl; //also this is just the wrong format, TODO
-    getline(cin, addMe->Star1);
+    getline(cin,checkMe);
+    if (checkMe != "") {
+        addMe->Star1 = checkMe;
+    }
+    else {
+        cout << "Error, invalid input" << endl;
+        delete addMe;
+        return;
+    }
     cout << "Input the second star's name: " << endl; //also this is just the wrong format, TODO
-    getline(cin, addMe->Star2);
+    getline(cin,checkMe);
+    if (checkMe != "") {
+        addMe->Star2 = checkMe;
+    }
+    else {
+        cout << "Error, invalid input" << endl;
+        delete addMe;
+        return;
+    }
     cout << "Input the third star's name: " << endl; //also this is just the wrong format, TODO
-    getline(cin, addMe->Star3);
+    getline(cin,checkMe);
+    if (checkMe != "") {
+        addMe->Star3 = checkMe;
+    }
+    else {
+        cout << "Error, invalid input" << endl;
+        delete addMe;
+        return;
+    }
     cout << "Input the fourth star's name: " << endl; //also this is just the wrong format, TODO
-    getline(cin, addMe->Star4);
+    getline(cin,checkMe);
+    if (checkMe != "") {
+        addMe->Star4 = checkMe;
+    }
+    else {
+        cout << "Error, invalid input" << endl;
+        delete addMe;
+        return;
+    }
     cout << "Input the number of votes: " << endl;
     cin >> checkMe;
     if (isStringInt(checkMe) && stoi(checkMe) > 0)
