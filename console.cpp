@@ -35,7 +35,7 @@ void messageDisplayer() {
     cout << left << setw(width) << "*" << left << setw(40) << "use <name>" << left << setw(50) << "switch to another collection" << right << setw(9) << "*" << endl;
     cout << left << setw(width) << "*" << left << setw(40) << "filter" << left << setw(50) << "filter menu" << right << setw(9) << "*" << endl;
     cout << left << setw(width) << "*" << left << setw(40) << "element <index>" << left << setw(50) << "display an element of the current collection" << right << setw(9) << "*" << endl;
-    cout << left << setw(width) << "*" << left << setw(40) << "modify <movie_title>" << left << setw(50) << "change a movie's information in the curret collection" << right << setw(8) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "modify <movie_title>" << left << setw(50) << "change a movie's information in the curret collection" << right << setw(6) << "*" << endl;
     cout << left << setw(width) << "*" << left << setw(40) << "rm <name>" << left << setw(50) << "remove an existing collection" << right << setw(9) << "*" << endl;
     cout << left << setw(width) << "*" << left << setw(40) << "menu" << left << setw(50) << "revisit the command list" << right << setw(9) << "*" << endl;
     cout << left << setw(width) << "*" << left << setw(40) << "add -m" << left << setw(50) << "enter a movie in the current collection" << right << setw(9) << "*" << endl;
@@ -239,7 +239,8 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
             cout << "please use proper command, recommanded command: \"view\"" << endl;
             return;
         }
-        db.printSingleClt(db.getCurrentClt_name());        
+        //db.printSingleClt(db.getCurrentClt_name());      
+        db.printSingleClt("mainDB");
     }
     else if(instruction == "exit"){
         if (instructions.size() != 1){
