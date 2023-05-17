@@ -172,6 +172,7 @@ Database::Database(){
 
     // import main database
     currentClt->movieDocs = parseCSV("imdb_top_1000.csv");
+    mainDB->movieDocs = parseCSV("imdb_top_1000.csv");
 }
 
 void Database::printMainDB(){
