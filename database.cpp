@@ -94,28 +94,65 @@ vector<Movie_Document*> parseCSV(string fname){
         //to data members of movie_document object
         tmpDoc->poster_Link = tmpData[0];
         tmpDoc->series_title = tmpData[1];
-        
+        /*
         if(tmpData[2] != "N/A"){
             tmpDoc->released_year = stoi(tmpData[2]);}
         else{tmpDoc->released_year = -1;}
+        */
+        if (tmpData[2] != "N/A") {
+            try {
+                tmpDoc->released_year = stoi(tmpData[2]);
+            } catch (const std::invalid_argument& e) {
+                tmpDoc->released_year = -1;
+            }
+        } else {
+            tmpDoc->released_year = -1;
+        }
         
         tmpDoc->certificate = tmpData[3];
 
-        if(tmpData[4] != "N/A"){
+        /*if(tmpData[4] != "N/A"){
             tmpDoc->runtime = stoi(tmpData[4]);}
-        else{tmpDoc->runtime = -1;}
-        
+        else{tmpDoc->runtime = -1;}*/
+        if (tmpData[4] != "N/A") {
+            try {
+                tmpDoc->runtime = stoi(tmpData[4]);
+            } catch (const std::invalid_argument& e) {
+                tmpDoc->runtime = -1;
+            }
+        } else {
+            tmpDoc->runtime = -1;
+        }
+
         tmpDoc->genre = tmpData[5];
         
-        if(tmpData[6] != "N/A"){
+        /*if(tmpData[6] != "N/A"){
             tmpDoc->IMDB_rating = stod(tmpData[6]);}
-        else{tmpDoc->IMDB_rating = -1;}
-      
+        else{tmpDoc->IMDB_rating = -1;}*/
+        if (tmpData[6] != "N/A") {
+            try {
+                tmpDoc->IMDB_rating = stod(tmpData[6]);
+            } catch (const std::invalid_argument& e) {
+                tmpDoc->IMDB_rating = -1;
+            }
+        } else {
+            tmpDoc->IMDB_rating = -1;
+        }
+
         tmpDoc->overview = tmpData[7];
 
-        if(tmpData[8] != "N/A"){
+        /*if(tmpData[8] != "N/A"){
             tmpDoc->meta_score = stoi(tmpData[8]);}
-        else{tmpDoc->meta_score = -1;};
+        else{tmpDoc->meta_score = -1;};*/
+        if (tmpData[8] != "N/A") {
+            try {
+                tmpDoc->meta_score = stoi(tmpData[8]);
+            } catch (const std::invalid_argument& e) {
+                tmpDoc->meta_score = -1;
+            }
+        } else {
+            tmpDoc->meta_score = -1;
+        }
 
         tmpDoc->Director = tmpData[9];
         tmpDoc->Star1 = tmpData[10];
@@ -123,11 +160,20 @@ vector<Movie_Document*> parseCSV(string fname){
         tmpDoc->Star3 = tmpData[12];
         tmpDoc->Star4 = tmpData[13];
         
-        if(tmpData[14] != "N/A"){
+        /*if(tmpData[14] != "N/A"){
             tmpDoc->numVotes = stoi(tmpData[14]);}
-        else{tmpDoc->numVotes = -1;};
-        
-        if(tmpData[15] != "0"){
+        else{tmpDoc->numVotes = -1;};*/
+        if (tmpData[14] != "N/A") {
+            try {
+                tmpDoc->numVotes = stoi(tmpData[14]);
+            } catch (const std::invalid_argument& e) {
+                tmpDoc->numVotes = -1;
+            }
+        } else {
+            tmpDoc->numVotes = -1;
+        }
+
+        /*if(tmpData[15] != "0"){
             string str = tmpData[15];
 
             for (int i = 0, len = str.size(); i < len; i++){
@@ -138,8 +184,22 @@ vector<Movie_Document*> parseCSV(string fname){
                 }
             }
             tmpDoc->gross = stoi(str);}
-        else{tmpDoc->gross = 0;};
-
+        else{tmpDoc->gross = 0;};*/
+        if (tmpData[15] != "0") {
+            string str = tmpData[15];
+            for (int i = 0, len = str.size(); i < len; i++) {
+                if (ispunct(str[i])) {
+                    str.erase(i--, 1);
+                    len = str.size();
+                }
+            } try {
+                tmpDoc->gross = stoi(str);
+            } catch (const std::invalid_argument& e) {
+                tmpDoc->gross = 0;
+            }
+        } else {
+            tmpDoc->gross = 0;
+        }
         //push new movie document to current database object
         //the entire database is pushed to the referenced db
         //movie documents are stored in "vector<Movie_Documents*> movieDocs"
