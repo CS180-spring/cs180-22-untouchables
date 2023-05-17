@@ -1,5 +1,4 @@
 #include "database.hpp"
-//#include "filter.cpp"
 
 // Helper function to parse csv files
 vector<Movie_Document*> parseCSV(string fname){
@@ -21,7 +20,7 @@ vector<Movie_Document*> parseCSV(string fname){
     */
     
     //define your file name
-    string file_name = fname;
+    string file_name = "/home/yt/Desktop/2023_Spring/CS180_Intro_Software_Engineering/Revised_Structure/cs180-22-untouchables/imdb_top_1000.csv";
 
     //attach an input stream to the wanted file
     ifstream input_File(file_name);
@@ -96,24 +95,30 @@ vector<Movie_Document*> parseCSV(string fname){
         tmpDoc->series_title = tmpData[1];
         
         if(tmpData[2] != "N/A"){
+            cout << tmpData[2] << endl;
             tmpDoc->released_year = stoi(tmpData[2]);}
         else{tmpDoc->released_year = -1;}
         
         tmpDoc->certificate = tmpData[3];
 
         if(tmpData[4] != "N/A"){
+            cout << tmpData[4] << endl;
             tmpDoc->runtime = stoi(tmpData[4]);}
         else{tmpDoc->runtime = -1;}
         
         tmpDoc->genre = tmpData[5];
         
         if(tmpData[6] != "N/A"){
+            cout << tmpData[6] << endl;
+
             tmpDoc->IMDB_rating = stod(tmpData[6]);}
         else{tmpDoc->IMDB_rating = -1;}
       
         tmpDoc->overview = tmpData[7];
 
         if(tmpData[8] != "N/A"){
+            cout << tmpData[8] << endl;
+
             tmpDoc->meta_score = stoi(tmpData[8]);}
         else{tmpDoc->meta_score = -1;};
 
@@ -124,6 +129,7 @@ vector<Movie_Document*> parseCSV(string fname){
         tmpDoc->Star4 = tmpData[13];
         
         if(tmpData[14] != "N/A"){
+            cout << tmpData[14] << endl;
             tmpDoc->numVotes = stoi(tmpData[14]);}
         else{tmpDoc->numVotes = -1;};
         
@@ -156,13 +162,16 @@ vector<Movie_Document*> parseCSV(string fname){
 }
 
 Database::Database(){
-    //collection* defaultClt = new collection;
+    collection* defaultClt = new collection;
     mainDB = new collection;
     mainDB->name = "mainDB";
-    //collectionDB.push_back(defaultClt);
-    //currentClt = defaultClt;
+    defaultClt->name = "default";
+    //currentClt = nullptr;    
+    collectionDB.push_back(defaultClt);
+    currentClt = defaultClt;
 
     // import main database
+    currentClt->movieDocs = parseCSV("imdb_top_1000.csv");
     mainDB->movieDocs = parseCSV("imdb_top_1000.csv");
 }
 
@@ -214,13 +223,22 @@ collection* Database::getCollectionByName(string name){
 
 collection Database::rtnCollectionByName(string name){
 
+    collection rtnClt;
+
     for(int i = 0; i < collectionDB.size(); i++){
         if(collectionDB[i]->name == name){
             
-            return *collectionDB[i];
+            rtnClt = *collectionDB[i];
+            break;
         }
     }
+<<<<<<< HEAD
+    return *collectionDB[0];
+=======
 
+    return rtnClt;
+
+>>>>>>> 9f4aee3 (adjusted mainDB to defualt collection)
 };
 
 //simple function to get the List of DataBase names
@@ -236,7 +254,7 @@ vector<string>  Database::getCollectionsList(){
  //display all available databases
 void Database::dbAll(){
     if (collectionDB.size() == 0){
-        cout << "no available collections.";
+        cout << "no available collections.\n\n";
     } 
     else{
         cout << "all available collections include: ";
@@ -244,7 +262,7 @@ void Database::dbAll(){
         for(auto i : getCollectionsList()){
             cout << i << " ";
         }
-        cout << endl;
+        cout << endl << endl;
     }
 }
 
@@ -303,8 +321,13 @@ void Database::useCollection(string cltName){
 }
 
 // use private collection* currentClt to print current collection
-void Database::printCurrentClt(){
-    cout << "current collection is: " << currentClt->name << "\n";
+void Database::printCurrentCltName(){
+    if(currentClt == nullptr){
+        cout << "no current collection\n\n";
+    }
+    else{
+        cout << "current collection is: " << currentClt->name << "\n\n";
+    }
 }
 
 string Database::getCurrentClt_name(){
@@ -384,7 +407,7 @@ void Database::exportCSV(string cltName){
         // used for name of exported file 
         string fileName = exportClt->name;
     
-        fileName = fileName + ".txt";
+        fileName = fileName + ".csv";
 
         // Output file stream
         ofstream oFile;
@@ -585,7 +608,6 @@ void Database::printSingleClt(string cltName){
     }
 
 }
-//NEEDS INPUT VALIDATION, TODO
 void Database::addDocumentManually() {
     Movie_Document* addMe = new Movie_Document();
     string checkMe;
@@ -601,7 +623,15 @@ void Database::addDocumentManually() {
         return;
     }
     cout << "Input the series title: " << endl;
-    getline(cin,addMe->series_title);
+    getline(cin,checkMe);
+    if (checkMe != "") {
+        addMe->series_title = checkMe;
+    }
+    else {
+        cout << "Error, invalid input" << endl;
+        delete addMe;
+        return;
+    }
     cout << "Input the release year: " << endl;
     cin >> checkMe;
     if (isStringInt(checkMe) && stoi(checkMe) > 1887 && stoi(checkMe) <= 2050)
@@ -650,15 +680,55 @@ void Database::addDocumentManually() {
     }
     cout << "Input the Director's name: " << endl;
     cin.ignore();
-    getline(cin, addMe->Director);
+    getline(cin,checkMe);
+    if (checkMe != "") {
+        addMe->Director = checkMe;
+    }
+    else {
+        cout << "Error, invalid input" << endl;
+        delete addMe;
+        return;
+    }
     cout << "Input the first star's name: " << endl; //also this is just the wrong format, TODO
-    getline(cin, addMe->Star1);
+    getline(cin,checkMe);
+    if (checkMe != "") {
+        addMe->Star1 = checkMe;
+    }
+    else {
+        cout << "Error, invalid input" << endl;
+        delete addMe;
+        return;
+    }
     cout << "Input the second star's name: " << endl; //also this is just the wrong format, TODO
-    getline(cin, addMe->Star2);
+    getline(cin,checkMe);
+    if (checkMe != "") {
+        addMe->Star2 = checkMe;
+    }
+    else {
+        cout << "Error, invalid input" << endl;
+        delete addMe;
+        return;
+    }
     cout << "Input the third star's name: " << endl; //also this is just the wrong format, TODO
-    getline(cin, addMe->Star3);
+    getline(cin,checkMe);
+    if (checkMe != "") {
+        addMe->Star3 = checkMe;
+    }
+    else {
+        cout << "Error, invalid input" << endl;
+        delete addMe;
+        return;
+    }
     cout << "Input the fourth star's name: " << endl; //also this is just the wrong format, TODO
-    getline(cin, addMe->Star4);
+    getline(cin,checkMe);
+    if (checkMe != "") {
+        addMe->Star4 = checkMe;
+    }
+    else {
+        cout << "Error, invalid input" << endl;
+        delete addMe;
+        return;
+    }
     cout << "Input the number of votes: " << endl;
     cin >> checkMe;
     if (isStringInt(checkMe) && stoi(checkMe) > 0)

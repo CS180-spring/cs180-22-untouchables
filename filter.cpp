@@ -5,9 +5,6 @@
 // not have to be passed to filter class every time
 Filter::Filter(Database& db): db{db}{workingClt = nullptr;}
 
-bool isNumber(){
-
-}
 
 void Filter::filterMain(){
     //terminal console commands

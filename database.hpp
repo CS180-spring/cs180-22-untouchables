@@ -49,7 +49,7 @@ class Database{
         void addFltCollection(string name, vector<Movie_Document*> movieDocs);
         bool collectionExists(string cltName);
         void useCollection(string cltName);
-        void printCurrentClt();
+        void printCurrentCltName();
         string getCurrentClt_name();
         //collection* useCollection(string cltName);
         void importCSV(string cltName, string fileName);

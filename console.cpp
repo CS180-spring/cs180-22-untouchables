@@ -64,7 +64,7 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
             cout << "please use proper command, recommanded command: \"db\"" << endl;
             return;
         }
-        db.printCurrentClt();
+        db.printCurrentCltName();
     }
     
     //prints list of all collections
