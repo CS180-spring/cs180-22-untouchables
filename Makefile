@@ -5,4 +5,4 @@ main.o: console.cpp filter.cpp database.cpp
 	g++ -c console.cpp filter.cpp database.cpp 
 
 clean:
-	rm -f *.o
+	rm -f *.o $(objects) movieDB
