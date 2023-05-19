@@ -128,7 +128,7 @@ void Filter::filterDisplay(){
         cout << left << setw(width) << "*" << left << setw(40) << "3.rated" << left << setw(50) << "by rating" << right << setw(9) << "*" << endl; //added this to import .csv/JSON files into specified collection
         cout << left << setw(width) << "*" << left << setw(40) << "4.runtime" << left << setw(50) << "by runtime" << right << setw(9) << "*" << endl;
         cout << left << setw(width) << "*" << left << setw(40) << "5.genre" << left << setw(50) << "by genre" << right << setw(9) << "*" << endl;
-        cout << left << setw(width) << "*" << left << setw(40) << "6.MVDb rating" << left << setw(50) << "by MVDb rating" << right << setw(9) << "*" << endl;
+        cout << left << setw(width) << "*" << left << setw(40) << "6.IMDB rating" << left << setw(50) << "by IMDB rating" << right << setw(9) << "*" << endl;
         cout << left << setw(width) << "*" << left << setw(40) << "7.meta score" << left << setw(50) << "by meta score" << right << setw(9) << "*" << endl;
         cout << left << setw(width) << "*" << left << setw(40) << "8.director" << left << setw(50) << "by director" << right << setw(9) << "*" << endl;
         cout << left << setw(width) << "*" << left << setw(40) << "9.starring" << left << setw(50) << "by actor/actress" << right << setw(9) << "*" << endl;
