@@ -20,8 +20,9 @@ vector<Movie_Document*> parseCSV(string fname){
     */
     
     //define your file name
-    string file_name = "/home/yt/Desktop/2023_Spring/CS180_Intro_Software_Engineering/Revised_Structure/cs180-22-untouchables/imdb_top_1000.csv";
-
+    //string file_name = "/home/yt/Desktop/2023_Spring/CS180_Intro_Software_Engineering/Revised_Structure/cs180-22-untouchables/imdb_top_1000.csv";
+    string file_name = "imdb_top_1000.csv";
+    
     //attach an input stream to the wanted file
     ifstream input_File(file_name);
 
@@ -93,34 +94,57 @@ vector<Movie_Document*> parseCSV(string fname){
         //to data members of movie_document object
         tmpDoc->poster_Link = tmpData[0];
         tmpDoc->series_title = tmpData[1];
-        
+        /*
         if(tmpData[2] != "N/A"){
             cout << tmpData[2] << endl;
             tmpDoc->released_year = stoi(tmpData[2]);}
         else{tmpDoc->released_year = -1;}
+        */
+        if (tmpData[2] != "N/A") {
+            try {
+                tmpDoc->released_year = stoi(tmpData[2]);
+            } catch (const std::invalid_argument& e) {
+                tmpDoc->released_year = -1;
+            }
+        } else {
+            tmpDoc->released_year = -1;
+        }
         
         tmpDoc->certificate = tmpData[3];
 
-        if(tmpData[4] != "N/A"){
-            cout << tmpData[4] << endl;
-            tmpDoc->runtime = stoi(tmpData[4]);}
-        else{tmpDoc->runtime = -1;}
-        
+        if (tmpData[4] != "N/A") {
+            try {
+                tmpDoc->runtime = stoi(tmpData[4]);
+            } catch (const std::invalid_argument& e) {
+                tmpDoc->runtime = -1;
+            }
+        } else {
+            tmpDoc->runtime = -1;
+        }
+
         tmpDoc->genre = tmpData[5];
         
-        if(tmpData[6] != "N/A"){
-            cout << tmpData[6] << endl;
+        if (tmpData[6] != "N/A") {
+            try {
+                tmpDoc->IMDB_rating = stod(tmpData[6]);
+            } catch (const std::invalid_argument& e) {
+                tmpDoc->IMDB_rating = -1;
+            }
+        } else {
+            tmpDoc->IMDB_rating = -1;
+        }
 
-            tmpDoc->IMDB_rating = stod(tmpData[6]);}
-        else{tmpDoc->IMDB_rating = -1;}
-      
         tmpDoc->overview = tmpData[7];
 
-        if(tmpData[8] != "N/A"){
-            cout << tmpData[8] << endl;
-
-            tmpDoc->meta_score = stoi(tmpData[8]);}
-        else{tmpDoc->meta_score = -1;};
+        if (tmpData[8] != "N/A") {
+            try {
+                tmpDoc->meta_score = stoi(tmpData[8]);
+            } catch (const std::invalid_argument& e) {
+                tmpDoc->meta_score = -1;
+            }
+        } else {
+            tmpDoc->meta_score = -1;
+        }
 
         tmpDoc->Director = tmpData[9];
         tmpDoc->Star1 = tmpData[10];
@@ -128,24 +152,31 @@ vector<Movie_Document*> parseCSV(string fname){
         tmpDoc->Star3 = tmpData[12];
         tmpDoc->Star4 = tmpData[13];
         
-        if(tmpData[14] != "N/A"){
-            cout << tmpData[14] << endl;
-            tmpDoc->numVotes = stoi(tmpData[14]);}
-        else{tmpDoc->numVotes = -1;};
-        
-        if(tmpData[15] != "0"){
-            string str = tmpData[15];
+        if (tmpData[14] != "N/A") {
+            try {
+                tmpDoc->numVotes = stoi(tmpData[14]);
+            } catch (const std::invalid_argument& e) {
+                tmpDoc->numVotes = -1;
+            }
+        } else {
+            tmpDoc->numVotes = -1;
+        }
 
-            for (int i = 0, len = str.size(); i < len; i++){
-                // check whether parsing character is punctuation or not
-                if (ispunct(str[i])){
+        if (tmpData[15] != "0") {
+            string str = tmpData[15];
+            for (int i = 0, len = str.size(); i < len; i++) {
+                if (ispunct(str[i])) {
                     str.erase(i--, 1);
                     len = str.size();
                 }
+            } try {
+                tmpDoc->gross = stoi(str);
+            } catch (const std::invalid_argument& e) {
+                tmpDoc->gross = 0;
             }
-            tmpDoc->gross = stoi(str);}
-        else{tmpDoc->gross = 0;};
-
+        } else {
+            tmpDoc->gross = 0;
+        }
         //push new movie document to current database object
         //the entire database is pushed to the referenced db
         //movie documents are stored in "vector<Movie_Documents*> movieDocs"
@@ -232,13 +263,9 @@ collection Database::rtnCollectionByName(string name){
             break;
         }
     }
-<<<<<<< HEAD
-    return *collectionDB[0];
-=======
 
     return rtnClt;
 
->>>>>>> 9f4aee3 (adjusted mainDB to defualt collection)
 };
 
 //simple function to get the List of DataBase names
@@ -257,7 +284,7 @@ void Database::dbAll(){
         cout << "no available collections.\n\n";
     } 
     else{
-        cout << "all available collections include: ";
+        cout << "Available collections include: ";
 
         for(auto i : getCollectionsList()){
             cout << i << " ";
@@ -289,6 +316,10 @@ void Database::addCollection(string cltName){
     collectionDB.push_back(clt);
 
     cout << "New Collection \'"<< clt->name << "\' added to database.\n\n";
+ }
+
+ collection* Database::rtnMainDB(){
+    return this->mainDB;
  }
 
 // Function simply iterates through collectionDB to check
@@ -334,10 +365,18 @@ string Database::getCurrentClt_name(){
     return currentClt->name;
 }
 
+int Database::checklen(){
+    return collectionDB.size();
+}
+
 // delete collection by name and check if not current collection
 // function will call deleteAllDocs to clean up memory allocation
 // then it will delete memory allocated for collection and return bool
 bool Database::deleteCollectionByName(string cltName){
+    
+    if(getCollectionByName(cltName) == nullptr){
+        return false;
+    }
 
     collection* clt = getCollectionByName(cltName);
 
@@ -345,14 +384,19 @@ bool Database::deleteCollectionByName(string cltName){
         return false;
     }
     else{
-    deleteAllDocs(cltName);
-    
-    delete clt;
+        deleteAllDocs(cltName); 
 
-    cout << "Collection " << cltName << " deleted.\n";
-    
-    return true;
-    
+        //cout << checklen(); 
+        //chatgpt generate code to delete collection* from the vector
+        auto it = std::find_if(collectionDB.begin(), collectionDB.end(),
+                               [&](collection* c) { return c->name == cltName; });
+        if (it != collectionDB.end()) {
+            collectionDB.erase(it);
+        }
+        
+        delete clt;
+        //cout << checklen();    
+        return true;
     }
 }
 
@@ -366,7 +410,7 @@ void Database::deleteAllDocs(string cltName){
     
     }
 
-    cout << "All documents from " << cltName << "deleted.\n";
+    cout << "All documents from " << cltName << " deleted.\n";
 }
 
 /*

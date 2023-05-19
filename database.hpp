@@ -64,7 +64,9 @@ class Database{
         //Movie_Document* updateEntry(string cltName);
         void deleteDocManual();
         collection* getCollectionByName(string name);
+        collection* rtnMainDB();
         collection rtnCollectionByName(string name);
+
         bool deleteCollectionByName(string name);
         void print();
         void printMainDB();
@@ -72,6 +74,7 @@ class Database{
         void printSingleClt(string name);
         void updateEntry(string cltName);
         vector<string> getCollectionsList();
+        int checklen();
 
 
     private:

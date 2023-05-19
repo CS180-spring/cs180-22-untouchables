@@ -35,7 +35,7 @@ void messageDisplayer() {
     cout << left << setw(width) << "*" << left << setw(40) << "use <name>" << left << setw(50) << "switch to another collection" << right << setw(9) << "*" << endl;
     cout << left << setw(width) << "*" << left << setw(40) << "filter" << left << setw(50) << "filter menu" << right << setw(9) << "*" << endl;
     cout << left << setw(width) << "*" << left << setw(40) << "element <index>" << left << setw(50) << "display an element of the current collection" << right << setw(9) << "*" << endl;
-    cout << left << setw(width) << "*" << left << setw(40) << "modify <movie_title>" << left << setw(50) << "change a movie's information in the curret collection" << right << setw(8) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "modify <movie_title>" << left << setw(50) << "change a movie's information in the curret collection" << right << setw(6) << "*" << endl;
     cout << left << setw(width) << "*" << left << setw(40) << "rm <name>" << left << setw(50) << "remove an existing collection" << right << setw(9) << "*" << endl;
     cout << left << setw(width) << "*" << left << setw(40) << "menu" << left << setw(50) << "revisit the command list" << right << setw(9) << "*" << endl;
     cout << left << setw(width) << "*" << left << setw(40) << "add -m" << left << setw(50) << "enter a movie in the current collection" << right << setw(9) << "*" << endl;
@@ -61,7 +61,7 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
     //output current database
     if(instruction == "db"){
         if (instructions.size() != 1){
-            cout << "please use proper command, recommanded command: \"db\"" << endl;
+            cout << "please use proper command, recommended command: \"db\"" << endl;
             return;
         }
         db.printCurrentCltName();
@@ -70,7 +70,7 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
     //prints list of all collections
     else if(instruction == "db-all"){
         if (instructions.size() != 1){
-            cout << "please use proper command, recommanded command: \"db-all\"" << endl;
+            cout << "please use proper command, recommended command: \"db-all\"" << endl;
             return;
         }
         db.dbAll();
@@ -79,7 +79,7 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
     // imports data from file and takes three parameters
     else if(instruction == "import"){
         if (instructions.size() != 4){
-            cout << "please use proper command, recommanded command: \"import -<format> <collection> <file>\"" << endl;
+            cout << "please use proper command, recommended command: \"import -<format> <collection> <file>\"" << endl;
             return;
         }
         if(instructions[1] == "-csv"){
@@ -96,7 +96,7 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
 
     else if(instruction == "export"){
         if (instructions.size() != 2){
-            cout << "please use proper command, recommanded command: \"export <collection>\"" << endl;
+            cout << "please use proper command, recommended command: \"export <collection>\"" << endl;
             return;
         }
         string cltName = instructions[1];
@@ -131,7 +131,7 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
     // parameters see "man" for syntax
     else if(instruction == "print"){
         if (instructions.size() < 3){
-            cout << "please use proper command, recommanded command: \"print -<flag> <collection>\"" << endl;
+            cout << "please use proper command, recommended command: \"print -<flag> <collection>\"" << endl;
             return;
         }
         string tmp = instructions[1];
@@ -152,7 +152,7 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
 
     else if(instruction == "modify"){
         if (instructions.size() <= 1){
-            cout << "please use proper command, recommanded command: \"modify <movie_title>\"" << endl;
+            cout << "please use proper command, recommended command: \"modify <movie_title>\"" << endl;
             return;
         }
         string movTitle = "";
@@ -171,21 +171,21 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
         if(instructions.size() > 1){
             if(instructions[1] == "-m"){
                 if (instructions.size() != 2){
-                    cout << "please use proper command, recommanded command: \"add -m\"" << endl;
+                    cout << "please use proper command, recommended command: \"add -m\"" << endl;
                     return;
                 }  
                 db.addDocumentManually();
             }
             else if(instructions[1] != "-m"){
                 if (instructions.size() != 2){
-                    cout << "please use proper command, recommanded command: \"add <name>\"" << endl;
+                    cout << "please use proper command, recommended command: \"add <name>\"" << endl;
                     return;
                 }
                 string cltName = instructions[1];
                 db.addCollection(cltName);
             }
         }else{
-            cout << "please use proper command, recommanded command: \"add <name> or add -m\"" << endl;
+            cout << "please use proper command, recommended command: \"add <name> or add -m\"" << endl;
             return;
         }
     }  
@@ -194,7 +194,7 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
     // pointer for console
     else if(instruction == "use"){
         if (instructions.size() != 2){
-            cout << "please use proper command, recommanded command: \"use <name>\"" << endl;
+            cout << "please use proper command, recommended command: \"use <name>\"" << endl;
             return;
         }
         string cltName = instructions[1];   
@@ -208,11 +208,13 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
     else if(instruction == "rm"){
         if(instructions.size() < 3){
             string cltName = instructions[1];
-            if(db.deleteCollectionByName(cltName)){
+            if(cltName == "mainDB"){
+                cout << "cannot remove embedded main collection mainDB" << endl;
+            }else if(db.deleteCollectionByName(cltName)){
                 cout << "Collection " << cltName << " deleted.\n";
             }
             else{
-                cout << "Deletion unsuccessful: can't delete current collection.\n";
+                cout << "Deletion unsuccessful: can't delete current or non-existing collection.\n";
             }
         }
         else if(instructions.size() == 3){
@@ -220,13 +222,13 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
             string docName = instructions[2];
             //db.deleteDocManual(string cltName, string docName);
         }else{
-            cout << "please use proper command, recommanded command: \"rm <name> or rm <name> <document_name>\"" << endl;
+            cout << "please use proper command, recommended command: \"rm <name> or rm <name> <document_name>\"" << endl;
             return;
         }
     }    
     else if(instruction == "menu"){
         if (instructions.size() != 1){
-            cout << "please use proper command, recommanded command: \"man\"" << endl;
+            cout << "please use proper command, recommended command: \"man\"" << endl;
             return;
         }
         messageDisplayer();  
@@ -236,14 +238,15 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
     }
     else if(instruction == "view"){
         if (instructions.size() != 1){
-            cout << "please use proper command, recommanded command: \"view\"" << endl;
+            cout << "please use proper command, recommended command: \"view\"" << endl;
             return;
         }
-        db.printSingleClt(db.getCurrentClt_name());        
+        //db.printSingleClt(db.getCurrentClt_name());      
+        db.printSingleClt("mainDB");
     }
     else if(instruction == "exit"){
         if (instructions.size() != 1){
-            cout << "please use proper command, recommanded command: \"exit\"" << endl;
+            cout << "please use proper command, recommended command: \"exit\"" << endl;
             return;
         }
         //exit the database system
@@ -273,7 +276,55 @@ string check_num_word(string user_input, int limit){
     }
 }
 
+//reference: https://www.geeksforgeeks.org/processing-strings-using-stdistringstream/
+bool checkvalidation(const string& input_username, const string& input_password) {
+    ifstream file("login.csv");
+    if (file.is_open()) {
+        string line;
+        while(getline(file, line)) {
+            istringstream ss(line);
+            string file_username;
+            string file_password;
+            ss >> file_username >> file_password;
+            if(file_username == input_username && file_password == input_password){
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+void login(){
+    bool loggedin = false;
+    while(loggedin == 0){
+        cout << "print \"log\" to login to the system, else to exit the system" << endl;
+        cout << ">>> ";
+        string userInput;
+        getline(cin, userInput);
+        if (userInput == "log"){
+            cout << "please enter the username: " << endl;
+            cout << ">>> ";
+            string input_username;
+            getline(cin, input_username);
+            cout << "please enter the password: " << endl;
+            cout << ">>> ";
+            string input_password;
+            getline(cin, input_password);
+            if(checkvalidation(input_username, input_password)){
+                loggedin = 1;
+            }else{
+                cout << "invalid username or password" << endl << endl;
+            }
+        }else{
+            cout << "you have successfully exited the system" << endl;
+            exit(1);
+        }
+    }
+}
+
 int main(){
+
+    //login();
 
     Database db;
     Filter filter(db);
