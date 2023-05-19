@@ -20,8 +20,9 @@ vector<Movie_Document*> parseCSV(string fname){
     */
     
     //define your file name
-    string file_name = "/home/yt/Desktop/2023_Spring/CS180_Intro_Software_Engineering/Revised_Structure/cs180-22-untouchables/imdb_top_1000.csv";
-
+    //string file_name = "/home/yt/Desktop/2023_Spring/CS180_Intro_Software_Engineering/Revised_Structure/cs180-22-untouchables/imdb_top_1000.csv";
+    string file_name = "imdb_top_1000.csv";
+    
     //attach an input stream to the wanted file
     ifstream input_File(file_name);
 
@@ -360,10 +361,18 @@ string Database::getCurrentClt_name(){
     return currentClt->name;
 }
 
+int Database::checklen(){
+    return collectionDB.size();
+}
+
 // delete collection by name and check if not current collection
 // function will call deleteAllDocs to clean up memory allocation
 // then it will delete memory allocated for collection and return bool
 bool Database::deleteCollectionByName(string cltName){
+    
+    if(getCollectionByName(cltName) == nullptr){
+        return false;
+    }
 
     collection* clt = getCollectionByName(cltName);
 
@@ -371,14 +380,19 @@ bool Database::deleteCollectionByName(string cltName){
         return false;
     }
     else{
-    deleteAllDocs(cltName);
-    
-    delete clt;
+        deleteAllDocs(cltName); 
 
-    cout << "Collection " << cltName << " deleted.\n";
-    
-    return true;
-    
+        //cout << checklen(); 
+        //chatgpt generate code to delete collection* from the vector
+        auto it = std::find_if(collectionDB.begin(), collectionDB.end(),
+                               [&](collection* c) { return c->name == cltName; });
+        if (it != collectionDB.end()) {
+            collectionDB.erase(it);
+        }
+        
+        delete clt;
+        //cout << checklen();    
+        return true;
     }
 }
 
@@ -392,7 +406,7 @@ void Database::deleteAllDocs(string cltName){
     
     }
 
-    cout << "All documents from " << cltName << "deleted.\n";
+    cout << "All documents from " << cltName << " deleted.\n";
 }
 
 /*
