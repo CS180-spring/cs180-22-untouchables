@@ -284,7 +284,7 @@ void Database::dbAll(){
         cout << "no available collections.\n\n";
     } 
     else{
-        cout << "all available collections include: ";
+        cout << "Available collections include: ";
 
         for(auto i : getCollectionsList()){
             cout << i << " ";
@@ -316,6 +316,10 @@ void Database::addCollection(string cltName){
     collectionDB.push_back(clt);
 
     cout << "New Collection \'"<< clt->name << "\' added to database.\n\n";
+ }
+
+ collection* Database::rtnMainDB(){
+    return this->mainDB;
  }
 
 // Function simply iterates through collectionDB to check

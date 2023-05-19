@@ -63,7 +63,9 @@ class Database{
         void deleteAllDocs(string cltName);
         void deleteDocumentManual(string cltName, string DocName);
         collection* getCollectionByName(string name);
+        collection* rtnMainDB();
         collection rtnCollectionByName(string name);
+
         bool deleteCollectionByName(string name);
         void print();
         void printMainDB();
