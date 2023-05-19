@@ -214,7 +214,7 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
                 cout << "Collection " << cltName << " deleted.\n";
             }
             else{
-                cout << "Deletion unsuccessful: can't delete current collection.\n";
+                cout << "Deletion unsuccessful: can't delete current or non-existing collection.\n";
             }
         }
         else if(instructions.size() == 3){

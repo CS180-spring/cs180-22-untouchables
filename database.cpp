@@ -369,6 +369,10 @@ int Database::checklen(){
 // function will call deleteAllDocs to clean up memory allocation
 // then it will delete memory allocated for collection and return bool
 bool Database::deleteCollectionByName(string cltName){
+    
+    if(getCollectionByName(cltName) == nullptr){
+        return false;
+    }
 
     collection* clt = getCollectionByName(cltName);
 
