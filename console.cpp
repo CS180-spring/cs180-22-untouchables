@@ -1,4 +1,6 @@
 #include "filter.hpp"
+
+using namespace std;
 //using json = nlohmann::json;
 
 //helper function to parse user input from terminal
@@ -35,8 +37,8 @@ void messageDisplayer() {
     cout << left << setw(width) << "*" << left << setw(40) << "use <name>" << left << setw(50) << "switch to another collection" << right << setw(9) << "*" << endl;
     cout << left << setw(width) << "*" << left << setw(40) << "filter" << left << setw(50) << "filter menu" << right << setw(9) << "*" << endl;
     cout << left << setw(width) << "*" << left << setw(40) << "element <index>" << left << setw(50) << "display an element of the current collection" << right << setw(9) << "*" << endl;
-    cout << left << setw(width) << "*" << left << setw(40) << "modify <movie_title>" << left << setw(50) << "change a movie's information in the curret collection" << right << setw(6) << "*" << endl;
-    cout << left << setw(width) << "*" << left << setw(40) << "rm <name>" << left << setw(50) << "remove an existing collection" << right << setw(9) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "modify <collection> <movie_title>" << left << setw(50) << "change a movie's information in the curret collection" << right << setw(6) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "rm <collection> <move_title>" << left << setw(50) << "remove an existing collection/movie from collection" << right << setw(9) << "*" << endl;
     cout << left << setw(width) << "*" << left << setw(40) << "menu" << left << setw(50) << "revisit the command list" << right << setw(9) << "*" << endl;
     cout << left << setw(width) << "*" << left << setw(40) << "add -m" << left << setw(50) << "enter a movie in the current collection" << right << setw(9) << "*" << endl;
     cout << left << setw(width) << "*" << left << setw(40) << "enter" << left << setw(50) << "enter a movie in the current collection" << right << setw(9) << "*" << endl;
@@ -151,18 +153,20 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
     }
 
     else if(instruction == "modify"){
-        if (instructions.size() <= 1){
-            cout << "please use proper command, recommended command: \"modify <movie_title>\"" << endl;
+        if (instructions.size() <= 2)
+            cout << "please use proper command, recommanded command: \"modify <collection> <movie_title>\"" << endl;
+
             return;
         }
         string movTitle = "";
-        for (int i = 1; i < instructions.size(); i++) {
+        for (int i = 2; i < instructions.size(); i++) {
             movTitle += instructions[i];
             if (i != instructions.size() - 1 ) { // check to see if not last in vector
                 movTitle += " ";    
             }
         }
-        db.updateEntry(movTitle);
+
+        db.updateEntry(instructions[1], movTitle);
     }
 
     // add collection and takes multiple
@@ -217,10 +221,17 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
                 cout << "Deletion unsuccessful: can't delete current or non-existing collection.\n";
             }
         }
-        else if(instructions.size() == 3){
+        else if(instructions.size() >= 3){
             string cltName = instructions[1];
-            string docName = instructions[2];
-            //db.deleteDocManual(string cltName, string docName);
+            string movTitle = "";
+            for (int i = 2; i < instructions.size(); i++) {
+                movTitle += instructions[i];
+                if (i != instructions.size() - 1 ) { // check to see if not last in vector
+                    movTitle += " ";    
+                }
+            }
+            db.deleteDocumentManual(cltName, movTitle);
+
         }else{
             cout << "please use proper command, recommended command: \"rm <name> or rm <name> <document_name>\"" << endl;
             return;
@@ -241,8 +252,8 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
             cout << "please use proper command, recommended command: \"view\"" << endl;
             return;
         }
-        //db.printSingleClt(db.getCurrentClt_name());      
-        db.printSingleClt("mainDB");
+        db.printSingleClt(db.getCurrentClt_name());      
+        //db.printSingleClt("mainDB");
     }
     else if(instruction == "exit"){
         if (instructions.size() != 1){
