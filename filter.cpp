@@ -296,6 +296,8 @@ void Filter::titleFilter(string titleName){
 
 }
 
+// Menu to implement displaying, creating new 
+// collection, or exporting from filter/sorted data
 void Filter::filterResults(vector<Movie_Document*> fsData){
 
     string userInput = "";
@@ -328,6 +330,7 @@ void Filter::filterResults(vector<Movie_Document*> fsData){
     }
 }
 
+// Simple function to print movie data in 5 document increments
 void Filter::printData(vector<Movie_Document*> movieData){
 
     string userInput = "";
@@ -402,6 +405,8 @@ void Filter::alphabetSort(string cltName, string feature){
 
 }
 
+// Filters movies by genre and pushes to temp vector
+// user has option to display, create new collection, or export
 void Filter::genreSort(string genre){
     vector<Movie_Document*> copyVec = copyMovieDocs(workingClt->name);
     vector<Movie_Document*> sortedVec;
