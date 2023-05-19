@@ -1,3 +1,5 @@
+#ifndef _FILTER_H_
+#define _FILTER_H_
 #include "database.hpp"
 
 #include <iostream>
@@ -29,6 +31,7 @@ class Filter{
     void yearView();
     void yearSort();
     void yearFilter();
+    void query();
     vector<Movie_Document*> copyMovieDocs(string cltName);
 
     private:
@@ -37,7 +40,11 @@ class Filter{
     vector <Movie_Document*> filteredData;
     vector <Movie_Document*> sortedData;
 
+    //helper functions
+    bool isSubstring(const std::string& str1, const std::string& str2);
+
 };
+#endif
 /*
 void certificateView(){
 cout << "A = View all" << endl;

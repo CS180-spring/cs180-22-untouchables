@@ -305,7 +305,7 @@ void Database::addCollection(string cltName){
 
 // add collection from filtered results function 
 // takes additional vector<Movie_Documents*> parameter
- void Database::addFltCollection(string cltName, vector<Movie_Document*> movieDocs){
+ void Database::addFltCollection(string cltName, vector<Movie_Document*> movieDocs) {
 
     collection* clt = new collection;
 
@@ -794,6 +794,24 @@ void Database::addDocumentManually() {
     cin.ignore();
 }
 
+void Database::deleteDocumentManual(string cltName, string docName){
+    collection* deleteFromMe = getCollectionByName(cltName);
+    if (deleteFromMe == nullptr) {
+        cout << "Error, that collection cannnot be found" << endl;
+        return;
+    }
+
+    for (int i = 0; i < deleteFromMe->movieDocs.size(); ++i) {
+        if (deleteFromMe->movieDocs[i]->series_title == docName) {
+            delete deleteFromMe->movieDocs[i];
+            deleteFromMe->movieDocs.erase(deleteFromMe->movieDocs.begin() + i);
+            cout << "Document " << docName << " has been successfully deleted." << endl;
+            return;
+        }
+    }
+    //if the Document does not exist
+    cout << "Document does not exist in the current collection" << endl;
+}
 
 
 /*
@@ -847,22 +865,6 @@ void add_movie_to_database(const string& filename, DataBase& database) {
 } 
 
 
-void deleteDocumentManually(DataBase& current){
-    cout << "input the name of the movie to be removed" << endl;
-    string user_input;
-    getline(cin, user_input);
-    //if the Document exists in the storedDocument array
-    for (auto i = current.storedDocuments.begin(); i != current.storedDocuments.end(); ++i) {
-        if (i->series_title == user_input) {
-            current.storedDocuments.erase(i);
-            cout << "Document " << user_input << " has been successfully deleted." << endl;
-            return;
-        }
-    }
-    //if the Document does not exist
-    cout << "Document does not exist in the current Database" << endl;
-}
-
 void displayMovieDocument(const DataBase& database, unsigned int index) {
     if (index < 0 || index >= database.storedDocuments.size()) {
         cout << "Invalid index\n";
@@ -884,10 +886,15 @@ void displayMovieDocument(const DataBase& database, unsigned int index) {
 
 */
 
-void Database::updateEntry(string user_input){
+void Database::updateEntry(string cltName, string user_input){
     int cnt = 0;
     bool flag = true;
-    for(auto i : currentClt->movieDocs){
+    collection* cltToBeUpdated = getCollectionByName(cltName);
+    if (cltToBeUpdated == nullptr) {
+        cout << "ERROR: Collection not found" << endl;
+        return;
+    }
+    for(auto i : cltToBeUpdated->movieDocs){
         if (i->series_title == user_input) {
             flag = false;
             printf("Document %d\n",cnt);
@@ -958,7 +965,7 @@ void Database::updateEntry(string user_input){
                 getline(cin, user_input);
                 if (isStringDouble(user_input)) {
                     if (stod(user_input) > 0) {
-                        i->IMDB_rating = stoi(user_input);
+                        i->IMDB_rating = stod(user_input);
                         flag1 = true;
                     }
                 }
@@ -985,7 +992,6 @@ void Database::updateEntry(string user_input){
                 i->Director = user_input;
                 flag1 = true;
             }
-            //I'm leaving out stars for now, TODO
             else if (user_input == "Star1") {
                 cout << "What would you like to change it to?" << endl;
                 getline(cin, user_input);
@@ -1031,7 +1037,7 @@ void Database::updateEntry(string user_input){
                 }
             }
             if (flag1) {
-                cout << "Document updated successfully" << endl; //this could create issues if we had 2 entries with same name
+                cout << "Document updated successfully" << endl; //this could create issues if we had 2 entries with same name, ADD A NAME CHECK PLEASE FUTURE ME
             } else {cout << "Document could not be updated due to invalid input, try again" << endl;}
         }   
         cnt++;
