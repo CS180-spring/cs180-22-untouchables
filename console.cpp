@@ -153,7 +153,7 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
     }
 
     else if(instruction == "modify"){
-        if (instructions.size() <= 2)
+        if (instructions.size() <= 2) {
             cout << "please use proper command, recommanded command: \"modify <collection> <movie_title>\"" << endl;
 
             return;
