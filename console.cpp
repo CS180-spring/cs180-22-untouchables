@@ -61,7 +61,7 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
     //output current database
     if(instruction == "db"){
         if (instructions.size() != 1){
-            cout << "please use proper command, recommanded command: \"db\"" << endl;
+            cout << "please use proper command, recommended command: \"db\"" << endl;
             return;
         }
         db.printCurrentCltName();
@@ -70,7 +70,7 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
     //prints list of all collections
     else if(instruction == "db-all"){
         if (instructions.size() != 1){
-            cout << "please use proper command, recommanded command: \"db-all\"" << endl;
+            cout << "please use proper command, recommended command: \"db-all\"" << endl;
             return;
         }
         db.dbAll();
@@ -79,7 +79,7 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
     // imports data from file and takes three parameters
     else if(instruction == "import"){
         if (instructions.size() != 4){
-            cout << "please use proper command, recommanded command: \"import -<format> <collection> <file>\"" << endl;
+            cout << "please use proper command, recommended command: \"import -<format> <collection> <file>\"" << endl;
             return;
         }
         if(instructions[1] == "-csv"){
@@ -96,7 +96,7 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
 
     else if(instruction == "export"){
         if (instructions.size() != 2){
-            cout << "please use proper command, recommanded command: \"export <collection>\"" << endl;
+            cout << "please use proper command, recommended command: \"export <collection>\"" << endl;
             return;
         }
         string cltName = instructions[1];
@@ -131,7 +131,7 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
     // parameters see "man" for syntax
     else if(instruction == "print"){
         if (instructions.size() < 3){
-            cout << "please use proper command, recommanded command: \"print -<flag> <collection>\"" << endl;
+            cout << "please use proper command, recommended command: \"print -<flag> <collection>\"" << endl;
             return;
         }
         string tmp = instructions[1];
@@ -152,7 +152,7 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
 
     else if(instruction == "modify"){
         if (instructions.size() <= 1){
-            cout << "please use proper command, recommanded command: \"modify <movie_title>\"" << endl;
+            cout << "please use proper command, recommended command: \"modify <movie_title>\"" << endl;
             return;
         }
         string movTitle = "";
@@ -171,21 +171,21 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
         if(instructions.size() > 1){
             if(instructions[1] == "-m"){
                 if (instructions.size() != 2){
-                    cout << "please use proper command, recommanded command: \"add -m\"" << endl;
+                    cout << "please use proper command, recommended command: \"add -m\"" << endl;
                     return;
                 }  
                 db.addDocumentManually();
             }
             else if(instructions[1] != "-m"){
                 if (instructions.size() != 2){
-                    cout << "please use proper command, recommanded command: \"add <name>\"" << endl;
+                    cout << "please use proper command, recommended command: \"add <name>\"" << endl;
                     return;
                 }
                 string cltName = instructions[1];
                 db.addCollection(cltName);
             }
         }else{
-            cout << "please use proper command, recommanded command: \"add <name> or add -m\"" << endl;
+            cout << "please use proper command, recommended command: \"add <name> or add -m\"" << endl;
             return;
         }
     }  
@@ -194,7 +194,7 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
     // pointer for console
     else if(instruction == "use"){
         if (instructions.size() != 2){
-            cout << "please use proper command, recommanded command: \"use <name>\"" << endl;
+            cout << "please use proper command, recommended command: \"use <name>\"" << endl;
             return;
         }
         string cltName = instructions[1];   
@@ -222,13 +222,13 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
             string docName = instructions[2];
             //db.deleteDocManual(string cltName, string docName);
         }else{
-            cout << "please use proper command, recommanded command: \"rm <name> or rm <name> <document_name>\"" << endl;
+            cout << "please use proper command, recommended command: \"rm <name> or rm <name> <document_name>\"" << endl;
             return;
         }
     }    
     else if(instruction == "menu"){
         if (instructions.size() != 1){
-            cout << "please use proper command, recommanded command: \"man\"" << endl;
+            cout << "please use proper command, recommended command: \"man\"" << endl;
             return;
         }
         messageDisplayer();  
@@ -238,7 +238,7 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
     }
     else if(instruction == "view"){
         if (instructions.size() != 1){
-            cout << "please use proper command, recommanded command: \"view\"" << endl;
+            cout << "please use proper command, recommended command: \"view\"" << endl;
             return;
         }
         //db.printSingleClt(db.getCurrentClt_name());      
@@ -246,7 +246,7 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
     }
     else if(instruction == "exit"){
         if (instructions.size() != 1){
-            cout << "please use proper command, recommanded command: \"exit\"" << endl;
+            cout << "please use proper command, recommended command: \"exit\"" << endl;
             return;
         }
         //exit the database system
