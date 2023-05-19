@@ -1,0 +1,7 @@
+link,Title,Year,Certificate,Runtime,Genre,IMDB Rating,Overview,Meta Score,Director,star1,star2,star3,star4,Votes,Gross
+www.link.com,movie1,1996,A,142 min,"""Drama, Comedy""",9.4,"""Just a movie""",66,Tim Guy,Jeff Movie,Alex Doe,Frank Hum,Chris Person,2210,"""12,500"""
+blank,,56,,56,,10,hello,6.6,5,"""Jeff Movie""",,St3v3 St0ne,,-56,"12,000"
+,movie space,,c,,5 comedy,,-56,,"""Time Guy""",,"""Mar10' DAY",,"""Let's Go!""",twelve,500
+12,"""123 movie""",twenty,12,"1,000",Drama!,-7,,0,,27,,The Guy,25647,87.3,6.45
+,,,,,,,,,,,,,,,
+DNE,MOVIE,-1994,ABCD,FIVE MIN,-12,"""1.78""",Movie overview',"""97""",Tim Guy',STAR 1',STAR 2',STAR 3',STAR 4',"""10000""","-12,000"
