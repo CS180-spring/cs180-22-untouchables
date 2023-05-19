@@ -9,6 +9,7 @@
 #include <sstream>
 #include <algorithm>
 #include <fstream>
+#include <string>
 
 class Filter{
 
