@@ -148,10 +148,8 @@ void Filter::query() {
             pings.push_back(workingClt->movieDocs[i]);
         else if (isSubstring(workingClt->movieDocs[i]->Star4, user_input))
             pings.push_back(workingClt->movieDocs[i]);
-        else {cout << "nope nada" << endl;}
     }
     if (pings.size() > 0) {
-        cout << "Fag look at this number:" << pings.size() << endl;
         db.addFltCollection(newName, pings);
     }
     else {
