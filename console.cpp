@@ -274,7 +274,55 @@ string check_num_word(string user_input, int limit){
     }
 }
 
+//reference: https://www.geeksforgeeks.org/processing-strings-using-stdistringstream/
+bool checkvalidation(const string& input_username, const string& input_password) {
+    ifstream file("login.csv");
+    if (file.is_open()) {
+        string line;
+        while(getline(file, line)) {
+            istringstream ss(line);
+            string file_username;
+            string file_password;
+            ss >> file_username >> file_password;
+            if(file_username == input_username && file_password == input_password){
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+void login(){
+    bool loggedin = false;
+    while(loggedin == 0){
+        cout << "print \"log\" to login to the system, else to exit the system" << endl;
+        cout << ">>> ";
+        string userInput;
+        getline(cin, userInput);
+        if (userInput == "log"){
+            cout << "please enter the username: " << endl;
+            cout << ">>> ";
+            string input_username;
+            getline(cin, input_username);
+            cout << "please enter the password: " << endl;
+            cout << ">>> ";
+            string input_password;
+            getline(cin, input_password);
+            if(checkvalidation(input_username, input_password)){
+                loggedin = 1;
+            }else{
+                cout << "invalid username or password" << endl << endl;
+            }
+        }else{
+            cout << "you have successfully exited the system" << endl;
+            exit(1);
+        }
+    }
+}
+
 int main(){
+
+    login();
 
     Database db;
     Filter filter(db);

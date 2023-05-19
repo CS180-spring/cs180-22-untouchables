@@ -20,7 +20,8 @@ vector<Movie_Document*> parseCSV(string fname){
     */
     
     //define your file name
-    string file_name = "/home/yt/Desktop/2023_Spring/CS180_Intro_Software_Engineering/Revised_Structure/cs180-22-untouchables/imdb_top_1000.csv";
+    //string file_name = "/home/yt/Desktop/2023_Spring/CS180_Intro_Software_Engineering/Revised_Structure/cs180-22-untouchables/imdb_top_1000.csv";
+    string file_name = "imdb_top_1000.csv";
 
     //attach an input stream to the wanted file
     ifstream input_File(file_name);
