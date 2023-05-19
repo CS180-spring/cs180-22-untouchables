@@ -208,7 +208,9 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
     else if(instruction == "rm"){
         if(instructions.size() < 3){
             string cltName = instructions[1];
-            if(db.deleteCollectionByName(cltName)){
+            if(cltName == "mainDB"){
+                cout << "cannot remove embedded main collection mainDB" << endl;
+            }else if(db.deleteCollectionByName(cltName)){
                 cout << "Collection " << cltName << " deleted.\n";
             }
             else{

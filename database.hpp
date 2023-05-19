@@ -72,6 +72,7 @@ class Database{
         void printSingleClt(string name);
         void updateEntry(string cltName);
         vector<string> getCollectionsList();
+        int checklen();
 
 
     private:
