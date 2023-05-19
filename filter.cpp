@@ -144,7 +144,7 @@ void Filter::filterDisplay(){
         cout << ">>> ";
 
         getline(cin,userInput);
-
+        string counter;
         if(userInput == "1" || userInput == "title"){
             cout << "Enter name of title: ";
             getline(cin, userInput);
@@ -152,19 +152,92 @@ void Filter::filterDisplay(){
             titleFilter(userInput);
 
         }
+        else if(userInput == "2" || userInput == "release year"){
+                     cout << "0 for shortest to longest" << endl;
+                     cout << "1 for longest to shortest" << endl;
+                     getline(cin, userInput);
+                     counter = userInput;
+                }
+        else if(userInput == "3" || userInput == "rated"){
+                     cout << "Enter genre type: ";
+                     getline(cin, userInput);
+
+                     //genreFilter(userInput);
+                     }
+        else if(userInput == "4" || userInput == "runtime"){
+                     cout << "0 for shortest to longest" << endl;
+                     cout << "1 for longest to shortest" << endl;
+                     getline(cin, userInput);
+                     counter = userInput;
+
+
+                 }
         else if(userInput == "5" || userInput == "genre"){
             cout << "Enter genre type: ";
             getline(cin, userInput);
 
             //genreFilter(userInput);
         }
+        else if(userInput == "6" || userInput == "IMDB rating"){
+                    cout << "0 for shortest to longest" << endl;
+                    cout << "1 for longest to shortest" << endl;
+                    getline(cin, userInput);
+                    counter = userInput;
+
+
+                }
+        else if(userInput == "7" || userInput == "meta score"){
+                   cout << "0 for shortest to longest" << endl;
+                   cout << "1 for longest to shortest" << endl;
+                   getline(cin, userInput);
+                   counter = userInput;
+               }
+        else if(userInput == "8" || userInput == "director"){
+                   cout << "Enter name of director: ";
+                   getline(cin, userInput);
+
+                   titleFilter(userInput);
+               }
+        else if(userInput == "9" || userInput == "starring"){
+                   cout << "Enter name of star: ";
+                   getline(cin, userInput);
+
+                   titleFilter(userInput);
+               }
+        else if(userInput == "10" || userInput == "number of votes"){
+                   cout << "0 for shortest to longest" << endl;
+                   cout << "1 for longest to shortest" << endl;
+                   getline(cin, userInput);
+                   counter = userInput;
+               }
+        else if(userInput == "11" || userInput == "gross revenue"){
+                  cout << "0 for shortest to longest" << endl;
+                  cout << "1 for longest to shortest" << endl;
+                  getline(cin, userInput);
+                  counter = userInput;
+               }
+        else if(userInput == "12" || userInput == "multiple filters"){
+                   cout << "Enter filters: ";
+                   getline(cin, userInput);
+
+
+               }
+        else if(userInput == "exit"){
+                   displayMenu();
+
+               }
+       else{
+       filterDisplay();
+       }
+       }
     }
-}
+
 
 void multipleFilters(vector<string> fltNames){
 
 
 }
+
 
 void Filter::titleFilter(string titleName){
 
