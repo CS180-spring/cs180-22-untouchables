@@ -15,16 +15,17 @@ class Filter{
 
     public:
     Filter(Database& db);
-    bool selectCollection(string cltName);
+    string selectCollection();
     void displayMenu();
     void filterMain();
     void filterDisplay();
+    void filterResults(vector<Movie_Document*> fsData);
     void multipleFilters(vector<string> fltNames);
     void alphabetSort(string cltName, string feature);
     //bool alphaSortHelper(Movie_Document x, Movie_Document y);
     void numberSort();
     void genreFilter(string genre);
-    void genreSort(string cltName, string genre);
+    void genreSort(string genre);
     void output();
     void titleView();
     void titleFilter(string titleName);
@@ -32,6 +33,7 @@ class Filter{
     void yearView();
     void yearSort();
     void yearFilter();
+    void printData(vector<Movie_Document*> movieData);
     void query();
     vector<Movie_Document*> copyMovieDocs(string cltName);
 
