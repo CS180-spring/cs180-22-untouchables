@@ -13,7 +13,7 @@ class Filter{
 
     public:
     Filter(Database& db);
-    bool selectCollection(string cltName);
+    string selectCollection();
     void displayMenu();
     void filterMain();
     void filterDisplay();
