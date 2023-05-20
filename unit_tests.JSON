@@ -1,0 +1,80 @@
+[
+    {
+        "Poster Link": "http://movieposters.com/ashortstory",
+        "Series Title": "A Short Story",
+        "Release Year": 2023,
+        "Certificate": "A",
+        "Runtime": 175,
+        "Genre": "Horror",
+        "IMDB_Rating": 9.8,
+        "Overview": "A sorty about the adventures of a cast of characters.",
+        "Meta_score": 96,
+        "Director": "Joel Garcia",
+        "Star1": "Me",
+        "Star2": "Myself",
+        "Star3": "And",
+        "Star4": "I",
+        "No_of_Votes": 200000,
+        "Gross": 1000000000
+    },
+    {
+        "Poster Link": 0,
+        "Series Title": -0.34567323445,
+        "Release Year": "2994",
+        "Certificate": 10,
+        "Runtime": "175 min",
+        "Genre": 12,
+        "IMDB_Rating": "98",
+        "Meta_score": "96",
+        "Director": 12,
+        "Star1": 0,
+        "Star2": 0.3,
+        "Star3": -56,
+        "Star4": -3.9,
+        "No_of_Votes": "200000",
+        "Gross": "1,000,000,000"
+    },
+    {
+        "Poster Link": 0,
+        "Series Title": -0.34567323445,
+        "Release Year": "2994",
+        "Certificate": 10,
+        "Runtime": "175 min",
+        "Genre": 12,
+        "IMDB_Rating": "98",
+        "Overview": "A sorty about the adventures of a cast of characters.",
+        "Meta_score": "96",
+        "Director": 12,
+        "Star1": 0,
+        "Star2": 0.3,
+        "Star3": -56,
+        "Star4": -3.9,
+        "No_of_Votes": "200000",
+        "Gross": "1,000,000,000"
+    },
+    {
+
+    },
+    {
+        "Poster Link": "",
+        "Series Title": "A Short Story",
+        "Release Year": 2023,
+        "Certificate": "A",
+        "Runtime": 175,
+        "Gross": 1000000000
+    },
+    {
+        "Poster Link": "http://movieposters.com/ashortstory",
+        "Series Title": "A Short Story",
+        "Release Year": -2023,
+        "Certificate": "A",
+        "Runtime": -175,
+        "Genre": "Horror",
+        "IMDB_Rating": -9.8,
+        "Overview": "A sorty about the adventures of a cast of characters.",
+        "Meta_score": -96,
+        "Director": "Joel Garcia",
+        "No_of_Votes": -200000,
+        "Gross": -1000000000
+    }
+]

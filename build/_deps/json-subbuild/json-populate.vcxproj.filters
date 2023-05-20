@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Joel\Documents\Github\cs180-22-untouchables\build\_deps\json-subbuild\CMakeFiles\1e09a1ec2d037957bfca1fa55567996b\json-populate-mkdir.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Joel\Documents\Github\cs180-22-untouchables\build\_deps\json-subbuild\CMakeFiles\1e09a1ec2d037957bfca1fa55567996b\json-populate-download.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Joel\Documents\Github\cs180-22-untouchables\build\_deps\json-subbuild\CMakeFiles\1e09a1ec2d037957bfca1fa55567996b\json-populate-update.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Joel\Documents\Github\cs180-22-untouchables\build\_deps\json-subbuild\CMakeFiles\1e09a1ec2d037957bfca1fa55567996b\json-populate-patch.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Joel\Documents\Github\cs180-22-untouchables\build\_deps\json-subbuild\CMakeFiles\1e09a1ec2d037957bfca1fa55567996b\json-populate-configure.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Joel\Documents\Github\cs180-22-untouchables\build\_deps\json-subbuild\CMakeFiles\1e09a1ec2d037957bfca1fa55567996b\json-populate-build.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Joel\Documents\Github\cs180-22-untouchables\build\_deps\json-subbuild\CMakeFiles\1e09a1ec2d037957bfca1fa55567996b\json-populate-install.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Joel\Documents\Github\cs180-22-untouchables\build\_deps\json-subbuild\CMakeFiles\1e09a1ec2d037957bfca1fa55567996b\json-populate-test.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Joel\Documents\Github\cs180-22-untouchables\build\_deps\json-subbuild\CMakeFiles\a51821aba08bc795eabce6f473a7b05a\json-populate-complete.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Joel\Documents\Github\cs180-22-untouchables\build\_deps\json-subbuild\CMakeFiles\7b966019d958de8ff510455537a1f5f4\json-populate.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Joel\Documents\Github\cs180-22-untouchables\build\_deps\json-subbuild\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\Joel\Documents\Github\cs180-22-untouchables\build\_deps\json-subbuild\CMakeFiles\json-populate" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{43903BD3-BD4A-330C-8F25-EDAD1F225B67}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
