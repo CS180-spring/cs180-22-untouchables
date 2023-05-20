@@ -24,14 +24,20 @@ void Filter::filterMain(){
         if(userInput == "exit"){
             break;
         }
-    
+
+        cout << "Collection is " << workingClt->name << endl;
+        cout << "Enter what you want to do with it (1,2,3,exit)" << endl;
         getline(cin,userInput);
         
-            if(userInput == "filter"){
-                filterDisplay();
 
-            }
-            else if(userInput == "query"){
+        if(userInput == "filter" || userInput == to_string(1)){
+            filterDisplay();
+
+        }
+        else if(userInput == "query" || userInput == to_string(2)){
+            query();
+        }
+        else if(userInput == "sort" || userInput == to_string(3)){
 
             }
             else if(userInput == "sort"){
@@ -134,6 +140,50 @@ string Filter::selectCollection(){
     }
 
     return userInput;
+}
+
+//string to be searched, string you are searching for
+bool Filter::isSubstring(const std::string& str1, const std::string& str2) {
+    size_t found = str1.find(str2);
+    return (found != std::string::npos);
+}
+
+
+//HUGE DEPENDENCY, THE NEW COLLECTION MADE HERE IS MADE OF POINTERS, WHICH MEANS IF YOU DELETE STUFF FROM THE ORIGINAL COLLECTION AND TRY TO VIEW THE QUERIED COLLECTION,
+//A SEGFAULT OCCURS, DON'T KNOW HOW TO FIX THIS PLS HELP, TODO
+void Filter::query() {
+    string user_input;
+    string newName;
+    cout << "What phrase would you like to search for?" << endl;
+    getline(cin, user_input);
+    cout << "What would you like the new queried collection to be called?" << endl;
+    getline(cin, newName);
+    vector <Movie_Document*> pings;
+    //quite literally checks if the phrase is in any of the important string fields, if it is then movie doc pointer gets added to new collection
+    for (int i = 0; i < workingClt->movieDocs.size(); i++) {
+        if (isSubstring(workingClt->movieDocs[i]->Director, user_input))
+            pings.push_back(workingClt->movieDocs[i]);
+        else if (isSubstring(workingClt->movieDocs[i]->overview, user_input))
+            pings.push_back(workingClt->movieDocs[i]);
+        else if (isSubstring(workingClt->movieDocs[i]->series_title, user_input))
+            pings.push_back(workingClt->movieDocs[i]);
+        else if (isSubstring(workingClt->movieDocs[i]->genre, user_input))
+            pings.push_back(workingClt->movieDocs[i]);
+        else if (isSubstring(workingClt->movieDocs[i]->Star1, user_input))
+            pings.push_back(workingClt->movieDocs[i]);
+        else if (isSubstring(workingClt->movieDocs[i]->Star2, user_input))
+            pings.push_back(workingClt->movieDocs[i]);
+        else if (isSubstring(workingClt->movieDocs[i]->Star3, user_input))
+            pings.push_back(workingClt->movieDocs[i]);
+        else if (isSubstring(workingClt->movieDocs[i]->Star4, user_input))
+            pings.push_back(workingClt->movieDocs[i]);
+    }
+    if (pings.size() > 0) {
+        db.addFltCollection(newName, pings);
+    }
+    else {
+        cout << "No matches found, queried collection could not be created" << endl;
+    }
 }
 
 void Filter::filterDisplay(){
@@ -268,12 +318,12 @@ void multipleFilters(vector<string> fltNames){
 void Filter::titleFilter(string titleName){
 
     vector<Movie_Document*> filteredMov;
-
     for(auto i : workingClt->movieDocs){
         if(i->series_title == titleName){
             filteredData.push_back(i);
         }
     }
+
 
     for(auto i : filteredData){
 

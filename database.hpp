@@ -1,4 +1,5 @@
-
+#ifndef _DATABASE_H_
+#define _DATABASE_H_
 #include <iostream>
 #include <iomanip>
 #include <vector>
@@ -36,7 +37,7 @@ struct Movie_Document {
 //simulating MongoDB's feature of changing database
 struct collection {
     string name;
-    vector<Movie_Document*> getMovieDocs(){return this->movieDocs;}
+    vector<Movie_Document*> getMovieDocs(){return this->movieDocs;} //I swear if people are using this instead of cltName->movieDocs I'm gonna be so peeved
     vector <Movie_Document*> movieDocs;  //documents linked with this DataBase
 };
 
@@ -51,7 +52,6 @@ class Database{
         void useCollection(string cltName);
         void printCurrentCltName();
         string getCurrentClt_name();
-        //collection* useCollection(string cltName);
         void importCSV(string cltName, string fileName);
         void importJSON(collection* db, string fileName);
         void exportCSV(string cltName);                                             //takes name of collection and exports data to csv format on file in directory 
@@ -61,8 +61,7 @@ class Database{
         void addDocManual(string cltName, Movie_Document* movDoc);
         void deleteCollections(string cltName);
         void deleteAllDocs(string cltName);
-        //Movie_Document* updateEntry(string cltName);
-        void deleteDocManual();
+        void deleteDocumentManual(string cltName, string DocName);
         collection* getCollectionByName(string name);
         collection* rtnMainDB();
         collection rtnCollectionByName(string name);
@@ -72,7 +71,7 @@ class Database{
         void printMainDB();
         void printAllClt();
         void printSingleClt(string name);
-        void updateEntry(string cltName);
+        void updateEntry(string cltName, string movieName);
         vector<string> getCollectionsList();
         int checklen();
 
@@ -89,3 +88,4 @@ class Database{
 
 
 };
+#endif
