@@ -25,8 +25,7 @@ void Filter::filterMain(){
             break;
         }
 
-        cout << "Collection is " << workingClt->name << endl;
-        cout << "Enter what you want to do with it (1,2,3,exit)" << endl;
+        //cout << ">>> ";
         getline(cin,userInput);
         
 
@@ -94,7 +93,7 @@ string Filter::selectCollection(){
     //string tmpName = cltName;
     string userInput = "";
 
-    cout << "Input collection to work on:\n\n";
+    cout << "\nInput collection to work on:\n\n";
     cout << ">>> ";
 
     getline(cin,userInput);
@@ -220,93 +219,73 @@ void Filter::filterDisplay(){
 
         getline(cin,userInput);
         string counter;
-        if(userInput == "1" || userInput == "title"){
-            cout << "Enter name of title: ";
-            getline(cin, userInput);
-            
-            titleFilter(userInput);
-            //filterResults();
-
+        if(userInput == "1" || userInput == "title"){            
+            featureFilter("title");
         }
         else if(userInput == "2" || userInput == "release year"){
-                     cout << "0 for shortest to longest" << endl;
-                     cout << "1 for longest to shortest" << endl;
-                     getline(cin, userInput);
-                     counter = userInput;
-                }
-        else if(userInput == "3" || userInput == "rated"){
-                     cout << "Enter genre type: ";
-                     getline(cin, userInput);
-
-                     //genreFilter(userInput);
-                     }
-        else if(userInput == "4" || userInput == "runtime"){
-                     cout << "0 for shortest to longest" << endl;
-                     cout << "1 for longest to shortest" << endl;
-                     getline(cin, userInput);
-                     counter = userInput;
-
-
-                 }
-        else if(userInput == "5" || userInput == "genre"){
-            cout << "Enter genre type: ";
+            
+            cout << "0 for shortest to longest" << endl;
+            cout << "1 for longest to shortest" << endl;
             getline(cin, userInput);
-
-            genreSort(userInput);
+            counter = userInput;
+        }
+        else if(userInput == "3" || userInput == "rated"){
+            featureFilter("rated");                    
+        }
+        else if(userInput == "4" || userInput == "runtime"){
+            cout << "0 for shortest to longest" << endl;
+            cout << "1 for longest to shortest" << endl;
+            getline(cin, userInput);
+            counter = userInput;
+        }
+        else if(userInput == "5" || userInput == "genre"){
+            featureFilter("genre");
         }
         else if(userInput == "6" || userInput == "IMDB rating"){
-                    cout << "0 for shortest to longest" << endl;
-                    cout << "1 for longest to shortest" << endl;
-                    getline(cin, userInput);
-                    counter = userInput;
-
-
-                }
+            cout << "0 for shortest to longest" << endl;
+            cout << "1 for longest to shortest" << endl;
+            getline(cin, userInput);
+            counter = userInput;
+        }
         else if(userInput == "7" || userInput == "meta score"){
-                   cout << "0 for shortest to longest" << endl;
-                   cout << "1 for longest to shortest" << endl;
-                   getline(cin, userInput);
-                   counter = userInput;
-               }
+            cout << "0 for shortest to longest" << endl;
+            cout << "1 for longest to shortest" << endl;
+            getline(cin, userInput);
+            counter = userInput;
+        }
         else if(userInput == "8" || userInput == "director"){
-                   cout << "Enter name of director: ";
-                   getline(cin, userInput);
-
-                   titleFilter(userInput);
-               }
+            featureFilter("director");
+        }
         else if(userInput == "9" || userInput == "starring"){
-                   cout << "Enter name of star: ";
-                   getline(cin, userInput);
-
-                   titleFilter(userInput);
-               }
+            featureFilter("star");
+        }
         else if(userInput == "10" || userInput == "number of votes"){
-                   cout << "0 for shortest to longest" << endl;
-                   cout << "1 for longest to shortest" << endl;
-                   getline(cin, userInput);
-                   counter = userInput;
-               }
+            cout << "0 for shortest to longest" << endl;
+            cout << "1 for longest to shortest" << endl;
+            getline(cin, userInput);
+            counter = userInput;
+        }
         else if(userInput == "11" || userInput == "gross revenue"){
-                  cout << "0 for shortest to longest" << endl;
-                  cout << "1 for longest to shortest" << endl;
-                  getline(cin, userInput);
-                  counter = userInput;
-               }
+            cout << "0 for shortest to longest" << endl;
+            cout << "1 for longest to shortest" << endl;
+            getline(cin, userInput);
+            counter = userInput;
+        }
         else if(userInput == "12" || userInput == "multiple filters"){
-                   cout << "Enter filters: ";
-                   getline(cin, userInput);
+            cout << "Enter filters: ";
+            getline(cin, userInput);
 
 
-               }
+        }
         else if(userInput == "exit"){
-                   displayMenu();
+            displayMenu();
 
-               }
+        }
        else{
-       filterDisplay();
-       }
+            filterDisplay();
        }
     }
+}
 
 
 void multipleFilters(vector<string> fltNames){
@@ -344,6 +323,82 @@ void Filter::titleFilter(string titleName){
 
     cin.get();
 
+}
+
+// Filters movies by feature and pushes to temp vector
+// user has option to display, create new collection, or export
+void Filter::featureFilter(string fltFeature){
+
+    string userInput;
+
+    vector<Movie_Document*> copyVec = copyMovieDocs(workingClt->name);
+    vector<Movie_Document*> sortedVec;
+    //Series_Title,Rated,Genre,Director,Star
+
+    if(fltFeature == "title"){
+        cout << "Enter title: \n\n";
+        cout << ">>> ";
+
+        getline(cin, userInput);
+
+        for(auto i : copyVec){
+            if(i->series_title.find(userInput) != string::npos){
+                sortedVec.push_back(i);
+            }
+        }
+    }
+    else if(fltFeature == "rated"){
+        cout << "Movie ratings are: 16, A, Approved, G, GP, Passed, PG, PG-13, R, TV-14, TV-MA, TV-PG, U, U/A, UA, Unrated\n";
+        cout << "Enter rating: \n\n";
+        cout << ">>> ";
+
+        getline(cin, userInput);
+
+        for(auto i : copyVec){
+            if(i->certificate.find(userInput) != string::npos){
+                sortedVec.push_back(i);
+            }
+        }
+    }
+    else if(fltFeature == "genre"){
+        cout << "Enter genre: \n\n";
+        cout << ">>> ";
+
+        getline(cin, userInput);
+
+        for(auto i : copyVec){
+            if(i->genre.find(userInput) != string::npos){
+                sortedVec.push_back(i);
+            }
+        }
+    }
+    else if(fltFeature == "director"){
+        cout << "Enter director: \n\n";
+        cout << ">>> ";
+
+        getline(cin, userInput);
+
+        for(auto i : copyVec){
+            if(i->Director.find(userInput) != string::npos){
+                sortedVec.push_back(i);
+            }
+        }
+    }
+    else if(fltFeature == "star"){
+        cout << "Enter star name: \n\n";
+        cout << ">>> ";
+
+        getline(cin, userInput);
+
+        for(auto i : copyVec){
+            if((i->Star1.find(userInput) != string::npos) || (i->Star2.find(userInput) != string::npos) 
+                || (i->Star3.find(userInput) != string::npos) || (i->Star4.find(userInput) != string::npos)){
+                sortedVec.push_back(i);
+            }
+        }
+    }
+
+    filterResults(sortedVec);
 }
 
 // Menu to implement displaying, creating new 
@@ -453,32 +508,6 @@ void Filter::alphabetSort(string cltName, string feature){
     // pick name of new collection for example.
     db.addFltCollection("alphaSort", copyVec);
 
-}
-
-// Filters movies by genre and pushes to temp vector
-// user has option to display, create new collection, or export
-void Filter::genreSort(string genre){
-    vector<Movie_Document*> copyVec = copyMovieDocs(workingClt->name);
-    vector<Movie_Document*> sortedVec;
-
-    for(auto i : copyVec){
-        
-        if(i->genre.find(genre) != string::npos){
-            sortedVec.push_back(i);
-        }
-    }
-
-    filterResults(sortedVec);
-/*
-    if(!db.collectionExists(genre)){
-        db.addFltCollection(genre, sortedVec);
-    }
-    else if(db.collectionExists(genre)){
-        cout << "Collection with name \"" << genre << "\"" << " already exists\nn";
-    }
-    // Else notify user
-
-    */
 }
 
 void Filter::numberSort(){

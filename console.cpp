@@ -37,8 +37,8 @@ void messageDisplayer() {
     cout << left << setw(width) << "*" << left << setw(40) << "use <name>" << left << setw(50) << "switch to another collection" << right << setw(9) << "*" << endl;
     cout << left << setw(width) << "*" << left << setw(40) << "filter" << left << setw(50) << "filter menu" << right << setw(9) << "*" << endl;
     cout << left << setw(width) << "*" << left << setw(40) << "element <index>" << left << setw(50) << "display an element of the current collection" << right << setw(9) << "*" << endl;
-    cout << left << setw(width) << "*" << left << setw(40) << "modify <collection> <movie_title>" << left << setw(50) << "change a movie's information in the curret collection" << right << setw(6) << "*" << endl;
-    cout << left << setw(width) << "*" << left << setw(40) << "rm <collection> <move_title>" << left << setw(50) << "remove an existing collection/movie from collection" << right << setw(9) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "modify <collection> <movie_title>" << left << setw(50) << "edit movie data in current collection" << right << setw(9) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "rm <collection> <move_title>" << left << setw(50) << "remove existing collection/movie" << right << setw(9) << "*" << endl;
     cout << left << setw(width) << "*" << left << setw(40) << "menu" << left << setw(50) << "revisit the command list" << right << setw(9) << "*" << endl;
     cout << left << setw(width) << "*" << left << setw(40) << "add -m" << left << setw(50) << "enter a movie in the current collection" << right << setw(9) << "*" << endl;
     cout << left << setw(width) << "*" << left << setw(40) << "enter" << left << setw(50) << "enter a movie in the current collection" << right << setw(9) << "*" << endl;
