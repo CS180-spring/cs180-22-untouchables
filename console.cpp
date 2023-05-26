@@ -110,18 +110,6 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
 
         filter.filterMain();
         messageDisplayer();
-        /*
-        if(instructions[1] == "-a"){
-            string cltName = instructions[2];
-            string feature = instructions[3];
-            filter.alphabetSort(cltName, feature);
-        }
-        else if(instructions[1] == "-g"){
-            string cltName = instructions[2];
-            string genre = instructions[3];
-            filter.genreSort(cltName, genre);
-        }
-        */
        
     }
     
@@ -343,10 +331,7 @@ int main(){
     string user_input;
     vector<string> userInstruct;
     
-    
     messageDisplayer();
-
-    
 
     while(1){
 
@@ -369,148 +354,6 @@ int main(){
             
             cout << "input not valid!\n\n";
         }
-
-        
-
-        /*
-        if (user_input.substr(0, user_input.find(" ")) == "view") {
-            cout << "type \"all\" to print all documents in the existing database, else will print 5 at a time" <<endl;
-            cout << "type \"exit\" to return to main manual" << endl;
-            string temp_input;
-            cout << ">>> ";
-            int impl = 0;
-            getline(cin,temp_input);
-            
-            if(temp_input == "exit"){
-                cout << "you have successfully exited the movie document viewer" << endl;
-            } else if(temp_input == "all"){
-                printAllTables(*currentDataBase);
-            }else{
-                for (int i = 0 + impl*5; i < 5 + impl*5; ++i){
-                    displayMovieDocument(*currentDataBase, i);
-                    cout << endl;
-                }
-                cout << "type \"next\" to view next 5 movie documents, type \"previous\" to view the previous 5 movie documents" << endl;
-                while(temp_input != "exit"){
-                    cout << ">>> ";
-                    getline(cin,temp_input);
-                    if (temp_input == "next"){
-                        cout << "===================================================================================" << endl;
-                        impl = impl + 1;
-                        for (int i = 0 + impl*5; i < 5 + impl*5; ++i){
-                            displayMovieDocument(*currentDataBase, i);
-                            cout << endl;
-                        }
-                    } else if (temp_input == "previous"){
-                        if (impl == 0){
-                            cout << "you are already at the start of the documents" << endl;
-                        }else{
-                            cout << "===================================================================================" << endl;
-                            impl = impl - 1;
-                            for (int i = 0 + impl*5; i < 5 + impl*5; ++i){
-                                displayMovieDocument(*currentDataBase, i);
-                                cout << endl;
-                            }
-                        }
-                    }
-                }
-                cout << "you have successfully exited the movie document viewer" << endl;
-            }
-        }
-        
-        //add a new database, if the database does not already exist, name of database have to be one word
-        if (user_input.substr(0, user_input.find(" ")) == "add"){
-            if (check_num_word(user_input, 2) == "false"){
-                cout << "enter one word name for the new database" << endl;
-            } else {
-                string new_name = check_num_word(user_input, 2);
-                vector<string> NameList = getNameList(existingDB);
-                if (find(NameList.begin(), NameList.end(), new_name) != NameList.end()){
-                    cout << new_name << " already exists" << endl;
-                }else{
-                    DataBase db_new = {new_name};
-                    existingDB.push_back(db_new);
-                    currentDataBase = &(existingDB.at(0)); //?
-                    cout << "new database: " << new_name << " has been successfully added" << endl;
-                }
-            }       
-        }
-
-        if (user_input.substr(0, user_input.find(" ")) == "element"){
-            if (check_num_word(user_input, 2) == "false"){
-                cout << "only enter one element index to print" << endl;
-            } else {
-                DataBase currDB = *currentDataBase;
-                int pos = user_input.find(' ');
-                string numStr = user_input.substr(pos + 1);
-                int index = stoi(numStr);
-                displayMovieDocument(currDB, index);
-            }       
-        }
-
-        //switch to another database, if the database does not already exist, ask if user want to create a new database
-        if (user_input.substr(0, user_input.find(" ")) == "use"){
-            if (check_num_word(user_input, 2) == "false"){
-                cout << "enter one word name for the target database" << endl;
-            } else {
-                string database_name = check_num_word(user_input, 2);
-                vector<string> NameList = getNameList(existingDB);
-                //chatgpt generated auto search, check if there is existing database matching input name
-                auto db_iter = find_if(existingDB.begin(), existingDB.end(),
-                       [&](const DataBase& db_search){ return db_search.name == database_name; });
-                if (db_iter != existingDB.end()){ //chatgpt generated code to switch database by name
-                    currentDataBase = &(*db_iter); //chatgpt generated code to switch database by name
-                    cout << "current database has been switched to: " << database_name << endl;
-                }else{
-                    cout << "database does not exist, enter 'yes' to add, anything else to deny" << endl;
-                    string new_user_input;
-                    getline(cin, new_user_input);
-                    if(new_user_input == "yes"){
-                        DataBase db_new = {database_name};
-                        existingDB.push_back(db_new);
-                        cout << "new database: " << database_name << " has been successfully added" << endl;
-                        currentDataBase = &existingDB.at(existingDB.size()-1); //last in the existingDB
-                        cout << "current database has been switched to: " << database_name << endl;
-                    } else {
-                        cout << "'use' operation cancelled" << endl;
-                        messageDisplayer();
-                    }
-                }
-            }       
-        }
-
-        //delete an existing database entry, cannot remove the default database or the currently using database
-        if (user_input.substr(0, user_input.find(" ")) == "rm"){
-            if (check_num_word(user_input, 2) == "false"){
-                cout << "enter one word name for the database to be removed" << endl;
-            } else {
-                string target_name = check_num_word(user_input, 2);
-                vector<string> NameList = getNameList(existingDB);
-                if (target_name == "default"){
-                    cout << "command failed, cannot remove the default database" << endl;
-                } else if (target_name == currentDataBase->name) {
-                    //chatgpt generated code to remove an element from database vector by its name
-                    currentDataBase = &existingDB.at(0);
-                    existingDB.erase(std::remove_if(existingDB.begin(), existingDB.end(),
-                    [&](const DataBase& db) { return db.name == target_name; }), existingDB.end());
-                    cout << "removed current database and switched to default" << endl;
-                } else if (find(NameList.begin(), NameList.end(), target_name) != NameList.end()){
-                    //chatgpt generated code to remove an element from database vector by its name
-                    existingDB.erase(std::remove_if(existingDB.begin(), existingDB.end(),
-                    [&](const DataBase& db) { return db.name == target_name; }), existingDB.end());
-                    cout << "removed database: " << target_name << endl;
-                }else{
-                    cout << "command failed, target database does not exist" << endl;
-                }
-            }       
-        }
-
-        if (user_input == "man"){
-            messageDisplayer();
-        }
-
-    */
-     
     }
 
     return 0;

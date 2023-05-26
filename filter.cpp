@@ -5,30 +5,32 @@
 // not have to be passed to filter class every time
 Filter::Filter(Database& db): db{db}{workingClt = nullptr;}
 
-
+// filter constructor function to call display
+// function, set working collection, and get user input
 void Filter::filterMain(){
-    //terminal console commands
-
-    int width = 5;
+ 
     string userInput = "";
     string selectedClt = "";
 
     displayMenu();
     
+    // Stay in filter menu until user types exit
     while(userInput != "exit"){
 
+        // check if working collection is selected
         if(workingClt == nullptr){
             userInput = selectCollection();
         }
-    
+
+        // check if user input from selectCollection() is exit 
         if(userInput == "exit"){
             break;
         }
 
-        //cout << ">>> ";
+        // get user for filter options
         getline(cin,userInput);
         
-
+        // call filter functions based off of user input
         if(userInput == "filter" || userInput == to_string(1)){
             filterDisplay();
 
@@ -38,29 +40,32 @@ void Filter::filterMain(){
         }
         else if(userInput == "sort" || userInput == to_string(3)){
 
-            }
-            else if(userInput == "sort"){
+        }
+        else if(userInput == "sort"){
 
-            }
-            else if(userInput == "collections"){
-                db.dbAll();
-                cout << ">>> ";
-            }
-            else if(userInput == "mainDB"){
-                workingClt = db.rtnMainDB();
-                displayMenu();
-            }
-            else if(userInput == "change"){
-                userInput = selectCollection();
-            }
-            else if(userInput == "menu"){
-                displayMenu();
-            }
+        }
+        else if(userInput == "collections"){
+            db.dbAll();
+            cout << ">>> ";
+        }
+        else if(userInput == "mainDB"){
+            workingClt = db.rtnMainDB();
+            displayMenu();
+        }
+        else if(userInput == "change"){
+            userInput = selectCollection();
+        }
+        else if(userInput == "menu"){
+            displayMenu();
+        }
     }
 
+    // set working collection to
+    // nullptr when function exits
     workingClt = nullptr;
 };
 
+// simple function to display filter menu
 void Filter::displayMenu(){
     
     int width = 5;
@@ -80,6 +85,8 @@ void Filter::displayMenu(){
         cout << "*                                                                                                      *" << endl;
         cout << "********************************************************************************************************" << endl;
         cout << "Selected collection: ";
+        // conditional statement to display
+        // working collection if selected
         if(workingClt != nullptr){
             cout << workingClt->name << endl;
             cout << "Select option\n\n";
@@ -88,6 +95,8 @@ void Filter::displayMenu(){
         }    
 }
 
+// function gets working collection from
+// user 
 string Filter::selectCollection(){
 
     //string tmpName = cltName;
@@ -98,30 +107,33 @@ string Filter::selectCollection(){
 
     getline(cin,userInput);
 
-    //cout << "tmpName: " << tmpName << endl;
+    // continue to get user input until working
+    // collection is selected or user exit
     while(!db.collectionExists(userInput)){ 
-
         
+        // check if user wants 
+        // to work on mainDB
         if(userInput == "mainDB"){
             workingClt = db.rtnMainDB();
             displayMenu();
             return userInput;
         }
-
+        // check if user wants to 
+        // display available collections
         else if(userInput == "collections"){
             db.dbAll();
             cout << ">>> ";
 
             getline(cin,userInput); 
         }
-
+        // need to check if user wants to exit menu
         else if(userInput == "exit"){
             return userInput;
         }
-
+        // collection does not exist prompt 
+        // user to enter a working collection
         else{
             cout << "Collection does not exist\n";
-            //cout << tmpName << endl;
             cout << "input collection to work on: \n\n";
 
             cout << ">>> ";
@@ -129,7 +141,7 @@ string Filter::selectCollection(){
             getline(cin,userInput); 
         }
     }
-    
+    // set working collection
     if(db.collectionExists(userInput)){
     
         workingClt = db.getCollectionByName(userInput);
@@ -137,7 +149,7 @@ string Filter::selectCollection(){
         displayMenu();
         return userInput;
     }
-
+    // need to return something but may not be used
     return userInput;
 }
 
@@ -185,6 +197,8 @@ void Filter::query() {
     }
 }
 
+// fuction displays filter menu and gets user input
+// and will call specific function specific to user input
 void Filter::filterDisplay(){
     
     int width = 5;
@@ -302,7 +316,6 @@ void Filter::titleFilter(string titleName){
             filteredData.push_back(i);
         }
     }
-
 
     for(auto i : filteredData){
 
@@ -427,6 +440,13 @@ void Filter::filterResults(vector<Movie_Document*> fsData){
             db.addFltCollection(userInput, fsData);
         }
         else if(userInput == "3" || userInput == "export"){
+            cout << "name of file: \n\n";
+            cout << ">>> ";
+            getline(cin, userInput);
+
+            db.fltExportCSV(fsData, userInput);
+            cout << "hit enter to continue\n";
+            cin.get();
             //need to change up export to take new parameters
         }
     }
@@ -441,7 +461,6 @@ void Filter::printData(vector<Movie_Document*> movieData){
     string userInput = "";
 
     for(int i = 0; i < movieData.size(); i++){
-        cout << "poster-link: " << movieData[i]->series_title << endl;
         cout << "series-title: " << movieData[i]->series_title << endl;
         cout << "released-year: " << movieData[i]->released_year << endl;
         cout << "certificate: " << movieData[i]->certificate << endl;
