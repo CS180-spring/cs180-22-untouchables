@@ -55,7 +55,7 @@ class Filter{
     private:
         Database& db;
         collection* workingClt;
-        vector <Movie_Document*> filteredData;
+        vector <Movie_Document*> workingData;
         vector <Movie_Document*> sortedData;
 
         //helper functions

@@ -285,37 +285,6 @@ void multipleFilters(vector<string> fltNames){
 
 }
 
-
-void Filter::titleFilter(string titleName){
-
-    vector<Movie_Document*> filteredMov;
-    for(auto i : workingClt->movieDocs){
-        if(i->series_title == titleName){
-            filteredData.push_back(i);
-        }
-    }
-
-    for(auto i : filteredData){
-
-        cout << "poster-link: " << i->poster_Link << endl;
-        cout << "series-title: " << i->series_title << endl;
-        cout << "released-year: " << i->released_year << endl;
-        cout << "certificate: " << i->certificate << endl;
-        cout << "runtime: " << i->runtime << endl;
-        cout << "genre: " << i->genre<< endl;
-        cout << "IMDB-rating: " << i->IMDB_rating << endl;
-        cout << "overview: " << i->overview << endl;
-        cout << "meta-score: " << i->meta_score << endl;
-        cout << "director: " << i->Director << endl;
-        cout << "Stars: " << i->Star1 << ", " << i->Star2 << ", " << i->Star3 << ", " << i->Star4 << endl;
-        cout << "number-votes: " << i->numVotes << endl;
-        cout << "gross: " << i->gross << endl << endl;
-    }
-
-    cin.get();
-
-}
-
 // Filters movies by feature and pushes to temp vector
 // user has option to display, create new collection, or export
 void Filter::featureFilter(string fltFeature){
@@ -420,8 +389,6 @@ void Filter::fltSortResults(vector<Movie_Document*> fsData){
         cout << "********************************************************************************************************\n";
         cout << "*                                                                                                      *\n";
         cout << left << setw(width) << "*" << left << setw(40) << "1.display" << left << setw(50) << "print results" << right << setw(9) << "*" << endl;
-        cout << left << setw(width) << "*" << left << setw(40) << "2.filter" << left << setw(50) << "apply additional filter" << right << setw(9) << "*" << endl;
-        cout << left << setw(width) << "*" << left << setw(40) << "3.sort" << left << setw(50) << "sort filtered movie data" << right << setw(9) << "*" << endl; //added this to import .csv/JSON files into specified collection
         cout << left << setw(width) << "*" << left << setw(40) << "4.create" << left << setw(50) << "create new collection" << right << setw(9) << "*" << endl;
         cout << left << setw(width) << "*" << left << setw(40) << "5.export" << left << setw(50) << "export movie data" << right << setw(9) << "*" << endl;
         cout << "*                                                                                                      *" << endl;
@@ -436,12 +403,6 @@ void Filter::fltSortResults(vector<Movie_Document*> fsData){
         if(userInput == "1" || userInput == "Display"){
 
             printData(fsData);
-        }
-        else if(userInput == "2" || userInput == "filter"){
-            filterDisplay();
-        }
-        else if(userInput == "3" || userInput == "sort"){
-            sortDisplay();
         }
         else if(userInput == "3" || userInput == "create"){
             cout << "name of new collection: \n\n";
