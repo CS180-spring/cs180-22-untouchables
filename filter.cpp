@@ -389,8 +389,8 @@ void Filter::fltSortResults(vector<Movie_Document*> fsData){
         cout << "********************************************************************************************************\n";
         cout << "*                                                                                                      *\n";
         cout << left << setw(width) << "*" << left << setw(40) << "1.display" << left << setw(50) << "print results" << right << setw(9) << "*" << endl;
-        cout << left << setw(width) << "*" << left << setw(40) << "4.create" << left << setw(50) << "create new collection" << right << setw(9) << "*" << endl;
-        cout << left << setw(width) << "*" << left << setw(40) << "5.export" << left << setw(50) << "export movie data" << right << setw(9) << "*" << endl;
+        cout << left << setw(width) << "*" << left << setw(40) << "2.create" << left << setw(50) << "create new collection" << right << setw(9) << "*" << endl;
+        cout << left << setw(width) << "*" << left << setw(40) << "3.export" << left << setw(50) << "export movie data" << right << setw(9) << "*" << endl;
         cout << "*                                                                                                      *" << endl;
         cout << "********************************************************************************************************" << endl;
         cout << "Selected collection: ";
@@ -400,23 +400,23 @@ void Filter::fltSortResults(vector<Movie_Document*> fsData){
 
         getline(cin, userInput);
 
-        if(userInput == "1" || userInput == "Display"){
+        if(userInput == "1" || userInput == "display"){
 
             printData(fsData);
         }
-        else if(userInput == "3" || userInput == "create"){
+        else if(userInput == "2" || userInput == "create"){
             cout << "name of new collection: \n\n";
             cout << ">>> ";
 
             getline(cin,userInput);
 
             db.addFltCollection(userInput, fsData);
-            cout << "new collection " << userInput << " added to database\n";
+            cout << "new collection \'"<< userInput << "\' added to database.\n";
             cout << "hit enter to continue\n\n";
             cout << ">>> ";
             cin.get();
         }
-        else if(userInput == "5" || userInput == "export"){
+        else if(userInput == "3" || userInput == "export"){
             cout << "name of file: \n\n";
             cout << ">>> ";
             getline(cin, userInput);
@@ -424,10 +424,8 @@ void Filter::fltSortResults(vector<Movie_Document*> fsData){
             db.fltExportCSV(fsData, userInput);
             cout << "hit enter to continue\n";
             cin.get();
-            //need to change up export to take new parameters
         }
     }
-  
 }
 
 /// SORTING FUNCTIONS ///

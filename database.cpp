@@ -316,7 +316,6 @@ void Database::addCollection(string cltName){
 
     collectionDB.push_back(clt);
 
-    cout << "New Collection \'"<< clt->name << "\' added to database.\n\n";
  }
 
  collection* Database::rtnMainDB(){
