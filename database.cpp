@@ -252,6 +252,7 @@ collection* Database::getCollectionByName(string name){
     return nullptr;
 };
 
+// function returns collection object 
 collection Database::rtnCollectionByName(string name){
 
     collection rtnClt;
@@ -278,7 +279,7 @@ vector<string>  Database::getCollectionsList(){
     return cltNameList;
 }
 
- //display all available databases
+//display all available databases
 void Database::dbAll(){
     if (collectionDB.size() == 0){
         cout << "no available collections.\n\n";
@@ -315,7 +316,6 @@ void Database::addCollection(string cltName){
 
     collectionDB.push_back(clt);
 
-    cout << "New Collection \'"<< clt->name << "\' added to database.\n\n";
  }
 
  collection* Database::rtnMainDB(){
@@ -431,7 +431,6 @@ void Database::importCSV(string cltName, string fname){
 
     }
     else{
-
         collection->movieDocs = movieData;
         cout << ".csv data import successful\n\n";
     }
@@ -491,7 +490,6 @@ void Database::exportCSV(string cltName){
                 oFile << "," << i->numVotes;
                 oFile << ",\"" << i->gross << "\"";
                 oFile << "\n";
-
             }
 
             // Close file
@@ -504,10 +502,70 @@ void Database::exportCSV(string cltName){
     }
     // Collection not found
     else if(exportClt == nullptr){
-
         cout << "Collection not found\n\n";
     }
-    
+}
+
+// function to export filtered movie data to .csv format
+void Database::fltExportCSV(vector<Movie_Document*> fltMovies, string fileName){
+
+    // check if filtered movie data is empty
+    if(!fltMovies.empty()){
+        
+        fileName = fileName + ".csv";
+
+        // Output file stream
+        ofstream oFile;
+
+        // Open file
+        oFile.open(fileName);
+
+        // Check for any error
+        if(!oFile){
+            cout << "Error in creating export file!\n\n";
+        }
+        else{
+
+            // Export header
+            oFile << "Poster_Link,Series_Title,Released_Year,Certificate,Runtime,Genre,IMDB_Rating,Overview,Meta_score,Director,Star1,Star2,Star3,Star4,No_of_Votes,Gross\n";
+            
+            // Loop through all movieDocs of collection 
+            // and export to .csv format
+            for(auto i : fltMovies){
+                
+                oFile << "\"" << i->poster_Link << "\"";
+                oFile << "," << i->series_title;
+                oFile << "," << i->released_year;
+                oFile << "," << i->certificate;
+                oFile << "," << i->runtime;
+                oFile << "," << i->genre;
+                oFile << "," << i->IMDB_rating;
+                oFile << "\"";
+                oFile << "," << i->overview;
+                oFile << "\"";
+                oFile << "," << i->meta_score;
+                oFile << "," << i->Director;
+                oFile << "," << i->Star1;
+                oFile << "," << i->Star2;
+                oFile << "," << i->Star3;
+                oFile << "," << i->Star4;
+                oFile << "," << i->numVotes;
+                oFile << ",\"" << i->gross << "\"";
+                oFile << "\n";
+            }
+
+            // Close file
+            oFile.close();
+
+            // Export successful
+            cout << "Data export successful\n\n";
+        }
+
+    }
+    // Collection not found
+    else if(fltMovies.empty()){
+        cout << "Nothing to export\n\n";
+    }
 }
 
 void Database::printSingleClt(string cltName){
@@ -817,79 +875,6 @@ void Database::deleteDocumentManual(string cltName, string docName){
     cout << "Document does not exist in the current collection" << endl;
 }
 
-
-/*
-void add_movie_to_database(const string& filename, DataBase& database) {
-  // Load the JSON file
-  ifstream input(filename);
-  json json_data;
-  input >> json_data;
-
-  // Extract the fields from the JSON object
-  string posterLink = json_data["Poster Link"];
-  string seriesTitle = json_data["Series Title"];
-  int releasedYear = json_data["Release Year"];
-  string certificate = json_data["Certificate"];
-  int runtime = json_data["Runtime"];
-  string genre = json_data["Genre"];
-  double imdbRating = json_data["IMDB_Rating"];
-  string overview = json_data["Overview"];
-  int metaScore = json_data["Meta_score"];
-  string director = json_data["Director"];
-  string star1 = json_data["Star1"];
-  string star2 = json_data["Star2"];
-  string star3 = json_data["Star3"];
-  string star4 = json_data["Star4"];
-  int numVotes = json_data["No_of_Votes"];
-  int gross = json_data["Gross"];
-
-  // Create a new Movie_Document object
-  Movie_Document new_movie = {
-    posterLink,
-    seriesTitle,
-    releasedYear,
-    certificate,
-    runtime,
-    genre,
-    imdbRating,
-    overview,
-    metaScore,
-    director,
-    star1,
-    star2,
-    star3,
-    star4,
-    numVotes,
-    gross
-  };
-
-  // Add the new Movie_Document to the database
-  database.storedDocuments.push_back(new_movie);
-  database.movieDocs.push_back(&database.storedDocuments.back());
-} 
-
-
-void displayMovieDocument(const DataBase& database, unsigned int index) {
-    if (index < 0 || index >= database.storedDocuments.size()) {
-        cout << "Invalid index\n";
-        return;
-    }
-    const Movie_Document& doc = database.storedDocuments[index];
-    cout << "Series Title: " << doc.series_title << "\n";
-    cout << "Released Year: " << doc.released_year << "\n";
-    cout << "Runtime (in minutes): " << doc.runtime << "\n";
-    cout << "Genre: " << doc.genre << "\n";
-    cout << "IMDB Rating: " << doc.IMDB_rating << "\n";
-    cout << "Overview: " << doc.overview << "\n";
-    cout << "Meta Score: " << doc.meta_score << "\n";
-    cout << "Director: " << doc.Director << "\n";
-    cout << "Star: " << doc.Star1 << "\n";
-}
-
-
-
-*/
-
 void Database::updateEntry(string cltName, string user_input){
     int cnt = 0;
     bool flag = true;
@@ -1065,26 +1050,10 @@ bool Database::isStringDouble(string str) {
   iss >> num;
   return iss.eof() && !iss.fail();
 }
-
+// I LIKE THIS!!!
 bool Database::isValidLink(const std::string& link) { 
   regex linkPattern(
       R"(^(https?|ftp)://[^\s/$.?#].[^\s]*$)", std::regex::icase);
 
   return regex_match(link, linkPattern);
 }
-
-/*
-void printAllTables(DataBase& current) {
-    for (int i = 0; i < current.storedDocuments.size(); i++) {
-        cout << "Movie title: " << current.storedDocuments.at(i).series_title << endl;
-        cout << "Description: " << current.storedDocuments.at(i).overview << endl;
-        cout << "Director: " << current.storedDocuments.at(i).Director << endl; 
-        cout << "Release Year: " << current.storedDocuments.at(i).released_year << endl;
-        cout << "Genre: " << current.storedDocuments.at(i).genre << endl;
-        cout << "Runtime: " << current.storedDocuments.at(i).runtime << endl;
-        cout << "IMBD Rating: " << current.storedDocuments.at(i).IMDB_rating << endl;
-        cout << "Meta Score: " << current.storedDocuments.at(i).meta_score << endl;
-        cout << "Star rating: " << current.storedDocuments.at(i).Star1 << endl << endl;
-    }
-}
-*/

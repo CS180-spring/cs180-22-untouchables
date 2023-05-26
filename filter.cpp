@@ -5,30 +5,32 @@
 // not have to be passed to filter class every time
 Filter::Filter(Database& db): db{db}{workingClt = nullptr;}
 
-
+// filter constructor function to call display
+// function, set working collection, and get user input
 void Filter::filterMain(){
-    //terminal console commands
-
-    int width = 5;
+ 
     string userInput = "";
     string selectedClt = "";
 
     displayMenu();
     
+    // Stay in filter menu until user types exit
     while(userInput != "exit"){
 
+        // check if working collection is selected
         if(workingClt == nullptr){
             userInput = selectCollection();
         }
-    
+
+        // check if user input from selectCollection() is exit 
         if(userInput == "exit"){
             break;
         }
 
-        //cout << ">>> ";
+        // get user for filter options
         getline(cin,userInput);
         
-
+        // call filter functions based off of user input
         if(userInput == "filter" || userInput == to_string(1)){
             filterDisplay();
 
@@ -37,30 +39,33 @@ void Filter::filterMain(){
             query();
         }
         else if(userInput == "sort" || userInput == to_string(3)){
+            sortDisplay();
+        }
+        else if(userInput == "sort"){
 
-            }
-            else if(userInput == "sort"){
-
-            }
-            else if(userInput == "collections"){
-                db.dbAll();
-                cout << ">>> ";
-            }
-            else if(userInput == "mainDB"){
-                workingClt = db.rtnMainDB();
-                displayMenu();
-            }
-            else if(userInput == "change"){
-                userInput = selectCollection();
-            }
-            else if(userInput == "menu"){
-                displayMenu();
-            }
+        }
+        else if(userInput == "collections"){
+            db.dbAll();
+            cout << ">>> ";
+        }
+        else if(userInput == "mainDB"){
+            workingClt = db.rtnMainDB();
+            displayMenu();
+        }
+        else if(userInput == "change"){
+            userInput = selectCollection();
+        }
+        else if(userInput == "menu"){
+            displayMenu();
+        }
     }
 
+    // set working collection to
+    // nullptr when function exits
     workingClt = nullptr;
 };
 
+// simple function to display filter menu
 void Filter::displayMenu(){
     
     int width = 5;
@@ -80,6 +85,8 @@ void Filter::displayMenu(){
         cout << "*                                                                                                      *" << endl;
         cout << "********************************************************************************************************" << endl;
         cout << "Selected collection: ";
+        // conditional statement to display
+        // working collection if selected
         if(workingClt != nullptr){
             cout << workingClt->name << endl;
             cout << "Select option\n\n";
@@ -88,6 +95,8 @@ void Filter::displayMenu(){
         }    
 }
 
+// function gets working collection from
+// user 
 string Filter::selectCollection(){
 
     //string tmpName = cltName;
@@ -98,30 +107,33 @@ string Filter::selectCollection(){
 
     getline(cin,userInput);
 
-    //cout << "tmpName: " << tmpName << endl;
+    // continue to get user input until working
+    // collection is selected or user exit
     while(!db.collectionExists(userInput)){ 
-
         
+        // check if user wants 
+        // to work on mainDB
         if(userInput == "mainDB"){
             workingClt = db.rtnMainDB();
             displayMenu();
             return userInput;
         }
-
+        // check if user wants to 
+        // display available collections
         else if(userInput == "collections"){
             db.dbAll();
             cout << ">>> ";
 
             getline(cin,userInput); 
         }
-
+        // need to check if user wants to exit menu
         else if(userInput == "exit"){
             return userInput;
         }
-
+        // collection does not exist prompt 
+        // user to enter a working collection
         else{
             cout << "Collection does not exist\n";
-            //cout << tmpName << endl;
             cout << "input collection to work on: \n\n";
 
             cout << ">>> ";
@@ -129,15 +141,15 @@ string Filter::selectCollection(){
             getline(cin,userInput); 
         }
     }
-    
+    // set working collection
     if(db.collectionExists(userInput)){
-    
+        
         workingClt = db.getCollectionByName(userInput);
 
         displayMenu();
         return userInput;
     }
-
+    // need to return something but may not be used
     return userInput;
 }
 
@@ -185,6 +197,9 @@ void Filter::query() {
     }
 }
 
+///////FILTER FUNCTIONS////////////
+// fuction displays filter menu and gets user input
+// and will call specific function specific to user input
 void Filter::filterDisplay(){
     
     int width = 5;
@@ -223,35 +238,22 @@ void Filter::filterDisplay(){
             featureFilter("title");
         }
         else if(userInput == "2" || userInput == "release year"){
-            
-            cout << "0 for shortest to longest" << endl;
-            cout << "1 for longest to shortest" << endl;
-            getline(cin, userInput);
-            counter = userInput;
+        
         }
         else if(userInput == "3" || userInput == "rated"){
             featureFilter("rated");                    
         }
         else if(userInput == "4" || userInput == "runtime"){
-            cout << "0 for shortest to longest" << endl;
-            cout << "1 for longest to shortest" << endl;
-            getline(cin, userInput);
-            counter = userInput;
+          
         }
         else if(userInput == "5" || userInput == "genre"){
             featureFilter("genre");
         }
         else if(userInput == "6" || userInput == "IMDB rating"){
-            cout << "0 for shortest to longest" << endl;
-            cout << "1 for longest to shortest" << endl;
-            getline(cin, userInput);
-            counter = userInput;
+          
         }
         else if(userInput == "7" || userInput == "meta score"){
-            cout << "0 for shortest to longest" << endl;
-            cout << "1 for longest to shortest" << endl;
-            getline(cin, userInput);
-            counter = userInput;
+         
         }
         else if(userInput == "8" || userInput == "director"){
             featureFilter("director");
@@ -260,21 +262,12 @@ void Filter::filterDisplay(){
             featureFilter("star");
         }
         else if(userInput == "10" || userInput == "number of votes"){
-            cout << "0 for shortest to longest" << endl;
-            cout << "1 for longest to shortest" << endl;
-            getline(cin, userInput);
-            counter = userInput;
+            
         }
         else if(userInput == "11" || userInput == "gross revenue"){
-            cout << "0 for shortest to longest" << endl;
-            cout << "1 for longest to shortest" << endl;
-            getline(cin, userInput);
-            counter = userInput;
+        
         }
         else if(userInput == "12" || userInput == "multiple filters"){
-            cout << "Enter filters: ";
-            getline(cin, userInput);
-
 
         }
         else if(userInput == "exit"){
@@ -287,41 +280,8 @@ void Filter::filterDisplay(){
     }
 }
 
-
 void multipleFilters(vector<string> fltNames){
 
-
-}
-
-
-void Filter::titleFilter(string titleName){
-
-    vector<Movie_Document*> filteredMov;
-    for(auto i : workingClt->movieDocs){
-        if(i->series_title == titleName){
-            filteredData.push_back(i);
-        }
-    }
-
-
-    for(auto i : filteredData){
-
-        cout << "poster-link: " << i->poster_Link << endl;
-        cout << "series-title: " << i->series_title << endl;
-        cout << "released-year: " << i->released_year << endl;
-        cout << "certificate: " << i->certificate << endl;
-        cout << "runtime: " << i->runtime << endl;
-        cout << "genre: " << i->genre<< endl;
-        cout << "IMDB-rating: " << i->IMDB_rating << endl;
-        cout << "overview: " << i->overview << endl;
-        cout << "meta-score: " << i->meta_score << endl;
-        cout << "director: " << i->Director << endl;
-        cout << "Stars: " << i->Star1 << ", " << i->Star2 << ", " << i->Star3 << ", " << i->Star4 << endl;
-        cout << "number-votes: " << i->numVotes << endl;
-        cout << "gross: " << i->gross << endl << endl;
-    }
-
-    cin.get();
 
 }
 
@@ -397,42 +357,618 @@ void Filter::featureFilter(string fltFeature){
             }
         }
     }
+    if(!sortedVec.empty()){
+        cout << "Found " << sortedVec.size() << " result(s)\n";
+        cout << "Press any key to continue\n\n";
+        cout << ">>> ";
+        cin.get();
+        fltSortResults(sortedVec);
 
-    filterResults(sortedVec);
+    }
+    else if(sortedVec.empty()){
+        cout << "Found 0 results\n";
+        cout << "Press any key to continue\n\n";
+        cout << ">>> ";
+        cin.get();
+    }
 }
 
 // Menu to implement displaying, creating new 
 // collection, or exporting from filter/sorted data
-void Filter::filterResults(vector<Movie_Document*> fsData){
+void Filter::fltSortResults(vector<Movie_Document*> fsData){
 
+    int width = 5;
     string userInput = "";
 
     if(!fsData.empty()){
-        cout << "Found " << fsData.size() << " result(s)\n";
-        cout << "1.Display\n";
-        cout << "2.Create new collection\n";
-        cout << "3.Export movie data\n\n";
+        
+        system("clear");
+
+        cout << "********************************************************************************************************\n";
+        cout << "*                                            Results Menu                                              *\n";
+        cout << "********************************************************************************************************\n";
+        cout << "*                                                                                                      *\n";
+        cout << left << setw(width) << "*" << left << setw(40) << "1.display" << left << setw(50) << "print results" << right << setw(9) << "*" << endl;
+        cout << left << setw(width) << "*" << left << setw(40) << "2.create" << left << setw(50) << "create new collection" << right << setw(9) << "*" << endl;
+        cout << left << setw(width) << "*" << left << setw(40) << "3.export" << left << setw(50) << "export movie data" << right << setw(9) << "*" << endl;
+        cout << "*                                                                                                      *" << endl;
+        cout << "********************************************************************************************************" << endl;
+        cout << "Selected collection: ";
+        if(workingClt != nullptr){cout << workingClt->name << endl;}
+        cout << endl;
         cout << ">>> ";
 
         getline(cin, userInput);
 
-        if(userInput == "1" || userInput == "Display"){
+        if(userInput == "1" || userInput == "display"){
 
             printData(fsData);
         }
         else if(userInput == "2" || userInput == "create"){
-            cout << "name of new collection: ";
+            cout << "name of new collection: \n\n";
+            cout << ">>> ";
+
             getline(cin,userInput);
 
             db.addFltCollection(userInput, fsData);
+            cout << "new collection \'"<< userInput << "\' added to database.\n";
+            cout << "hit enter to continue\n\n";
+            cout << ">>> ";
+            cin.get();
         }
         else if(userInput == "3" || userInput == "export"){
-            //need to change up export to take new parameters
+            cout << "name of file: \n\n";
+            cout << ">>> ";
+            getline(cin, userInput);
+
+            db.fltExportCSV(fsData, userInput);
+            cout << "hit enter to continue\n";
+            cin.get();
         }
     }
-    else if(fsData.empty()){
-        cout << "Found 0 results\n";
+}
+
+/// SORTING FUNCTIONS ///
+void Filter::sortDisplay(){
+    
+    int width = 5;
+    
+    string feature = "";
+    string order = "";
+    string userInput = "";
+
+    while(userInput != "exit"){
+        system("clear");
+
+        cout << "********************************************************************************************************\n";
+        cout << "*                                            Sort Menu                                                 *\n";
+        cout << "********************************************************************************************************\n";
+        cout << "*                                                                                                      *\n";
+        cout << left << setw(width) << "*" << left << setw(40) << "1.title" << left << setw(50) << "by title" << right << setw(9) << "*" << endl;
+        cout << left << setw(width) << "*" << left << setw(40) << "2.date" << left << setw(50) << "by release year" << right << setw(9) << "*" << endl;
+        cout << left << setw(width) << "*" << left << setw(40) << "3.rated" << left << setw(50) << "by rating" << right << setw(9) << "*" << endl; //added this to import .csv/JSON files into specified collection
+        cout << left << setw(width) << "*" << left << setw(40) << "4.runtime" << left << setw(50) << "by runtime" << right << setw(9) << "*" << endl;
+        cout << left << setw(width) << "*" << left << setw(40) << "5.genre" << left << setw(50) << "by genre" << right << setw(9) << "*" << endl;
+        cout << left << setw(width) << "*" << left << setw(40) << "6.rating" << left << setw(50) << "by IMDB rating" << right << setw(9) << "*" << endl;
+        cout << left << setw(width) << "*" << left << setw(40) << "7.meta" << left << setw(50) << "by meta score" << right << setw(9) << "*" << endl;
+        cout << left << setw(width) << "*" << left << setw(40) << "8.director" << left << setw(50) << "by director" << right << setw(9) << "*" << endl;
+        cout << left << setw(width) << "*" << left << setw(40) << "9.star" << left << setw(50) << "by actor/actress" << right << setw(9) << "*" << endl;
+        cout << left << setw(width) << "*" << left << setw(40) << "10.votes" << left << setw(50) << "by number of votes" << right << setw(9) << "*" << endl;
+        cout << left << setw(width) << "*" << left << setw(40) << "11.gross" << left << setw(50) << "by gross earnings" << right << setw(9) << "*" << endl;
+        cout << left << setw(width) << "*" << left << setw(40) << "exit" << left << setw(50) << "exit sort menu" << right << setw(9) << "*" << endl;
+        cout << "*                                                                                                      *" << endl;
+        cout << "********************************************************************************************************" << endl;
+        cout << "Selected collection: ";
+        if(workingClt != nullptr){cout << workingClt->name << endl;}
+        cout << endl;
+        cout << "Enter feature to sort by:\n\n";
+        cout << ">>> ";
+
+        getline(cin, userInput);
+        
+        if(userInput != "exit"){
+           
+           feature = userInput;
+
+            cout << "Enter 0 to sort ascending:\n";
+            cout << "Enter 1 to sort descending:\n\n";
+            cout << ">>> ";
+
+            getline(cin, order);
+
+            sorter(feature, order); 
+        }
+        else if(userInput == "exit"){
+            displayMenu();
+        }
+    }    
+}
+
+// sorts by series title right now 
+void Filter::sorter(string feature, string order){
+
+    // gets movie data copied over
+    vector<Movie_Document*> copyVec = copyMovieDocs(workingClt->name); // can change this to a passed string variable passed to alphasort()
+   
+    if(feature == "1" || feature == "title"){
+        titleSort(copyVec, order);
     }
+    else if(feature == "2" || feature == "date"){
+        releaseDateSort(copyVec, order);
+    }
+    else if(feature == "3" || feature == "rated"){
+        ratedSort(copyVec, order);
+    }
+    else if(feature == "4" || feature == "runtime"){
+        runtimeSort(copyVec, order);
+    }
+    else if(feature == "5" || feature == "genre"){
+        genreSort(copyVec, order);
+    }
+    else if(feature == "6" || feature == "rating"){
+        ratingSort(copyVec, order);
+    }
+    else if(feature == "7" || feature == "meta"){
+        metaScoreSort(copyVec, order);
+    }
+    else if(feature == "8" || feature == "director"){
+        directorSort(copyVec, order);
+    }
+    else if(feature == "9" || feature == "star"){
+        starSort(copyVec, order);
+    }
+    else if(feature == "10" || feature == "votes"){
+        numVotesSort(copyVec, order);
+    }
+    else if(feature == "11" || feature == "gross"){
+        grossEarningsSort(copyVec, order);
+    }
+}
+
+void Filter::titleSort(vector<Movie_Document*> copyVec, string order){
+    
+    int size = copyVec.size();
+    bool isUnsorted;
+
+     if(order == "0"){
+        do {
+            isUnsorted = false;
+            for (int i = 0; i < (size - 1); i++) {
+                if (copyVec[i]->series_title > copyVec[i + 1]->series_title) {
+                    isUnsorted = true;
+                    for (; i < (size - 1); i++) {
+                        if (copyVec[i]->series_title > copyVec[i + 1]->series_title) {
+                            swap(copyVec[i], copyVec[i + 1]);
+                        }
+                    }
+                }
+            }
+        } while (isUnsorted);
+    }
+    else if(order == "1"){
+        do {
+            isUnsorted = false;
+            for (int i = 0; i < (size - 1); i++) {
+                if (copyVec[i]->series_title < copyVec[i + 1]->series_title) {
+                    isUnsorted = true;
+                    for (; i < (size - 1); i++) {
+                        if (copyVec[i]->series_title < copyVec[i + 1]->series_title) {
+                            swap(copyVec[i], copyVec[i + 1]);
+                        }
+                    }
+                }
+            }
+        } while (isUnsorted);
+    }
+    cout << "Sorting complete hit enter\n\n";
+    cout << ">>> ";
+    cin.get();
+    fltSortResults(copyVec);
+}
+
+void Filter::releaseDateSort(vector<Movie_Document*> copyVec, string order){
+
+    int size = copyVec.size();
+    bool isUnsorted;
+
+     if(order == "0"){
+        do {
+            isUnsorted = false;
+            for (int i = 0; i < (size - 1); i++) {
+                if (copyVec[i]->released_year > copyVec[i + 1]->released_year) {
+                    isUnsorted = true;
+                    for (; i < (size - 1); i++) {
+                        if (copyVec[i]->released_year > copyVec[i + 1]->released_year) {
+                            swap(copyVec[i], copyVec[i + 1]);
+                        }
+                    }
+                }
+            }
+        } while (isUnsorted);
+    }
+    else if(order == "1"){
+        do {
+            isUnsorted = false;
+            for (int i = 0; i < (size - 1); i++) {
+                if (copyVec[i]->released_year < copyVec[i + 1]->released_year) {
+                    isUnsorted = true;
+                    for (; i < (size - 1); i++) {
+                        if (copyVec[i]->released_year < copyVec[i + 1]->released_year) {
+                            swap(copyVec[i], copyVec[i + 1]);
+                        }
+                    }
+                }
+            }
+        } while (isUnsorted);
+    }
+    cout << "Sorting complete hit enter\n\n";    
+    cout << ">>> ";
+    cin.get();
+    fltSortResults(copyVec);
+}
+void Filter::ratedSort(vector<Movie_Document*> copyVec, string order){
+    int size = copyVec.size();
+    bool isUnsorted;
+
+     if(order == "0"){
+        do {
+            isUnsorted = false;
+            for (int i = 0; i < (size - 1); i++) {
+                if (copyVec[i]->certificate > copyVec[i + 1]->certificate) {
+                    isUnsorted = true;
+                    for (; i < (size - 1); i++) {
+                        if (copyVec[i]->certificate > copyVec[i + 1]->certificate) {
+                            swap(copyVec[i], copyVec[i + 1]);
+                        }
+                    }
+                }
+            }
+        } while (isUnsorted);
+    }
+    else if(order == "1"){
+        do {
+            isUnsorted = false;
+            for (int i = 0; i < (size - 1); i++) {
+                if (copyVec[i]->certificate < copyVec[i + 1]->certificate) {
+                    isUnsorted = true;
+                    for (; i < (size - 1); i++) {
+                        if (copyVec[i]->certificate < copyVec[i + 1]->certificate) {
+                            swap(copyVec[i], copyVec[i + 1]);
+                        }
+                    }
+                }
+            }
+        } while (isUnsorted);
+    }
+    cout << "Sorting complete hit enter\n\n";
+    cout << ">>> ";
+    cin.get();
+    fltSortResults(copyVec);
+}
+
+void Filter::runtimeSort(vector<Movie_Document*> copyVec, string order){
+
+    int size = copyVec.size();
+    bool isUnsorted;
+
+     if(order == "0"){
+        do {
+            isUnsorted = false;
+            for (int i = 0; i < (size - 1); i++) {
+                if (copyVec[i]->runtime > copyVec[i + 1]->runtime) {
+                    isUnsorted = true;
+                    for (; i < (size - 1); i++) {
+                        if (copyVec[i]->runtime > copyVec[i + 1]->runtime) {
+                            swap(copyVec[i], copyVec[i + 1]);
+                        }
+                    }
+                }
+            }
+        } while (isUnsorted);
+    }
+    else if(order == "1"){
+        do {
+            isUnsorted = false;
+            for (int i = 0; i < (size - 1); i++) {
+                if (copyVec[i]->runtime < copyVec[i + 1]->runtime) {
+                    isUnsorted = true;
+                    for (; i < (size - 1); i++) {
+                        if (copyVec[i]->runtime < copyVec[i + 1]->runtime) {
+                            swap(copyVec[i], copyVec[i + 1]);
+                        }
+                    }
+                }
+            }
+        } while (isUnsorted);
+    }
+    cout << "Sorting complete hit enter\n\n";
+    cout << ">>> ";
+    cin.get();
+    fltSortResults(copyVec);
+}
+
+void Filter::genreSort(vector<Movie_Document*> copyVec, string order){
+
+    int size = copyVec.size();
+    bool isUnsorted;
+
+     if(order == "0"){
+        do {
+            isUnsorted = false;
+            for (int i = 0; i < (size - 1); i++) {
+                if (copyVec[i]->genre > copyVec[i + 1]->genre) {
+                    isUnsorted = true;
+                    for (; i < (size - 1); i++) {
+                        if (copyVec[i]->genre > copyVec[i + 1]->genre) {
+                            swap(copyVec[i], copyVec[i + 1]);
+                        }
+                    }
+                }
+            }
+        } while (isUnsorted);
+    }
+    else if(order == "1"){
+        do {
+            isUnsorted = false;
+            for (int i = 0; i < (size - 1); i++) {
+                if (copyVec[i]->genre < copyVec[i + 1]->genre) {
+                    isUnsorted = true;
+                    for (; i < (size - 1); i++) {
+                        if (copyVec[i]->genre < copyVec[i + 1]->genre) {
+                            swap(copyVec[i], copyVec[i + 1]);
+                        }
+                    }
+                }
+            }
+        } while (isUnsorted);
+    }
+    cout << "Sorting complete hit enter\n\n";
+    cout << ">>> ";
+    cin.get();
+    fltSortResults(copyVec);
+}
+
+void Filter::ratingSort(vector<Movie_Document*> copyVec, string order){
+
+    int size = copyVec.size();
+    bool isUnsorted;
+
+     if(order == "0"){
+        do {
+            isUnsorted = false;
+            for (int i = 0; i < (size - 1); i++) {
+                if (copyVec[i]->IMDB_rating > copyVec[i + 1]->IMDB_rating) {
+                    isUnsorted = true;
+                    for (; i < (size - 1); i++) {
+                        if (copyVec[i]->IMDB_rating > copyVec[i + 1]->IMDB_rating) {
+                            swap(copyVec[i], copyVec[i + 1]);
+                        }
+                    }
+                }
+            }
+        } while (isUnsorted);
+    }
+    else if(order == "1"){
+        do {
+            isUnsorted = false;
+            for (int i = 0; i < (size - 1); i++) {
+                if (copyVec[i]->IMDB_rating < copyVec[i + 1]->IMDB_rating) {
+                    isUnsorted = true;
+                    for (; i < (size - 1); i++) {
+                        if (copyVec[i]->IMDB_rating < copyVec[i + 1]->IMDB_rating) {
+                            swap(copyVec[i], copyVec[i + 1]);
+                        }
+                    }
+                }
+            }
+        } while (isUnsorted);
+    }
+    cout << "Sorting complete hit enter\n\n";
+    cout << ">>> ";
+    cin.get();
+    fltSortResults(copyVec);
+}
+void Filter::metaScoreSort(vector<Movie_Document*> copyVec, string order){
+
+    int size = copyVec.size();
+    bool isUnsorted;
+
+     if(order == "0"){
+        do {
+            isUnsorted = false;
+            for (int i = 0; i < (size - 1); i++) {
+                if (copyVec[i]->meta_score > copyVec[i + 1]->meta_score) {
+                    isUnsorted = true;
+                    for (; i < (size - 1); i++) {
+                        if (copyVec[i]->meta_score > copyVec[i + 1]->meta_score) {
+                            swap(copyVec[i], copyVec[i + 1]);
+                        }
+                    }
+                }
+            }
+        } while (isUnsorted);
+    }
+    else if(order == "1"){
+        do {
+            isUnsorted = false;
+            for (int i = 0; i < (size - 1); i++) {
+                if (copyVec[i]->meta_score < copyVec[i + 1]->meta_score) {
+                    isUnsorted = true;
+                    for (; i < (size - 1); i++) {
+                        if (copyVec[i]->meta_score < copyVec[i + 1]->meta_score) {
+                            swap(copyVec[i], copyVec[i + 1]);
+                        }
+                    }
+                }
+            }
+        } while (isUnsorted);
+    }
+    cout << "Sorting complete hit enter\n\n";
+    cout << ">>> ";
+    cin.get();
+    fltSortResults(copyVec);
+}
+void Filter::directorSort(vector<Movie_Document*> copyVec, string order){
+
+    int size = copyVec.size();
+    bool isUnsorted;
+
+     if(order == "0"){
+        do {
+            isUnsorted = false;
+            for (int i = 0; i < (size - 1); i++) {
+                if (copyVec[i]->Director > copyVec[i + 1]->Director) {
+                    isUnsorted = true;
+                    for (; i < (size - 1); i++) {
+                        if (copyVec[i]->Director > copyVec[i + 1]->Director) {
+                            swap(copyVec[i], copyVec[i + 1]);
+                        }
+                    }
+                }
+            }
+        } while (isUnsorted);
+    }
+    else if(order == "1"){
+        do {
+            isUnsorted = false;
+            for (int i = 0; i < (size - 1); i++) {
+                if (copyVec[i]->Director < copyVec[i + 1]->Director) {
+                    isUnsorted = true;
+                    for (; i < (size - 1); i++) {
+                        if (copyVec[i]->Director < copyVec[i + 1]->Director) {
+                            swap(copyVec[i], copyVec[i + 1]);
+                        }
+                    }
+                }
+            }
+        } while (isUnsorted);
+    }
+    cout << "Sorting complete hit enter\n\n";
+    cout << ">>> ";
+    cin.get();
+    fltSortResults(copyVec);
+}
+
+void Filter::starSort(vector<Movie_Document*> copyVec, string order){
+
+    int size = copyVec.size();
+    bool isUnsorted;
+
+     if(order == "0"){
+        do {
+            isUnsorted = false;
+            for (int i = 0; i < (size - 1); i++) {
+                if (copyVec[i]->Star1 > copyVec[i + 1]->Star1) {
+                    isUnsorted = true;
+                    for (; i < (size - 1); i++) {
+                        if (copyVec[i]->Star1 > copyVec[i + 1]->Star1) {
+                            swap(copyVec[i], copyVec[i + 1]);
+                        }
+                    }
+                }
+            }
+        } while (isUnsorted);
+    }
+    else if(order == "1"){
+        do {
+            isUnsorted = false;
+            for (int i = 0; i < (size - 1); i++) {
+                if (copyVec[i]->Star1 < copyVec[i + 1]->Star1) {
+                    isUnsorted = true;
+                    for (; i < (size - 1); i++) {
+                        if (copyVec[i]->Star1 < copyVec[i + 1]->Star1) {
+                            swap(copyVec[i], copyVec[i + 1]);
+                        }
+                    }
+                }
+            }
+        } while (isUnsorted);
+    }
+    cout << "Sorting complete hit enter\n\n";
+    cout << ">>> ";
+    cin.get();
+    fltSortResults(copyVec);
+}
+
+void Filter::numVotesSort(vector<Movie_Document*> copyVec, string order){
+
+    int size = copyVec.size();
+    bool isUnsorted;
+
+     if(order == "0"){
+        do {
+            isUnsorted = false;
+            for (int i = 0; i < (size - 1); i++) {
+                if (copyVec[i]->numVotes > copyVec[i + 1]->numVotes) {
+                    isUnsorted = true;
+                    for (; i < (size - 1); i++) {
+                        if (copyVec[i]->numVotes > copyVec[i + 1]->numVotes) {
+                            swap(copyVec[i], copyVec[i + 1]);
+                        }
+                    }
+                }
+            }
+        } while (isUnsorted);
+    }
+    else if(order == "1"){
+        do {
+            isUnsorted = false;
+            for (int i = 0; i < (size - 1); i++) {
+                if (copyVec[i]->numVotes < copyVec[i + 1]->numVotes) {
+                    isUnsorted = true;
+                    for (; i < (size - 1); i++) {
+                        if (copyVec[i]->numVotes < copyVec[i + 1]->numVotes) {
+                            swap(copyVec[i], copyVec[i + 1]);
+                        }
+                    }
+                }
+            }
+        } while (isUnsorted);
+    }
+    cout << "Sorting complete hit enter\n\n";
+    cout << ">>> ";
+    cin.get();
+    fltSortResults(copyVec);
+}
+void Filter::grossEarningsSort(vector<Movie_Document*> copyVec, string order){
+
+    int size = copyVec.size();
+    bool isUnsorted;
+
+     if(order == "0"){
+        do {
+            isUnsorted = false;
+            for (int i = 0; i < (size - 1); i++) {
+                if (copyVec[i]->gross > copyVec[i + 1]->gross) {
+                    isUnsorted = true;
+                    for (; i < (size - 1); i++) {
+                        if (copyVec[i]->gross > copyVec[i + 1]->gross) {
+                            swap(copyVec[i], copyVec[i + 1]);
+                        }
+                    }
+                }
+            }
+        } while (isUnsorted);
+    }
+    else if(order == "1"){
+        do {
+            isUnsorted = false;
+            for (int i = 0; i < (size - 1); i++) {
+                if (copyVec[i]->gross < copyVec[i + 1]->gross) {
+                    isUnsorted = true;
+                    for (; i < (size - 1); i++) {
+                        if (copyVec[i]->gross < copyVec[i + 1]->gross) {
+                            swap(copyVec[i], copyVec[i + 1]);
+                        }
+                    }
+                }
+            }
+        } while (isUnsorted);
+    }
+    cout << "Sorting complete hit enter\n\n";
+    cout << ">>> ";
+    cin.get();
+    fltSortResults(copyVec);
 }
 
 // Simple function to print movie data in 5 document increments
@@ -441,7 +977,6 @@ void Filter::printData(vector<Movie_Document*> movieData){
     string userInput = "";
 
     for(int i = 0; i < movieData.size(); i++){
-        cout << "poster-link: " << movieData[i]->series_title << endl;
         cout << "series-title: " << movieData[i]->series_title << endl;
         cout << "released-year: " << movieData[i]->released_year << endl;
         cout << "certificate: " << movieData[i]->certificate << endl;
@@ -468,18 +1003,11 @@ void Filter::printData(vector<Movie_Document*> movieData){
         
 }
 
-
-// Helper function for sorting
-bool alphaSortHelper( Movie_Document* x, Movie_Document* y){
-
-    return x->series_title < y->series_title;
-}
-
 vector<Movie_Document*> Filter::copyMovieDocs(string cltName){
     
     // use db function to get collection by name
     // pointer to collection is returned
-    collection* clt = db.getCollectionByName("default");
+    collection* clt = db.getCollectionByName(cltName);
 
     // set variable to size of vector to be copied
     int size = clt->movieDocs.size();
@@ -491,640 +1019,4 @@ vector<Movie_Document*> Filter::copyMovieDocs(string cltName){
     copy(clt->movieDocs.begin(),clt->movieDocs.begin() + size, copyVec.begin());
 
     return copyVec;
-
 }
-
-// sorts by series title right now 
-void Filter::alphabetSort(string cltName, string feature){
-
-    // gets movie data copied over
-    vector<Movie_Document*> copyVec = copyMovieDocs("default"); // can change this to a passed string variable passed to alphasort()
-    
-    // sorts with a helper function
-    sort(copyVec.begin(), copyVec.end(), alphaSortHelper);
-
-    // add new collection
-    // the parameters can be changed within your class so you can let user
-    // pick name of new collection for example.
-    db.addFltCollection("alphaSort", copyVec);
-
-}
-
-void Filter::numberSort(){
-}
-
-void Filter::output(){
-}
-
-/*
-void Filter::titleView(){
-cout << "A = View all" << endl;
-cout << "T = Just titles" << endl;
-getline(cin, userinput);
-if (userinput == "A"){
-output();
-}
-else if(userinput == "T"){
-
-}
-else{
-cout << "Please give a valid input." << endl;
-titleView();
-}
-}
-
-
-void Filter::titleSort(){
-getline(cin, userinput);
-if (userinput == "0"){
-alphabetSort();
-cout << "Would you like to view all information or just the title?" << endl;
-titleView();
-}
-else if(userinput == "1"){
-alphabetSort();
-cout << "Would you like to view all information or just the title?" << endl;
-titleView();
-}
-else if (userinput == "2"){
-}
-else{
-cout << "Please give a valid input:" << endl;
-titleSort();
-}
-}
-
-void Filter::titleFilter(){
-cout << "Input:" << endl;
-cout << "0 for A-Z" << endl;
-cout << "1 for Z-A" << endl;
-cout << "2 for no alphabetization" << endl;
-titleSort();
-}
-
-void Filter::yearView(){
-cout << "A = View all" << endl;
-cout << "T = Just titles and years" << endl;
-getline(cin, userinput);
-if (userinput == "A"){
-output();
-}
-else if(userinput == "T"){
-
-}
-else{
-cout << "Please give a valid input." << endl;
-yearView();
-}
-}
-
-
-void yearSort(){
-getline(cin, userinput);
-if (userinput == "0"){
-numberSort();
-yearView();
-}
-else if(userinput == "1"){
-numberSort();
-yearView();
-}
-else if (userinput == "2"){
-yearView();
-}
-else{
-cout << "Please give a valid input:" << endl;
-yearSort();
-}
-}
-
-void yearFilter(){
-cout << "Input:" << endl;
-cout << "0 for oldest to newest" << endl;
-cout << "1 for newest to oldest" << endl;
-cout << "2 for no numerical sort" << endl;
-yearSort();
-}
-
-void certificateView(){
-cout << "A = View all" << endl;
-cout << "T = Just titles and certificates" << endl;
-getline(cin, userinput);
-if (userinput == "A"){
-output();
-}
-else if(userinput == "T"){
-
-}
-else{
-cout << "Please give a valid input." << endl;
-certificateView();
-}
-}
-
-
-void certificateSort(){
-getline(cin, userinput);
-if (userinput == "0"){
-certificateView();
-}
-else if(userinput == "1"){
-certificateView();
-}
-else if (userinput == "2"){
-certificateView();
-}
-else if(userinput == "3"){
-certificateView();
-}
-else if(userinput == "4"){
-certificateView();
-}
-else if (userinput == "5"){
-certificateView();
-}
-else if(userinput == "6"){
-certificateView();
-}
-else if(userinput == "7"){
-certificateView();
-}
-else if (userinput == "8"){
-certificateView();
-}
-else if(userinput == "9"){
-certificateView();
-}
-else if(userinput == "a"){
-certificateView();
-}
-else if (userinput == "b"){
-certificateView();
-}
-else{
-cout << "Please give a valid input:" << endl;
-certificateView();
-}
-}
-
-void certificateFilter(){
-cout << "Input:" << endl;
-cout << "0 for A film certification" << endl;
-cout << "1 for U film certification" << endl;
-cout << "2 for G film certification" << endl;
-cout << "3 for R film certification" << endl;
-cout << "4 for PG film certification" << endl;
-cout << "5 for PG-13 film certification" << endl;
-cout << "6 for UA and U/A film certification" << endl;
-cout << "7 for TV-14 certification" << endl;
-cout << "8 for TV-PG certification" << endl;
-cout << "9 for TV-MA certification" << endl;
-cout << "a for Passed certification" << endl;
-cout << "b for Approved certification" << endl;
-certificateSort();
-}
-
-void runtimeView(){
-cout << "A = View all" << endl;
-cout << "T = Just titles and runtimes" << endl;
-getline(cin, userinput);
-if (userinput == "A"){
-output();
-}
-else if(userinput == "T"){
-
-}
-else{
-cout << "Please give a valid input." << endl;
-runtimeView();
-}
-}
-
-
-void runtimeSort(){
-getline(cin, userinput);
-if (userinput == "0"){
-numberSort();
-runtimeView();
-}
-else if(userinput == "1"){
-numberSort();
-runtimeView();
-}
-else if (userinput == "2"){
-runtimeView();
-}
-else{
-cout << "Please give a valid input:" << endl;
-runtimeView();
-}
-}
-
-void runtimeFilter(){
-cout << "Input:" << endl;
-cout << "0 for shortest to longest" << endl;
-cout << "1 for longest to shortest" << endl;
-cout << "2 for no numerical sort" << endl;
-runtimeSort();
-}
-
-void genreView(){
-cout << "A = View all" << endl;
-cout << "T = Just titles and genres" << endl;
-getline(cin, userinput);
-if (userinput == "A"){
-output();
-}
-else if(userinput == "T"){
-
-}
-else{
-cout << "Please give a valid input." << endl;
-genreView();
-}
-}
-
-void genreSort(){
-getline(cin, userinput);
-if (userinput == "0"){
-alphabetSort();
-genreView();
-}
-else if(userinput == "1"){
-alphabetSort();
-genreView();
-}
-else if (userinput == "2"){
-genreView();
-}
-else{
-cout << "Please give a valid input:" << endl;
-genreSort();
-}
-}
-
-void genreFilter(){
-cout << "Input:" << endl;
-cout << "0 for oldest to newest" << endl;
-cout << "1 for newest to oldest" << endl;
-cout << "2 for no numerical sort" << endl;
-genreSort();
-}
-
-void imdbRatingView(){
-cout << "A = View all" << endl;
-cout << "T = Just titles and IMDB ratings" << endl;
-getline(cin, userinput);
-if (userinput == "A"){
-output();
-}
-else if(userinput == "T"){
-
-}
-else{
-cout << "Please give a valid input." << endl;
-imdbRatingView();
-}
-}
-
-
-void imdbRatingSort(){
-getline(cin, userinput);
-if (userinput == "0"){
-numberSort();
-imdbRatingView();
-}
-else if(userinput == "1"){
-numberSort();
-imdbRatingView();
-}
-else if (userinput == "2"){
-imdbRatingView();
-}
-else{
-cout << "Please give a valid input:" << endl;
-imdbRatingSort();
-}
-}
-
-void imdbRatingFilter(){
-cout << "Input:" << endl;
-cout << "0 for oldest to newest" << endl;
-cout << "1 for newest to oldest" << endl;
-cout << "2 for no numerical sort" << endl;
-imdbRatingSort();
-}
-
-void overviewView(){
-cout << "A = View all" << endl;
-cout << "T = Just titles and overviews" << endl;
-getline(cin, userinput);
-if (userinput == "A"){
-output();
-}
-else if(userinput == "T"){
-
-}
-else{
-cout << "Please give a valid input." << endl;
-overviewView();
-}
-}
-
-void overviewSort(){ //Have to do query
-overviewView();
-}
-
-void overviewFilter(){
-cout << "Would you like to filter overviews that include all keywords or at least one keyword?" << endl;
-cout << "a for all keywords" << endl;
-cout << "o for at least one keyword" << endl;
-getline(cin, userinput);
-cout << "Input all desired keywords, each separated by a space and when finished press enter" << endl;
-getline(cin, userinput);
-overviewSort();
-}
-
-void metaScoreView(){
-cout << "A = View all" << endl;
-cout << "T = Just titles and meta scores" << endl;
-getline(cin, userinput);
-if (userinput == "A"){
-output();
-}
-else if(userinput == "T"){
-
-}
-else{
-cout << "Please give a valid input." << endl;
-metaScoreView();
-}
-}
-
-void metaScoreSort(){
-getline(cin, userinput);
-if (userinput == "0"){
-numberSort();
-metaScoreView();
-}
-else if(userinput == "1"){
-numberSort();
-metaScoreView();
-}
-else if (userinput == "2"){
-metaScoreView();
-}
-else{
-cout << "Please give a valid input:" << endl;
-metaScoreSort();
-}
-}
-
-void metaScoreFilter(){
-cout << "Input:" << endl;
-cout << "0 for lowest to highest" << endl;
-cout << "1 for highest to lowest" << endl;
-cout << "2 for no numerical sort" << endl;
-metaScoreSort();
-}
-
-void directorView(){
-cout << "A = View all" << endl;
-cout << "T = Just titles and directors" << endl;
-getline(cin, userinput);
-if (userinput == "A"){
-output();
-}
-else if(userinput == "T"){
-
-}
-else{
-cout << "Please give a valid input." << endl;
-directorView();
-}
-}
-
-
-void directorSort(){
-getline(cin, userinput);
-if (userinput == "0"){
-alphabetSort();
-directorView();
-}
-else if(userinput == "1"){
-alphabetSort();
-directorView();
-}
-else if (userinput == "2"){
-directorView();
-}cout << "Input:" << endl;
-cout << "0 for oldest to newest" << endl;
-cout << "1 for newest to oldest" << endl;
-cout << "2 for no numerical sort" << endl;
-yearSort();
-}
-}
-}
-
-void directorFilter(){
-cout << "Input:" << endl;
-cout << "0 for A-Z" << endl;
-cout << "1 for Z-A" << endl;
-cout << "2 for no alphabetization" << endl;
-directorSort();
-}
-
-void starsView(){
-cout << "A = View all" << endl;
-cout << "T = Just titles and stars" << endl;
-getline(cin, userinput);
-if (userinput == "A"){
-output();
-}
-else if(userinput == "T"){
-
-}
-else{
-cout << "Please give a valid input." << endl;
-starsView();
-}
-}
-
-
-void starsSort(){
-getline(cin, userinput);
-if (userinput == "0"){
-alphabetSort();
-starsView();
-}
-else if(userinput == "1"){
-alphabetSort();
-starsView();
-}
-else if (userinput == "2"){
-starsView();
-}
-else{
-cout << "Please give a valid input:" << endl;
-starsSort();
-}
-}
-
-void starsFilter(){
-cout << "Input:" << endl;
-cout << "0 for A-Z" << endl;
-cout << "1 for Z-A" << endl;
-cout << "2 for no alphabetization" << endl;
-starsSort();
-}
-
-void noOfVotesView(){
-cout << "A = View all" << endl;
-cout << "T = Just titles and number of votes" << endl;
-getline(cin, userinput);
-if (userinput == "A"){
-output();
-}
-else if(userinput == "T"){
-
-}
-else{
-cout << "Please give a valid input." << endl;
-noOfVotesView();
-}
-}
-
-
-void noOfVotesSort(){
-getline(cin, userinput);
-if (userinput == "0"){
-numberSort();
-noOfVotesView();
-}
-else if(userinput == "1"){
-numberSort();
-noOfVotesView();
-}
-else if (userinput == "2"){
-noOfVotesView();
-}
-else{
-cout << "Please give a valid input:" << endl;
-noOfVotesSort();
-}
-}
-
-void noOfVotesFilter(){
-cout << "Input:" << endl;
-cout << "0 for lowest to highest" << endl;
-cout << "1 for highest to lowest" << endl;
-cout << "2 for no numerical sort" << endl;
-noOfVotesSort();
-}
-
-void grossRevenueView(){
-cout << "A = View all" << endl;
-cout << "T = Just titles and gross revenues" << endl;
-getline(cin, userinput);
-if (userinput == "A"){
-output();
-}
-else if(userinput == "T"){
-
-}
-else{
-cout << "Please give a valid input." << endl;
-grossRevenueView();
-}
-}
-
-
-void grossRevenueSort(){
-getline(cin, userinput);
-if (userinput == "0"){
-numberSort();
-grossRevenueView();
-}
-else if(userinput == "1"){
-numberSort();
-grossRevenueView();
-}
-else if (userinput == "2"){
-grossRevenueView();
-}
-else{
-cout << "Please give a valid input:" << endl;
-grossRevenueSort();
-}
-}
-
-void grossRevenueFilter(){
-cout << "Input:" << endl;
-cout << "0 for lowest to highest" << endl;
-cout << "1 for highest to lowest" << endl;
-cout << "2 for no numerical sort" << endl;
-grossRevenueSort();
-}
-
-void filter(){
-cout << "Filter by inputting the respective character(s):" << endl;
-cout << "T = Series_Title" << endl;
-cout << "Y = Released_Year" << endl;
-cout << "C = Certificate" << endl;
-cout << "R = Runtime" << endl;
-cout << "G = Genre" << endl;
-cout << "I = IMDB_Rating" << endl;
-cout << "O = Overview" << endl;
-cout << "M = Meta_score" << endl;
-cout << "D = Director" << endl;
-cout << "S = Stars" << endl;
-cout << "N = No_of_Votes" << endl;
-cout << "GR = Gross Revenue" << endl;
-cout << "B to go back" << endl;
-string userinput;
-getline(cin, userinput);
-if(userinput == "T"){
-titleFilter();
-}
-else if(userinput == "Y"){
-yearFilter();
-}
-else if(userinput == "C"){
-certificateFilter();
-}
-else if(userinput == "R"){
-runtimeFilter();
-}
-else if(userinput == "G"){
-genreFilter();
-}
-else if(userinput == "I"){
-imdbRatingFilter();
-}
-else if(userinput == "O"){
-overviewFilter();
-}
-else if(userinput == "M"){
-metaScoreFilter();
-}
-else if(userinput == "D"){
-directorFilter();
-}
-else if(userinput == "S"){
-starsFilter();
-}
-else if(userinput == "N"){
-noOfVotesFilter();
-}
-else if(userinput == "GR"){
-grossRevenueFilter();
-}
-else if(userinput == "B"){
-messageDisplayer();
-}
-else{
-cout << "Please give a valid input" << endl;
-filter();
-}
-}
-*/

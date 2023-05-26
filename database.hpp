@@ -55,6 +55,7 @@ class Database{
         void importCSV(string cltName, string fileName);
         void importJSON(collection* db, string fileName);
         void exportCSV(string cltName);                                             //takes name of collection and exports data to csv format on file in directory 
+        void fltExportCSV(vector<Movie_Document*> fltMovies, string fileName);
         void exportJSON(string cltName);                                             //takes name of collection and exports data to JSON format on file in directory
         void exportData(collection* cc, Movie_Document* movDoc, string format);
         void addDocumentManually();
