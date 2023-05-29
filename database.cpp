@@ -561,7 +561,7 @@ void Database::exportJSON(string cltName) {
             }
 
             // Write the JSON array to the file
-            oFile << jsonArray;
+            oFile << jsonArray.dump(4); //dump used for better data representation
 
             // Close file
             oFile.close();
