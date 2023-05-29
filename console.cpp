@@ -28,10 +28,11 @@ void messageDisplayer() {
     cout << "*                                            Movie Database                                            *\n";
     cout << "********************************************************************************************************\n";
     cout << "*                                                                                                      *\n";
+    cout << left << setw(width) << "*" << left << setw(40) << "access" << left << setw(50) << "check the user's accesslevel" << right << setw(9) << "*" << endl;
     cout << left << setw(width) << "*" << left << setw(40) << "db" << left << setw(50) << "display current collection" << right << setw(9) << "*" << endl;
     cout << left << setw(width) << "*" << left << setw(40) << "db-all" << left << setw(50) << "display all available collections" << right << setw(9) << "*" << endl;
     cout << left << setw(width) << "*" << left << setw(40) << "import -<format> <collection> <file>" << left << setw(50) << "import data file into collection" << right << setw(9) << "*" << endl; //added this to import .csv/JSON files into specified collection
-    cout << left << setw(width) << "*" << left << setw(40) << "export <collection>" << left << setw(50) << "export collection" << right << setw(9) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "export <flag> <collection>" << left << setw(50) << "export collection" << right << setw(9) << "*" << endl;
     cout << left << setw(width) << "*" << left << setw(40) << "print -<flag> <collection>" << left << setw(50) << "print all movie documents of selected collection" << right << setw(9) << "*" << endl;        //added this to print data
     cout << left << setw(width) << "*" << left << setw(40) << "add <name>" << left << setw(50) << "add new collection" << right << setw(9) << "*" << endl;
     cout << left << setw(width) << "*" << left << setw(40) << "use <name>" << left << setw(50) << "switch to another collection" << right << setw(9) << "*" << endl;
@@ -50,9 +51,23 @@ void messageDisplayer() {
 }
 
 //helper function to call db functions based off of parsed user input
-void userInstruction(Filter& filter, Database& db, vector<string>& instructions){
+void userInstruction(Filter& filter, Database& db, vector<string>& instructions, int accesslevel){
 
     string instruction = instructions[0];
+
+    if(instruction == "access"){
+        if(instructions.size() != 1){
+            cout << "please use proper command, recommended command: \"access\"" << endl;
+            return;
+        }
+        string user = "";
+        if (accesslevel == 0){
+            user = "admin";
+        }else{
+            user = "developer";
+        }
+        cout << "current access level: " << accesslevel << ", equivalent as: " << user << endl;
+    }
 
     if(instruction == "print"){
       if(instructions[1] == "-main"){
@@ -97,13 +112,21 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions)
     }
 
     else if(instruction == "export"){
-        if (instructions.size() != 2){
-            cout << "please use proper command, recommended command: \"export <collection>\"" << endl;
+        if (instructions.size() != 3){
+            cout << "please use proper command, recommended command: \"export <flag> <collection>\"" << endl;
             return;
         }
-        string cltName = instructions[1];
 
-        db.exportCSV(cltName);
+        string flagname = instructions[1];
+        string cltName = instructions[2];
+
+        if(flagname == "-csv"){
+            db.exportCSV(cltName);
+        }else if (flagname == "-json"){
+            db.exportJSON(cltName);
+        }else{
+            cout << "inproper flag name entered" << endl;
+        }    
     }
     
     else if(instruction == "filter"){
@@ -293,7 +316,7 @@ bool checkvalidation(const string& input_username, const string& input_password)
     return false;
 }
 
-void login(){
+int login(){
     bool loggedin = false;
     while(loggedin == 0){
         cout << "print \"log\" to login to the system, else to exit the system" << endl;
@@ -311,6 +334,11 @@ void login(){
             getline(cin, input_password);
             if(checkvalidation(input_username, input_password)){
                 loggedin = 1;
+                if (input_username == "admin"){
+                    return 0;
+                }else{
+                    return 1;
+                }
             }else{
                 cout << "invalid username or password" << endl << endl;
             }
@@ -319,11 +347,21 @@ void login(){
             exit(1);
         }
     }
+    return 2;
 }
 
 int main(){
 
-    //login();
+    int accesslevel;
+    accesslevel = login();    
+    /*
+    if (accesslevel == 0){
+        cout << "current accesslevel is 0, logged in as admin." << endl;
+    }else if (accesslevel == 2){
+        cout << "something went wrong" << endl;
+    }else{
+        cout << "You have successfully logged in as developer." << endl;
+    }*/
 
     Database db;
     Filter filter(db);
@@ -348,7 +386,7 @@ int main(){
         
             // pass parsed vector to helper 
             // function to call db functions
-            userInstruction(filter, db, userInstruct);
+            userInstruction(filter, db, userInstruct, accesslevel);
         }
         else if(user_input.empty()){
             

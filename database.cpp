@@ -1,4 +1,5 @@
 #include "database.hpp"
+//#include <nlohmann/json.hpp>
 
 // Helper function to parse csv files
 vector<Movie_Document*> parseCSV(string fname){
@@ -502,6 +503,75 @@ void Database::exportCSV(string cltName){
     }
     // Collection not found
     else if(exportClt == nullptr){
+        cout << "Collection not found\n\n";
+    }
+}
+
+void Database::exportJSON(string cltName) {
+
+    collection* exportClt = getCollectionByName(cltName);
+
+    if (exportClt != nullptr) {
+
+        // Name of collection to be exported
+        // used for name of exported file 
+        string fileName = exportClt->name;
+
+        fileName = fileName + ".json";
+
+        // Output file stream
+        ofstream oFile;
+
+        // Open file
+        oFile.open(fileName);
+
+        // Check for any error
+        if (!oFile) {
+            cout << "Error in creating export file!\n\n";
+        }
+        else {
+            // modified based on chatgpt sample json export code
+            // Create a JSON array
+            nlohmann::json jsonArray;
+
+            // Loop through all movieDocs of collection 
+            // and add to .json array
+            for (auto i : exportClt->movieDocs) {
+                // Create a JSON object for each movie document
+                nlohmann::json movieJson;
+                movieJson["Poster_Link"] = i->poster_Link;
+                movieJson["Series_Title"] = i->series_title;
+                movieJson["Released_Year"] = i->released_year;
+                movieJson["Certificate"] = i->certificate;
+                movieJson["Runtime"] = i->runtime;
+                movieJson["Genre"] = i->genre;
+                movieJson["IMDB_Rating"] = i->IMDB_rating;
+                movieJson["Overview"] = i->overview;
+                movieJson["Meta_score"] = i->meta_score;
+                movieJson["Director"] = i->Director;
+                movieJson["Star1"] = i->Star1;
+                movieJson["Star2"] = i->Star2;
+                movieJson["Star3"] = i->Star3;
+                movieJson["Star4"] = i->Star4;
+                movieJson["NumVotes"] = i->numVotes;
+                movieJson["Gross"] = i->gross;
+
+                // Add the movie JSON object to the array
+                jsonArray.push_back(movieJson);
+            }
+
+            // Write the JSON array to the file
+            oFile << jsonArray.dump(4); //dump used for better data representation
+
+            // Close file
+            oFile.close();
+
+            // Export successful
+            cout << "Data export successful\n\n";
+        }
+    }
+    // Collection not found
+    else if (exportClt == nullptr) {
         cout << "Collection not found\n\n";
     }
 }

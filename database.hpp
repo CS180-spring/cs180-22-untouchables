@@ -9,7 +9,7 @@
 #include <map> //linking documents with databases
 #include <algorithm>
 #include <regex>
-//#include <nlohmann/json.hpp>
+#include <nlohmann/json.hpp>
 
 using namespace std;
 
