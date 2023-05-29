@@ -32,7 +32,7 @@ void messageDisplayer() {
     cout << left << setw(width) << "*" << left << setw(40) << "db" << left << setw(50) << "display current collection" << right << setw(9) << "*" << endl;
     cout << left << setw(width) << "*" << left << setw(40) << "db-all" << left << setw(50) << "display all available collections" << right << setw(9) << "*" << endl;
     cout << left << setw(width) << "*" << left << setw(40) << "import -<format> <collection> <file>" << left << setw(50) << "import data file into collection" << right << setw(9) << "*" << endl; //added this to import .csv/JSON files into specified collection
-    cout << left << setw(width) << "*" << left << setw(40) << "export <collection>" << left << setw(50) << "export collection" << right << setw(9) << "*" << endl;
+    cout << left << setw(width) << "*" << left << setw(40) << "export <flag> <collection>" << left << setw(50) << "export collection" << right << setw(9) << "*" << endl;
     cout << left << setw(width) << "*" << left << setw(40) << "print -<flag> <collection>" << left << setw(50) << "print all movie documents of selected collection" << right << setw(9) << "*" << endl;        //added this to print data
     cout << left << setw(width) << "*" << left << setw(40) << "add <name>" << left << setw(50) << "add new collection" << right << setw(9) << "*" << endl;
     cout << left << setw(width) << "*" << left << setw(40) << "use <name>" << left << setw(50) << "switch to another collection" << right << setw(9) << "*" << endl;
@@ -112,13 +112,21 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions,
     }
 
     else if(instruction == "export"){
-        if (instructions.size() != 2){
-            cout << "please use proper command, recommended command: \"export <collection>\"" << endl;
+        if (instructions.size() != 3){
+            cout << "please use proper command, recommended command: \"export <flag> <collection>\"" << endl;
             return;
         }
-        string cltName = instructions[1];
 
-        db.exportCSV(cltName);
+        string flagname = instructions[1];
+        string cltName = instructions[2];
+
+        if(flagname == "-csv"){
+            db.exportCSV(cltName);
+        }else if (flagname == "-json"){
+            db.exportJSON(cltName);
+        }else{
+            cout << "inproper flag name entered" << endl;
+        }    
     }
     
     else if(instruction == "filter"){

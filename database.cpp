@@ -506,6 +506,12 @@ void Database::exportCSV(string cltName){
     }
 }
 
+void Database::exportJSON(string cltName){
+
+    collection* exportClt = getCollectionByName(cltName);
+    cout << "collection to be exported to json format is " << cltName << endl;
+}
+
 // function to export filtered movie data to .csv format
 void Database::fltExportCSV(vector<Movie_Document*> fltMovies, string fileName){
 
