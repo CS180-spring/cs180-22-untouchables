@@ -1,8 +1,18 @@
-movieDB: main.o
-	g++ -g -o movieDB console.o filter.o database.o 
+CXX = g++
+CXXFLAGS = -g -std=c++11 -I../
+LDFLAGS = $(shell pkg-config --libs json)
 
-main.o: console.cpp filter.cpp database.cpp 
-	g++ -c console.cpp filter.cpp database.cpp 
+SOURCES = console.cpp filter.cpp database.cpp
+OBJECTS = $(SOURCES:.cpp=.o)
+EXECUTABLE = movieDB
+
+all: $(EXECUTABLE)
+
+$(EXECUTABLE): $(OBJECTS)
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $(OBJECTS)
+
+.cpp.o:
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
-	rm -f *.o $(objects) movieDB
+	rm -f $(EXECUTABLE) $(OBJECTS)

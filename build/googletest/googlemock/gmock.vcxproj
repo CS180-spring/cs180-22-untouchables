@@ -78,7 +78,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions) -J -utf-8</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -87,8 +87,10 @@
       <DisableSpecificWarnings>4251;4275;4702</DisableSpecificWarnings>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <Optimization>Disabled</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TreatWarningAsError>true</TreatWarningAsError>
@@ -100,10 +102,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;_UNICODE;UNICODE;_WIN32;STRICT;WIN32_LEAN_AND_MEAN;GTEST_HAS_PTHREAD=0;_HAS_EXCEPTIONS=1;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -116,15 +118,17 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions) -J -utf-8</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BufferSecurityCheck>true</BufferSecurityCheck>
       <DisableSpecificWarnings>4251;4275;4702</DisableSpecificWarnings>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <Optimization>MaxSpeed</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TreatWarningAsError>true</TreatWarningAsError>
@@ -138,10 +142,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_UNICODE;UNICODE;_WIN32;STRICT;WIN32_LEAN_AND_MEAN;GTEST_HAS_PTHREAD=0;_HAS_EXCEPTIONS=1;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -154,15 +158,17 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions) -J -utf-8</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BufferSecurityCheck>true</BufferSecurityCheck>
       <DisableSpecificWarnings>4251;4275;4702</DisableSpecificWarnings>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <Optimization>MinSpace</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TreatWarningAsError>true</TreatWarningAsError>
@@ -176,10 +182,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_UNICODE;UNICODE;_WIN32;STRICT;WIN32_LEAN_AND_MEAN;GTEST_HAS_PTHREAD=0;_HAS_EXCEPTIONS=1;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -192,7 +198,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions) -J -utf-8</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BufferSecurityCheck>true</BufferSecurityCheck>
@@ -200,8 +206,10 @@
       <DisableSpecificWarnings>4251;4275;4702</DisableSpecificWarnings>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <Optimization>MaxSpeed</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TreatWarningAsError>true</TreatWarningAsError>
@@ -213,10 +221,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_UNICODE;UNICODE;_WIN32;STRICT;WIN32_LEAN_AND_MEAN;GTEST_HAS_PTHREAD=0;_HAS_EXCEPTIONS=1;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googlemock;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest\include;C:\Users\Joel\Documents\Github\cs180-22-untouchables\googletest\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>

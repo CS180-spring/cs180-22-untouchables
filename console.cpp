@@ -1,7 +1,6 @@
 #include "filter.hpp"
 
 using namespace std;
-//using json = nlohmann::json;
 
 //helper function to parse user input from terminal
 vector<string> parseUserInput(string userInput){
