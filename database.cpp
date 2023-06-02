@@ -639,7 +639,51 @@ void Database::fltExportCSV(vector<Movie_Document*> fltMovies, string fileName){
 }
 
 void Database::analysis(string cltName){
-    cout << "some analysis" << endl;
+    collection* tmpClt = getCollectionByName(cltName);
+    if (tmpClt == nullptr){
+        cout << "Collection not found.\n";
+    }else{
+        vector<Movie_Document*> tmpDocs = tmpClt->getMovieDocs();
+        if(tmpDocs.empty()){
+            cout << "Collection has a empty document.\n";
+        }else{
+            //year 
+            int earliest_released_year = INT_MAX;
+            string earliest_released_year_movie;
+            int latest_released_year = INT_MIN;
+            string latest_released_year_movie;
+            //certificate
+            vector<string> cert = {"A", "UA", "PG-13", "R", "PG", "Passed", "TV-14", "G", "A", "U", "Approved"};
+            vector<int> cert_num = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+            for (int i = 0; i < tmpClt->movieDocs.size(); ++i){
+                Movie_Document* curr = tmpDocs[i];
+                if(curr != nullptr && curr->released_year != -1){
+                    if (curr->released_year > latest_released_year){
+                        latest_released_year = curr->released_year;
+                        latest_released_year_movie = curr->series_title;
+                    }else if (curr->released_year < earliest_released_year){
+                        earliest_released_year = curr->released_year;
+                        earliest_released_year_movie = curr->series_title;
+                    }
+                }
+                if(curr != nullptr && curr->certificate != ""){
+                    for(int j = 0; j < cert.size(); j++){
+                        if(curr->certificate == cert[j]){
+                            cert_num[j] ++;
+                        }
+                    }
+                }
+            }
+            cout << "size of current data base is: " << tmpClt->movieDocs.size() << endl;
+            cout << "earliest released movie is: " << earliest_released_year_movie << " in "<< earliest_released_year << endl;
+            cout << "latest released movie is: " << latest_released_year_movie << " in "<< latest_released_year << endl;
+            cout << "among the movie documents, there are";
+            for(int i = 0; i < cert.size(); ++i){
+                cout << " " << cert_num[i] << " \"" << cert[i] << "\" type of movie";
+            }
+            cout << endl;
+        }
+    }
 }
 
 void Database::printSingleClt(string cltName){
