@@ -15,7 +15,6 @@
 
 using namespace std;
 
-//chatgpt generated sample document structure to store document in database
 struct Movie_Document {
     string poster_Link;
     string series_title;

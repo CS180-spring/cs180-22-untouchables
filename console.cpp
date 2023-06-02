@@ -123,7 +123,7 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions,
         if(flagname == "-csv"){
             db.exportCSV(cltName);
         }else if (flagname == "-json"){
-            db.exportJSON(cltName);
+            //db.exportJSON(cltName);
         }else{
             cout << "inproper flag name entered" << endl;
         }    
@@ -141,7 +141,6 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions,
     }
 
     // prints data and takes multiple 
-    // parameters see "man" for syntax
     else if(instruction == "print"){
         if (instructions.size() < 3){
             cout << "please use proper command, recommended command: \"print -<flag> <collection>\"" << endl;

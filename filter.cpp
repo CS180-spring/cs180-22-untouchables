@@ -160,8 +160,6 @@ bool Filter::isSubstring(const std::string& str1, const std::string& str2) {
 }
 
 
-//HUGE DEPENDENCY, THE NEW COLLECTION MADE HERE IS MADE OF POINTERS, WHICH MEANS IF YOU DELETE STUFF FROM THE ORIGINAL COLLECTION AND TRY TO VIEW THE QUERIED COLLECTION,
-//A SEGFAULT OCCURS, DON'T KNOW HOW TO FIX THIS PLS HELP, TODO
 void Filter::query() {
     string user_input;
     string newName;

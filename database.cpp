@@ -1066,7 +1066,7 @@ void Database::addDocumentManually() {
         delete addMe;
         return;
     }
-    cout << "Input the first star's name: " << endl; //also this is just the wrong format, TODO
+    cout << "Input the first star's name: " << endl; 
     getline(cin,checkMe);
     if (checkMe != "") {
         addMe->Star1 = checkMe;
@@ -1076,7 +1076,7 @@ void Database::addDocumentManually() {
         delete addMe;
         return;
     }
-    cout << "Input the second star's name: " << endl; //also this is just the wrong format, TODO
+    cout << "Input the second star's name: " << endl; 
     getline(cin,checkMe);
     if (checkMe != "") {
         addMe->Star2 = checkMe;
@@ -1086,7 +1086,7 @@ void Database::addDocumentManually() {
         delete addMe;
         return;
     }
-    cout << "Input the third star's name: " << endl; //also this is just the wrong format, TODO
+    cout << "Input the third star's name: " << endl; 
     getline(cin,checkMe);
     if (checkMe != "") {
         addMe->Star3 = checkMe;
@@ -1096,7 +1096,7 @@ void Database::addDocumentManually() {
         delete addMe;
         return;
     }
-    cout << "Input the fourth star's name: " << endl; //also this is just the wrong format, TODO
+    cout << "Input the fourth star's name: " << endl; 
     getline(cin,checkMe);
     if (checkMe != "") {
         addMe->Star4 = checkMe;
