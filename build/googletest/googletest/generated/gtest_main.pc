@@ -1,5 +1,5 @@
-libdir=C:/Program Files (x86)/untouchables/lib
-includedir=C:/Program Files (x86)/untouchables/include
+libdir=C:/Program Files (x86)/movieDB/lib
+includedir=C:/Program Files (x86)/movieDB/include
 
 Name: gtest_main
 Description: GoogleTest (with main() function)

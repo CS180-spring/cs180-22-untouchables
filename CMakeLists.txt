@@ -1,39 +1,44 @@
-cmake_minimum_required(VERSION 3.16)
-project(untouchables LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.0)
+project(movieDB)
 
+# Add the path to nlohmann JSON library
+#set(NLOHMANN_JSON_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/nlohmann/json.hpp)
+
+# Set the C++ language standard
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
 
-enable_testing()
-
-include(FetchContent)
-
-FetchContent_Declare(
-  googletest
-  GIT_REPOSITORY https://github.com/google/googletest.git
-  GIT_TAG        release-1.11.0
+# Add your source files
+set(SOURCES
+    console.cpp
+    filter.cpp
+    database.cpp
 )
 
-FetchContent_MakeAvailable(googletest)
+# Add the executable
+add_executable(movieDB ${SOURCES})
 
-add_library(GTest::GTest INTERFACE IMPORTED)
+# Specify the include directories
+#target_include_directories(movieDB PRIVATE ${NLOHMANN_JSON_INCLUDE_DIR})
 
-add_library(console console.cpp)
+# Add Google Test
+add_subdirectory(googletest)
 
-include_directories(json-develop/single_include)
+# Add the test source files
+set(TEST_SOURCES
+    database_test.cpp
+    filter_test.cpp
+)
 
-target_include_directories(console PUBLIC include)
+# Add the test executable
+add_executable(tests ${TEST_SOURCES})
 
-target_link_libraries(GTest::GTest INTERFACE gtest_main)
+# Specify the include directories for the tests
+target_include_directories(tests PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/googletest/include
+)
 
-add_executable(console_test console_test.cpp)
-
-target_link_libraries(console_test
- PRIVATE
-  GTest::GTest
-  console)
-
-add_test(console_gtests console_test)
-
-add_executable(untouchables console.cpp)
+# Link against Google Test
+target_link_libraries(tests PRIVATE
+    gtest
+    gtest_main
+)

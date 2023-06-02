@@ -1,5 +1,5 @@
 #include "database.hpp"
-//#include <nlohmann/json.hpp>
+#include "nlohmann/json.hpp"
 
 // Helper function to parse csv files
 vector<Movie_Document*> parseCSV(string fname){
@@ -506,6 +506,59 @@ void Database::exportCSV(string cltName){
         cout << "Collection not found\n\n";
     }
 }
+void Database::importJSON(collection* db, string fileName) {
+    // Input file stream
+    ifstream iFile;
+
+    // Open file
+    iFile.open(fileName);
+
+    // Check for errors
+    if (!iFile) {
+        cout << "Error in opening import file!\n\n";
+    }
+    else {
+        // Read the contents of the file into a string
+        string fileContents((istreambuf_iterator<char>(iFile)), istreambuf_iterator<char>());
+
+        // Parse the JSON string
+        nlohmann::json jsonArray = nlohmann::json::parse(fileContents);
+
+        // Iterate through the JSON array
+        for (auto& movieJson : jsonArray) {
+            // Create a new movie document
+            Movie_Document* newMovie = new Movie_Document();
+
+            // Populate the movie document with data from JSON
+            newMovie->poster_Link = movieJson["Poster_Link"];
+            newMovie->series_title = movieJson["Series_Title"];
+            newMovie->released_year = movieJson["Released_Year"];
+            newMovie->certificate = movieJson["Certificate"];
+            newMovie->runtime = movieJson["Runtime"];
+            newMovie->genre = movieJson["Genre"];
+            newMovie->IMDB_rating = movieJson["IMDB_Rating"];
+            newMovie->overview = movieJson["Overview"];
+            newMovie->meta_score = movieJson["Meta_score"];
+            newMovie->Director = movieJson["Director"];
+            newMovie->Star1 = movieJson["Star1"];
+            newMovie->Star2 = movieJson["Star2"];
+            newMovie->Star3 = movieJson["Star3"];
+            newMovie->Star4 = movieJson["Star4"];
+            newMovie->numVotes = movieJson["NumVotes"];
+            newMovie->gross = movieJson["Gross"];
+
+            // Add the movie document to the collection
+            db->movieDocs.push_back(newMovie);
+        }
+
+        // Close file
+        iFile.close();
+
+        // Import successful
+        cout << "Data import successful\n\n";
+    }
+}
+
 
 void Database::exportJSON(string cltName) {
 
