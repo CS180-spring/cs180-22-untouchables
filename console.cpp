@@ -123,7 +123,7 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions,
         if(flagname == "-csv"){
             db.exportCSV(cltName);
         }else if (flagname == "-json"){
-            //db.exportJSON(cltName);
+            db.exportJSON(cltName);
         }else{
             cout << "inproper flag name entered" << endl;
         }    
