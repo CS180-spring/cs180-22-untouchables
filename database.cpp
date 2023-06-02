@@ -655,6 +655,15 @@ void Database::analysis(string cltName){
             //certificate
             vector<string> cert = {"A", "UA", "PG-13", "R", "PG", "Passed", "TV-14", "G", "A", "U", "Approved"};
             vector<int> cert_num = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+            //runtime
+            int shortest_runtime = INT_MAX;
+            string shortest_runtime_movie;
+            int longest_runtime = INT_MIN;
+            string longest_runtime_movie;
+            //genre
+            vector<string> genres = {"Drama", "Crime", "Action", "Adventure", "Biography", "Sci-Fi", "Romance", "Western", "Fantasy", "Thriller", "Comedy", "Family", "War", "Mystery", "Music", "Sport"};
+            vector<int> genres_num = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
             for (int i = 0; i < tmpClt->movieDocs.size(); ++i){
                 Movie_Document* curr = tmpDocs[i];
                 if(curr != nullptr && curr->released_year != -1){
@@ -673,6 +682,22 @@ void Database::analysis(string cltName){
                         }
                     }
                 }
+                if(curr != nullptr && curr->runtime != -1){
+                    if (curr->runtime < shortest_runtime){
+                        shortest_runtime = curr->runtime;
+                        shortest_runtime_movie = curr->series_title;
+                    }else if (curr->runtime > longest_runtime){
+                        longest_runtime = curr->runtime;
+                        longest_runtime_movie = curr->series_title;
+                    }
+                }
+                if(curr != nullptr && curr->genre != ""){
+                    for(int k = 0; k < genres.size(); k++){
+                        if (curr->genre.find(genres[k]) != std::string::npos) {
+                            genres_num[k]++;
+                        }
+                    }
+                }
             }
             cout << "size of current data base is: " << tmpClt->movieDocs.size() << endl;
             cout << "earliest released movie is: " << earliest_released_year_movie << " in "<< earliest_released_year << endl;
@@ -680,6 +705,13 @@ void Database::analysis(string cltName){
             cout << "among the movie documents, there are";
             for(int i = 0; i < cert.size(); ++i){
                 cout << " " << cert_num[i] << " \"" << cert[i] << "\" type of movie";
+            }
+            cout << endl;
+            cout << "shortest runtime movie is: " << shortest_runtime_movie << " which lasts "<< shortest_runtime << " minutes" << endl;
+            cout << "longest runtime movie is: " << longest_runtime_movie << " which lasts "<< longest_runtime << " minutes" << endl;
+            cout << "among the movie documents, there are";
+            for(int i = 0; i < genres.size(); ++i){
+                cout << " " << genres_num[i] << " \"" << genres[i] << "\" type of movie";
             }
             cout << endl;
         }
