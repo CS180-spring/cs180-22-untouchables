@@ -10,7 +10,10 @@
 #include <algorithm>
 #include <fstream>
 #include <string>
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
 
 class Filter{
 

@@ -1,6 +1,6 @@
 ^C:\USERS\JOEL\DOCUMENTS\GITHUB\CS180-22-UNTOUCHABLES\BUILD\CMAKEFILES\E76C2FAF2ECA9A4A1D98BE9BD55FD47A\GENERATE.STAMP.RULE
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Joel/Documents/Github/cs180-22-untouchables -BC:/Users/Joel/Documents/Github/cs180-22-untouchables/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/untouchables.sln
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Joel/Documents/Github/cs180-22-untouchables -BC:/Users/Joel/Documents/Github/cs180-22-untouchables/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/movieDB.sln
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone

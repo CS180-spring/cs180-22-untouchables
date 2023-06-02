@@ -2,7 +2,7 @@
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/untouchables")
+  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/movieDB")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -33,8 +33,9 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/_deps/googletest-build/cmake_install.cmake")
+  # Include the install script for each subdirectory.
+  include("C:/Users/Joel/Documents/Github/cs180-22-untouchables/build/googletest/cmake_install.cmake")
+
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
