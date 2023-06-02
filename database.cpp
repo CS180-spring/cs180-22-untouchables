@@ -663,6 +663,26 @@ void Database::analysis(string cltName){
             //genre
             vector<string> genres = {"Drama", "Crime", "Action", "Adventure", "Biography", "Sci-Fi", "Romance", "Western", "Fantasy", "Thriller", "Comedy", "Family", "War", "Mystery", "Music", "Sport"};
             vector<int> genres_num = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+            //IMDB_rating
+            double lowest_IMDB_rating = INT_MAX;
+            string lowest_IMDB_rating_movie;
+            double highest_IMDB_rating = INT_MIN;
+            string highest_IMDB_rating_movie;
+            //meta_score
+            int lowest_meta_score = INT_MAX;
+            string lowest_meta_score_movie;
+            int highest_meta_score = INT_MIN;
+            string highest_meta_score_movie;
+            //numVotes
+            int lowest_numVotes = INT_MAX;
+            string lowest_numVotes_movie;
+            int highest_numVotes = INT_MIN;
+            string highest_numVotes_movie;
+            //gross
+            int lowest_gross = INT_MAX;
+            string lowest_gross_movie;
+            int highest_gross = INT_MIN;
+            string highest_gross_movie;
 
             for (int i = 0; i < tmpClt->movieDocs.size(); ++i){
                 Movie_Document* curr = tmpDocs[i];
@@ -698,22 +718,74 @@ void Database::analysis(string cltName){
                         }
                     }
                 }
+                if(curr != nullptr && curr->IMDB_rating != -1){
+                    if (curr->IMDB_rating < lowest_IMDB_rating){
+                        lowest_IMDB_rating = curr->IMDB_rating;
+                        lowest_IMDB_rating_movie = curr->series_title;
+                    }else if (curr->IMDB_rating > highest_IMDB_rating){
+                        highest_IMDB_rating = curr->IMDB_rating;
+                        highest_IMDB_rating_movie = curr->series_title;
+                    }
+                }
+                if(curr != nullptr && curr->meta_score != -1){
+                    if (curr->meta_score < lowest_meta_score){
+                        lowest_meta_score = curr->meta_score;
+                        lowest_meta_score_movie = curr->series_title;
+                    }else if (curr->meta_score > highest_meta_score){
+                        highest_meta_score = curr->meta_score;
+                        highest_meta_score_movie = curr->series_title;
+                    }
+                }
+                if(curr != nullptr && curr->numVotes != -1){
+                    if (curr->numVotes < lowest_numVotes){
+                        lowest_numVotes = curr->numVotes;
+                        lowest_numVotes_movie = curr->series_title;
+                    }else if (curr->numVotes > highest_numVotes){
+                        highest_numVotes = curr->numVotes;
+                        highest_numVotes_movie = curr->series_title;
+                    }
+                }
+                if(curr != nullptr && curr->gross != -1){
+                    if (curr->gross < lowest_gross){
+                        lowest_gross = curr->gross;
+                        lowest_gross_movie = curr->series_title;
+                    }else if (curr->gross > highest_gross){
+                        highest_gross = curr->gross;
+                        highest_gross_movie = curr->series_title;
+                    }
+                }
             }
-            cout << "size of current data base is: " << tmpClt->movieDocs.size() << endl;
+            cout << "size of current data base (" << cltName << ") is: " << tmpClt->movieDocs.size() << endl;
+            cout << ">>> released year:" << endl;
             cout << "earliest released movie is: " << earliest_released_year_movie << " in "<< earliest_released_year << endl;
             cout << "latest released movie is: " << latest_released_year_movie << " in "<< latest_released_year << endl;
+            cout << ">>> certificate:" << endl;
             cout << "among the movie documents, there are";
             for(int i = 0; i < cert.size(); ++i){
                 cout << " " << cert_num[i] << " \"" << cert[i] << "\" type of movie";
             }
             cout << endl;
+            cout << ">>> runtime:" << endl;
             cout << "shortest runtime movie is: " << shortest_runtime_movie << " which lasts "<< shortest_runtime << " minutes" << endl;
             cout << "longest runtime movie is: " << longest_runtime_movie << " which lasts "<< longest_runtime << " minutes" << endl;
+            cout << ">>> genre:" << endl;
             cout << "among the movie documents, there are";
             for(int i = 0; i < genres.size(); ++i){
                 cout << " " << genres_num[i] << " \"" << genres[i] << "\" type of movie";
             }
             cout << endl;
+            cout << ">>> IMDB rating:" << endl;
+            cout << "lowest IMDB rating movie is: " << lowest_IMDB_rating_movie << " with score: "<< lowest_IMDB_rating << endl;
+            cout << "highest IMDB rating movie is: " << highest_IMDB_rating_movie << " with score: "<< highest_IMDB_rating << endl;
+            cout << ">>> meta score:" << endl;
+            cout << "lowest meta score movie is: " << lowest_meta_score_movie << " with score: "<< lowest_meta_score << endl;
+            cout << "highest meta score movie is: " << highest_meta_score_movie << " with score: "<< highest_meta_score << endl;
+            cout << ">>> numVotes:" << endl;
+            cout << "lowest voted movie is: " << lowest_numVotes_movie << " with number of votes: "<< lowest_numVotes << endl;
+            cout << "highest voted movie is: " << highest_numVotes_movie << " with number of votes: "<< highest_numVotes << endl;
+            cout << ">>> gross:" << endl;
+            cout << "lowest gross movie is: " << lowest_gross_movie << " with gross: "<< lowest_gross << endl;
+            cout << "highest gross movie is: " << highest_gross_movie << " with gross: "<< highest_gross << endl;
         }
     }
 }
