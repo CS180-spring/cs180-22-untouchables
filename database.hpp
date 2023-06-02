@@ -9,7 +9,9 @@
 #include <map> //linking documents with databases
 #include <algorithm>
 #include <regex>
-#include "nlohmann/json.hpp"
+#include <nlohmann/json.hpp>
+#include <climits>
+
 
 using namespace std;
 
@@ -72,6 +74,7 @@ class Database{
         void printMainDB();
         void printAllClt();
         void printSingleClt(string name);
+        void analysis(string name);
         void updateEntry(string cltName, string movieName);
         vector<string> getCollectionsList();
         int checklen();
