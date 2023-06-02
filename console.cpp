@@ -44,6 +44,7 @@ void messageDisplayer() {
     cout << left << setw(width) << "*" << left << setw(40) << "add -m" << left << setw(50) << "enter a movie in the current collection" << right << setw(9) << "*" << endl;
     cout << left << setw(width) << "*" << left << setw(40) << "enter" << left << setw(50) << "enter a movie in the current collection" << right << setw(9) << "*" << endl;
     cout << left << setw(width) << "*" << left << setw(40) << "view" << left << setw(50) << "show all tables in the current collection" << right << setw(9) << "*" << endl; //this could be combined with 'db', I'm keeping it separate for now 
+    cout << left << setw(width) << "*" << left << setw(40) << "analysis" << left << setw(50) << "see some noticable analysis on the current collection" << right << setw(9) << "*" << endl;
     cout << left << setw(width) << "*" << left << setw(40) << "exit" << left << setw(50) << "exit system" << right << setw(9) << "*" << endl;
     cout << "*                                                                                                      *" << endl;
     cout << "********************************************************************************************************" << endl;
@@ -265,6 +266,13 @@ void userInstruction(Filter& filter, Database& db, vector<string>& instructions,
         }
         db.printSingleClt(db.getCurrentClt_name());      
         //db.printSingleClt("mainDB");
+    }
+    else if(instruction == "analysis"){
+        if (instructions.size() != 1){
+            cout << "please use proper command, recommended command: \"analysis\"" << endl;
+            return;
+        }
+        db.analysis(db.getCurrentClt_name()); 
     }
     else if(instruction == "exit"){
         if (instructions.size() != 1){

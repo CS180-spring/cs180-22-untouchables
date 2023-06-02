@@ -638,6 +638,10 @@ void Database::fltExportCSV(vector<Movie_Document*> fltMovies, string fileName){
     }
 }
 
+void Database::analysis(string cltName){
+    cout << "some analysis" << endl;
+}
+
 void Database::printSingleClt(string cltName){
     collection* tmpClt = getCollectionByName(cltName);
     if (tmpClt == nullptr){

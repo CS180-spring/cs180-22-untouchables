@@ -72,6 +72,7 @@ class Database{
         void printMainDB();
         void printAllClt();
         void printSingleClt(string name);
+        void analysis(string name);
         void updateEntry(string cltName, string movieName);
         vector<string> getCollectionsList();
         int checklen();
