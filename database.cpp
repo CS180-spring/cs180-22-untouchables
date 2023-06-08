@@ -987,42 +987,44 @@ void Database::printSingleClt(string cltName){
 }
 void Database::addDocumentManually() {
     Movie_Document* addMe = new Movie_Document();
-    string checkMe;
-    string user_input;
+    string checkPosterLink;
     cout << "Input the poster link: " << endl;
-    getline(cin, checkMe);
-    if (isValidLink(checkMe)) {
-        addMe->poster_Link = checkMe;
+    getline(cin, checkPosterLink);
+    if (isValidLink(checkPosterLink)) {
+        addMe->poster_Link = checkPosterLink;
     }
     else {
         cout << "Error, invalid input" << endl;
         delete addMe;
         return;
     }
+    string checkTitle;
     cout << "Input the series title: " << endl;
-    getline(cin,checkMe);
-    if (checkMe != "") {
-        addMe->series_title = checkMe;
+    getline(cin,checkTitle);
+    if (checkTitle != "") {
+        addMe->series_title = checkTitle;
     }
     else {
         cout << "Error, invalid input" << endl;
         delete addMe;
         return;
     }
+    string checkReleaseYear;
     cout << "Input the release year: " << endl;
-    cin >> checkMe;
-    if (isStringInt(checkMe) && stoi(checkMe) > 1887 && stoi(checkMe) <= 2050)
-        addMe->released_year = stoi(checkMe);
+    cin >> checkReleaseYear;
+    if (isStringInt(checkReleaseYear) && stoi(checkReleaseYear) > 1887 && stoi(checkReleaseYear) <= 2050)
+        addMe->released_year = stoi(checkReleaseYear);
     else {
         cout << "Error, invalid input" << endl;
         delete addMe;
         cin.ignore();
         return;
     }
+    string checkRuntime;
     cout << "Input the runtime (int): " << endl;
-    cin >> checkMe;
-    if (isStringInt(checkMe) && stoi(checkMe) > 0)
-        addMe->runtime = stoi(checkMe);
+    cin >> checkRuntime;
+    if (isStringInt(checkRuntime) && stoi(checkRuntime) > 0)
+        addMe->runtime = stoi(checkRuntime);
     else {
         cout << "Error, invalid input" << endl;
         delete addMe;
@@ -1032,10 +1034,11 @@ void Database::addDocumentManually() {
     cout << "Input the genre: " << endl; 
     cin.ignore();
     getline(cin, addMe->genre);
+    string checkIMDB;
     cout << "Input the IMDB_rating (double): " << endl;
-    cin >> checkMe;
-    if (isStringDouble(checkMe) && stod(checkMe) >= 0 && stod(checkMe) <= 10) 
-        addMe->IMDB_rating = stod(checkMe);
+    cin >> checkIMDB;
+    if (isStringDouble(checkIMDB) && stod(checkIMDB) >= 0 && stod(checkIMDB) <= 10) 
+        addMe->IMDB_rating = stod(checkIMDB);
     else {
         cout << "Error, invalid input" << endl;
         delete addMe;
@@ -1045,81 +1048,93 @@ void Database::addDocumentManually() {
     cout << "Input the description: " << endl;
     cin.ignore();
     getline(cin, addMe->overview);
+
+    string checkMeta;
     cout << "Input the meta_score: " << endl;
-    cin >> checkMe;
-    if (isStringInt(checkMe) && stoi(checkMe) >= 0 && stoi(checkMe) <= 100)
-        addMe->meta_score = stoi(checkMe);
+    cin >> checkMeta;
+    if (isStringInt(checkMeta) && stoi(checkMeta) >= 0 && stoi(checkMeta) <= 100)
+        addMe->meta_score = stoi(checkMeta);
     else {
         cout << "Error, invalid input" << endl;
         delete addMe;
         cin.ignore();
         return;
     }
+    string checkDirector;
     cout << "Input the Director's name: " << endl;
     cin.ignore();
-    getline(cin,checkMe);
-    if (checkMe != "") {
-        addMe->Director = checkMe;
+    getline(cin,checkDirector);
+    if (checkDirector != "") {
+        addMe->Director = checkDirector;
     }
     else {
         cout << "Error, invalid input" << endl;
         delete addMe;
         return;
     }
+    string checkStar1;
     cout << "Input the first star's name: " << endl; 
-    getline(cin,checkMe);
-    if (checkMe != "") {
-        addMe->Star1 = checkMe;
+    getline(cin,checkStar1);
+    if (checkStar1 != "") {
+        addMe->Star1 = checkStar1;
     }
     else {
         cout << "Error, invalid input" << endl;
         delete addMe;
         return;
     }
+
+    string checkStar2;
     cout << "Input the second star's name: " << endl; 
-    getline(cin,checkMe);
-    if (checkMe != "") {
-        addMe->Star2 = checkMe;
+    getline(cin,checkStar2);
+    if (checkStar2 != "") {
+        addMe->Star2 = checkStar2;
     }
     else {
         cout << "Error, invalid input" << endl;
         delete addMe;
         return;
     }
+
+    string checkStar3;
     cout << "Input the third star's name: " << endl; 
-    getline(cin,checkMe);
-    if (checkMe != "") {
-        addMe->Star3 = checkMe;
+    getline(cin,checkStar3);
+    if (checkStar3 != "") {
+        addMe->Star3 = checkStar3;
     }
     else {
         cout << "Error, invalid input" << endl;
         delete addMe;
         return;
     }
+
+    string checkStar4;
     cout << "Input the fourth star's name: " << endl; 
-    getline(cin,checkMe);
-    if (checkMe != "") {
-        addMe->Star4 = checkMe;
+    getline(cin,checkStar4);
+    if (checkStar4 != "") {
+        addMe->Star4 = checkStar4;
     }
     else {
         cout << "Error, invalid input" << endl;
         delete addMe;
         return;
     }
+    string checkNumVotes;
     cout << "Input the number of votes: " << endl;
-    cin >> checkMe;
-    if (isStringInt(checkMe) && stoi(checkMe) > 0)
-        addMe->numVotes = stoi(checkMe);
+    cin >> checkNumVotes;
+    if (isStringInt(checkNumVotes) && stoi(checkNumVotes) > 0)
+        addMe->numVotes = stoi(checkNumVotes);
     else {
         cout << "Error, invalid input" << endl;
         delete addMe;
         cin.ignore();
         return;
     }
+    string checkGross;
     cout << "Input the gross revenue: " << endl;
-    cin >> checkMe;
-     if (isStringInt(checkMe) && stoi(checkMe) > 0)
-        addMe->gross = stoi(checkMe);
+    cin >> checkGross;
+     if (isStringInt(checkGross) && stoi(checkGross) > 0)
+        addMe->gross = stoi(checkGross);
     else {
         cout << "Error, invalid input" << endl;
         delete addMe;
