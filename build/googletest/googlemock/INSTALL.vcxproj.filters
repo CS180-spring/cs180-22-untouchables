@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Joel\Documents\Github\cs180-22-untouchables\build\CMakeFiles\c3bbd07cb3cd5a5890544b1a9b407640\INSTALL_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{5613F778-9993-36FD-ACD3-77BEC836CAC5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,2 +1,7 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-718a45dd9cf7e7f842a935f5ebbe5719a5e09af4491e668f4dbf3b35d5cca122.svg)](https://classroom.github.com/online_ide?assignment_repo_id=10859056&assignment_repo_type=AssignmentRepo)
-# Project-CS180
+# Project-CS180: Movie Data Store
+
+This project incorporates a user interface with a database where users can explore the functionality of the database and filter and select data based on what they need. 
+The database consists of movies where users can filter for categories such as genre, gross revenue, directors, stars and more. Furthermore, users can add their selected 
+to a collection they make on their local environment which they can use for their own purpose. This functionality goes deeper as the filters will output not only the
+selected information but the respective counterparts of that information. Users can modify the information in the database as desired and add to their own collection
+for whatever purpose. Users can input individual rows of information or a whole database at once which will be incorporated with the current database. 
